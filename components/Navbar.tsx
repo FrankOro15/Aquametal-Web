@@ -78,7 +78,7 @@ export default function Navbar() {
           <div className="flex min-w-0 items-center gap-2 sm:gap-4">
   <span className="shrink-0 font-bold tracking-wide text-slate-300 uppercase text-[9px] sm:text-[11px] leading-tight">
     <span className="sm:hidden">
-      {lang === "ES" ? "Torneado de alto vol." : "High-volume turning"}
+      {lang === "ES" ? "Torneado de alto volumen" : "High-volume turning"}
     </span>
 
     <span className="hidden sm:inline">
@@ -92,7 +92,7 @@ export default function Navbar() {
     <a
       href="tel:5550846281"
       aria-label="Llamar al 55 5084 6281"
-      className="inline-flex items-center gap-1.5 hover:text-white transition"
+      className="hidden md:inline-flex items-center gap-1.5 hover:text-white transition"
     >
       <Phone className="w-3.5 h-3.5 shrink-0" />
       <span className="whitespace-nowrap text-[10px] sm:text-xs">
