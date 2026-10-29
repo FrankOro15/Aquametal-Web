@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -12,12 +11,55 @@ import {
   Cog,
   Factory,
   Gauge,
+  Layers3,
   Play,
   Pause,
+  ShieldCheck,
+  Target,
+  TrendingUp,
 } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+const capacityCards = [
+  {
+    number: "01",
+    label: "Torneado CNC",
+    description: "Precisión y productividad para componentes metálicos.",
+    tag: "Doble husillo",
+  },
+  {
+    number: "02",
+    label: "Tornos automáticos",
+    description: "Procesos orientados a la fabricación en serie.",
+    tag: "Index / Traub",
+  },
+  {
+    number: "03",
+    label: "Centros de maquinado",
+    description: "Soluciones de manufactura para distintas geometrías.",
+    tag: "Serie y especial",
+  },
+  {
+    number: "04",
+    label: "Producción de alto volumen",
+    description: "Capacidad para responder a requerimientos continuos.",
+    tag: "+5,000 pzas.",
+  },
+  {
+    number: "05",
+    label: "Diseño y DFM",
+    description: "Ingeniería orientada a los requerimientos de fabricación.",
+    tag: "Ingeniería",
+  },
+  {
+    number: "06",
+    label: "Inspección de calidad",
+    description: "Atención a especificaciones y requisitos del cliente.",
+    tag: "ISO 9001",
+  },
+];
 
 const materials = ["Acero", "Aluminio", "Bronce", "Latón", "Cobre"];
 
@@ -50,6 +92,7 @@ export default function Home() {
 
   useEffect(() => {
     const video = videoRef.current;
+
     if (!video) return;
 
     if (activeBackground === 2 && (isPlaying || manualVideo)) {
@@ -106,12 +149,11 @@ export default function Home() {
 
       {/* HERO PRINCIPAL */}
       <section className="relative isolate overflow-hidden bg-[#0F172A] text-white">
-        {/* FONDO RESPONSIVO: IMÁGENES Y VIDEO */}
+        {/* IMAGEN Y VIDEO DE FONDO */}
         <div
-          className="pointer-events-none absolute inset-0 z-0"
+          className="pointer-events-none absolute inset-0 z-0 lg:inset-y-0 lg:left-auto lg:right-0 lg:w-[53%]"
           aria-hidden="true"
         >
-          {/* Fondo 1: imagen CNC */}
           <div
             className={`absolute inset-0 transition-opacity duration-1000 ${
               activeBackground === 1 ? "opacity-100" : "opacity-0"
@@ -122,29 +164,14 @@ export default function Home() {
               alt=""
               fill
               priority
-              sizes="(min-width: 1024px) 53vw, 100vw"
-              className="object-cover object-center lg:object-right"
+              sizes="(max-width: 1023px) 100vw, 53vw"
+              className="object-cover object-center"
               style={{
                 filter: "grayscale(25%) contrast(1.05)",
               }}
             />
           </div>
 
-          {/* Fondo 2: video de tornos */}
-          <video
-            ref={videoRef}
-            muted
-            playsInline
-            preload="metadata"
-            onEnded={handleVideoEnded}
-            className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-1000 ${
-              activeBackground === 2 ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <source src="/videos/videotornos.mp4" type="video/mp4" />
-          </video>
-
-          {/* Fondo 3: imagen industrial */}
           <div
             className={`absolute inset-0 transition-opacity duration-1000 ${
               activeBackground === 3 ? "opacity-100" : "opacity-0"
@@ -154,18 +181,33 @@ export default function Home() {
               src="/images/Fondoprincipal1.jpeg"
               alt=""
               fill
-              sizes="(min-width: 1024px) 53vw, 100vw"
-              className="object-cover object-center lg:object-right"
+              sizes="(max-width: 1023px) 100vw, 53vw"
+              className="object-cover object-center"
             />
           </div>
 
-          {/* Oscurecimiento general en móvil y degradado en escritorio */}
-          <div className="absolute inset-0 bg-[#0F172A]/65 lg:bg-gradient-to-r lg:from-[#0F172A] lg:via-[#0F172A]/45 lg:to-transparent" />
+          <video
+            ref={videoRef}
+            muted
+            playsInline
+            preload="metadata"
+            onEnded={handleVideoEnded}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+              activeBackground === 2 ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <source src="/videos/videotornos.mp4" type="video/mp4" />
+          </video>
 
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/95 via-[#0F172A]/35 to-[#0F172A]/55 lg:from-[#0F172A] lg:via-transparent lg:to-[#0F172A]/20" />
+          {/* OSCURECIMIENTO EXCLUSIVO PARA MÓVIL */}
+          <div className="absolute inset-0 bg-[#0F172A]/55 lg:hidden" />
+
+          {/* DEGRADADOS ORIGINALES DE PC */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0F172A] via-[#0F172A]/35 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-transparent to-[#0F172A]/20" />
         </div>
 
-        {/* CONTENIDO PRINCIPAL */}
+        {/* CONTENIDO */}
         <div className="relative z-10 mx-auto max-w-7xl px-6 pt-28 pb-8 md:px-10 lg:px-12 lg:pt-28 lg:pb-0">
           <div className="grid items-center gap-8 lg:min-h-[590px] lg:grid-cols-[1.08fr_0.92fr] lg:gap-8">
             {/* TEXTO Y BOTONES */}
@@ -184,7 +226,7 @@ export default function Home() {
                 </span>
               </h1>
 
-              <p className="mt-5 max-w-md text-base leading-7 text-slate-100 sm:mt-6 sm:text-lg sm:leading-8">
+              <p className="mt-5 max-w-md text-base leading-7 text-slate-200 sm:mt-6 sm:text-lg sm:leading-8">
                 Tu aliado estratégico en contratos de fabricación en serie.
                 Procesamos componentes metálicos en acero, aluminio, bronce,
                 latón y cobre para respaldar líneas de producción e industrias
@@ -214,8 +256,8 @@ export default function Home() {
             </div>
 
             {/* CONTROLES DE IMAGEN Y VIDEO */}
-            <div className="relative z-20 flex items-center justify-between gap-3 border-t border-white/20 py-4 lg:static lg:col-start-2 lg:row-start-1 lg:self-end lg:justify-self-end lg:border-0 lg:py-5">
-              <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white sm:text-xs sm:tracking-[0.2em]">
+            <div className="relative z-20 flex items-center justify-between gap-4 border-t border-white/15 py-4 lg:static lg:col-start-2 lg:row-start-1 lg:self-end lg:justify-self-end lg:border-0 lg:py-5">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/80 sm:text-xs sm:tracking-[0.2em]">
                 Aqua-Metal · Manufactura industrial
               </p>
 
@@ -255,7 +297,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => selectBackground(3)}
-                  aria-label="Mostrar imagen industrial"
+                  aria-label="Mostrar imagen de maquinaria CNC"
                   aria-pressed={activeBackground === 3}
                   className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${
                     activeBackground === 3
@@ -271,9 +313,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={togglePlayback}
-                  aria-label={
-                    isPlaying ? "Pausar secuencia" : "Reproducir secuencia"
-                  }
+                  aria-label={isPlaying ? "Pausar secuencia" : "Reproducir secuencia"}
                   title={isPlaying ? "Pausar secuencia" : "Reproducir secuencia"}
                   className="flex h-9 w-9 items-center justify-center text-white transition hover:bg-white/10"
                 >
@@ -293,7 +333,7 @@ export default function Home() {
               <p className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                 +5,000
               </p>
-              <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-200">
+              <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-300">
                 Piezas por lote semanal
               </p>
             </div>
@@ -302,7 +342,7 @@ export default function Home() {
               <p className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                 1–60 mm
               </p>
-              <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-200">
+              <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-300">
                 Rango de maquinado
               </p>
             </div>
@@ -311,7 +351,7 @@ export default function Home() {
               <p className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                 +30
               </p>
-              <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-200">
+              <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-300">
                 Máquinas especializadas
               </p>
             </div>
@@ -320,7 +360,7 @@ export default function Home() {
               <p className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
                 ISO 9001
               </p>
-              <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-200">
+              <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-300">
                 Sistema de gestión de calidad
               </p>
             </div>
@@ -379,8 +419,8 @@ export default function Home() {
 
             <p className="max-w-2xl leading-8 text-slate-600 lg:pb-1">
               Combinamos experiencia, maquinaria especializada y organización
-              productiva para atender requerimientos de manufactura de
-              componentes metálicos.
+              productiva para atender requerimientos de manufactura de componentes
+              metálicos.
             </p>
           </div>
 
@@ -399,9 +439,9 @@ export default function Home() {
                 </h3>
 
                 <p className="mt-5 max-w-sm text-sm leading-7 text-slate-300">
-                  Procesos orientados a la continuidad de producción, la
-                  atención a especificaciones y el cumplimiento de los
-                  requerimientos de cada proyecto.
+                  Procesos orientados a la continuidad de producción, la atención
+                  a especificaciones y el cumplimiento de los requerimientos
+                  de cada proyecto.
                 </p>
               </div>
 
@@ -421,7 +461,9 @@ export default function Home() {
                   description:
                     "Organización operativa para atender las necesidades de fabricación.",
                   icon: (
-                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
+                      strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                      className="h-8 w-8">
                       <circle cx="32" cy="32" r="21" />
                       <path d="M32 19v14l9 5" />
                       <path d="M12 15l6 1-1 6M52 49l-6-1 1-6" />
@@ -434,7 +476,9 @@ export default function Home() {
                   description:
                     "Espacio destinado a las operaciones y procesos de manufactura.",
                   icon: (
-                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
+                      strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                      className="h-8 w-8">
                       <path d="M9 53V30l14 8V27l14 9V16l18-7v44H9Z" />
                       <path d="M17 45h5m6 0h5m8-17h5m-5 10h5" />
                       <path d="M5 53h54" />
@@ -447,7 +491,9 @@ export default function Home() {
                   description:
                     "Equipos especializados para diferentes procesos de fabricación.",
                   icon: (
-                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
+                      strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                      className="h-8 w-8">
                       <rect x="10" y="12" width="44" height="34" rx="2" />
                       <path d="M18 20h12v10H18zM30 25h12M36 25v10M16 46v6m32-6v6M10 53h44" />
                       <circle cx="45" cy="20" r="2" />
@@ -460,7 +506,9 @@ export default function Home() {
                   description:
                     "Fabricación de componentes conforme a las necesidades de cada cliente.",
                   icon: (
-                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="h-8 w-8">
+                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
+                      strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                      className="h-8 w-8">
                       <circle cx="24" cy="21" r="7" />
                       <circle cx="43" cy="24" r="5" />
                       <path d="M10 45c0-8 6-13 14-13s14 5 14 13v4H10z" />
@@ -528,7 +576,7 @@ export default function Home() {
             <article className="group relative min-h-[430px] overflow-hidden bg-[#0F172A]">
               <Image
                 src="/images/CNC.jpg"
-                alt="Proceso de torneado CNC en Aquametal"
+                alt="Proceso de torneado CNC en Aqua-Metal"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover transition duration-700 group-hover:scale-105"
@@ -701,7 +749,7 @@ export default function Home() {
             </h2>
 
             <p className="mt-6 max-w-2xl leading-8 text-slate-300">
-              Conoce las capacidades de Aquametal y conversemos sobre los
+              Conoce las capacidades de Aqua-Metal y conversemos sobre los
               requerimientos de fabricación de tu próximo proyecto industrial.
             </p>
 
@@ -710,7 +758,7 @@ export default function Home() {
                 href="/contacto"
                 className="group inline-flex min-h-14 items-center justify-center gap-3 bg-[#2563FF] px-7 py-4 text-sm font-bold text-white transition hover:bg-blue-500"
               >
-                Contactar a Aquametal
+                Contactar a AquaMetal
                 <ArrowRight
                   size={18}
                   className="transition-transform group-hover:translate-x-1"
