@@ -1,3 +1,4 @@
+
 "use client";
 
 import Navbar from "@/components/Navbar";
@@ -7,7 +8,7 @@ import Footer from "@/components/Footer";
 
 export default function Contacto() {
   return (
-    <main className="min-h-screen bg-slate-50 pt-44 font-sans text-slate-800 md:pt-32">
+    <main className="min-h-screen bg-slate-50 pt-32 font-sans text-slate-800 md:pt-32">
       <Navbar />
 
       {/* Hero */}
