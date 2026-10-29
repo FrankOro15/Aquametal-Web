@@ -293,7 +293,7 @@ export default function Footer() {
             <span>
               Desarrollado por{" "}
               <strong className="font-semibold text-slate-200">
-                Francisco Orozco
+                  Francisco Orozco
               </strong>
             </span>
 

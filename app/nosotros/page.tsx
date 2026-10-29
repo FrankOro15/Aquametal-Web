@@ -52,13 +52,30 @@ export default function NosotrosPage() {
     <main className="min-h-screen overflow-hidden bg-white text-slate-900">
       <Navbar />
 
-      {/* HERO: TEXTO A LA IZQUIERDA E IMAGEN A LA DERECHA */}
+      {/* HERO */}
       <section className="relative overflow-hidden bg-[#0F172A] pt-20 text-white md:pt-24">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A] via-[#0F172A] to-[#14264A]" />
 
         <div className="absolute right-0 top-0 h-full w-1/2 bg-gradient-to-l from-[#2563FF]/10 to-transparent" />
 
         <div className="relative mx-auto grid min-h-[540px] max-w-7xl items-center gap-8 px-6 py-8 md:min-h-[580px] md:px-10 md:py-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-12">
+          {/* IMAGEN DE FONDO EN MÓVIL */}
+          <div className="absolute inset-0 z-0 lg:hidden">
+            <Image
+              src="/images/nosotros/nosotros-hero.jpg"
+              alt="Instalaciones industriales de Aquametal"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+
+            {/* Oscurecimiento para mantener legible el texto */}
+            <div className="absolute inset-0 bg-[#0F172A]/70" />
+
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/40 via-transparent to-[#0F172A]/30" />
+          </div>
+
           {/* TEXTO */}
           <div className="relative z-10 min-w-0 py-8">
             <div className="mb-7 flex items-center gap-3">
@@ -71,12 +88,14 @@ export default function NosotrosPage() {
             <h1 className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl xl:text-7xl">
               Ingeniería mexicana que
               <span className="mt-2 block text-[#4D91FF]">
-                 potencia a las empresas
+                potencia a las empresas
               </span>
             </h1>
 
             <p className="mt-7 max-w-md text-base leading-8 text-slate-300 md:text-lg">
-              Somos especialistas en manufactura y ensamble de componentes metálicos, comprometidos con ofrecer soluciones que respondan a las necesidades reales de cada cliente.
+              Somos especialistas en manufactura y ensamble de componentes
+              metálicos, comprometidos con ofrecer soluciones que respondan
+              a las necesidades reales de cada cliente.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
@@ -99,15 +118,15 @@ export default function NosotrosPage() {
               </Link>
             </div>
 
-            <div className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-white/15 pt-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-400 sm:text-xs">
+            <div className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-white/15 pt-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-300 sm:text-xs">
               <span>Manufactura metalmecánica</span>
               <span className="h-1 w-1 rounded-full bg-[#4D91FF]" />
               <span>Mejora continua</span>
             </div>
           </div>
 
-          {/* IMAGEN DEL HERO */}
-          <div className="relative mx-auto w-full max-w-2xl -translate-y-3 lg:mx-0">
+          {/* IMAGEN ORIGINAL DE ESCRITORIO: SE CONSERVA */}
+          <div className="relative z-10 mx-auto w-full max-w-2xl -translate-y-3 lg:mx-0 lg:z-0">
             <div className="absolute -right-3 -top-3 h-24 w-24 border-r-2 border-t-2 border-[#2563FF] sm:-right-4 sm:-top-4" />
 
             <div className="relative min-h-[350px] overflow-hidden bg-slate-800 sm:min-h-[470px] lg:min-h-[540px]">
@@ -214,8 +233,6 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      
-
       {/* INFRAESTRUCTURA */}
       <section className="bg-[#0F172A] px-6 py-20 text-white md:px-10 md:py-28 lg:px-12">
         <div className="mx-auto max-w-7xl">
@@ -302,7 +319,6 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      
       {/* POLÍTICA DE CALIDAD */}
       <section className="bg-white px-6 py-20 md:px-10 md:py-28 lg:px-12">
         <div className="mx-auto max-w-7xl">
@@ -319,19 +335,18 @@ export default function NosotrosPage() {
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
 
-                <div className="absolute left-0 right-0 top-0 p-7 sm:p-9">
-                  <div className="mb-4 flex items-center gap-3">
+                <div className="absolute left-5 top-5 max-w-[calc(100%-2.5rem)] sm:left-7 sm:top-7 sm:max-w-sm">
+                  <div className="mb-3 flex items-center gap-3">
                     <span className="h-[2px] w-10 bg-[#2563FF]" />
-                    <span className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">
+                    <span className="text-xs font-bold uppercase tracking-[0.24em] text-blue-200 [text-shadow:0_1px_4px_rgba(0,0,0,0.9)]">
                       Nuestro compromiso
                     </span>
                   </div>
 
-                  <h3 className="max-w-sm text-2xl font-bold leading-tight text-white sm:text-3xl">
+                  <h3 className="max-w-sm text-2xl font-bold leading-tight text-white [text-shadow:0_2px_6px_rgba(0,0,0,0.9)] sm:text-3xl">
                     Calidad que impulsa cada proyecto.
                   </h3>
                 </div>
-
               </div>
 
               <div className="absolute -bottom-3 -left-3 z-10 h-20 w-20 border-b-2 border-l-2 border-[#2563FF] sm:-bottom-4 sm:-left-4" />
@@ -381,12 +396,9 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      
       {/* MISIÓN, VISIÓN Y VALORES */}
       <section className="bg-[#F1F4F7] px-6 py-14 md:px-10 md:py-16 lg:px-12">
         <div className="mx-auto max-w-7xl">
-
-          {/* Encabezado compacto */}
           <div className="mb-7">
             <div className="mb-3 flex items-center gap-3">
               <span className="h-[2px] w-9 bg-[#2563FF]" />
@@ -396,7 +408,7 @@ export default function NosotrosPage() {
             </div>
 
             <h2 className="text-3xl font-bold tracking-tight text-[#0F172A] sm:text-4xl">
-              Misión y Visión 
+              Misión y Visión
             </h2>
 
             <p className="mt-2 text-sm text-slate-500 sm:text-base">
@@ -404,10 +416,7 @@ export default function NosotrosPage() {
             </p>
           </div>
 
-          {/* Misión y Visión */}
           <div className="grid gap-4 md:grid-cols-2">
-
-            {/* MISIÓN */}
             <article className="border border-slate-200 border-l-4 border-l-[#2563FF] bg-white p-6 sm:p-7">
               <div className="mb-4 flex items-center gap-3">
                 <Target size={22} className="shrink-0 text-[#2563FF]" />
@@ -423,7 +432,6 @@ export default function NosotrosPage() {
               </p>
             </article>
 
-            {/* VISIÓN */}
             <article className="border border-slate-200 border-l-4 border-l-[#0F172A] bg-white p-6 sm:p-7">
               <div className="mb-4 flex items-center gap-3">
                 <Globe2 size={22} className="shrink-0 text-[#2563FF]" />
@@ -443,7 +451,6 @@ export default function NosotrosPage() {
             </article>
           </div>
 
-          {/* VALORES */}
           <div className="mt-4 border border-slate-200 border-l-4 border-l-[#2563FF] bg-white p-6 sm:p-7">
             <div className="mb-5 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
               <h3 className="text-lg font-bold text-[#0F172A] sm:text-xl">
@@ -521,7 +528,6 @@ export default function NosotrosPage() {
               })}
             </div>
           </div>
-
         </div>
       </section>
 

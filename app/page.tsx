@@ -96,7 +96,7 @@ export default function Home() {
     if (!video) return;
 
     if (activeBackground === 2 && (isPlaying || manualVideo)) {
-      video.play().catch(() => {});
+      video.play().catch(() => { });
     } else {
       video.pause();
     }
@@ -155,9 +155,8 @@ export default function Home() {
           aria-hidden="true"
         >
           <div
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              activeBackground === 1 ? "opacity-100" : "opacity-0"
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ${activeBackground === 1 ? "opacity-100" : "opacity-0"
+              }`}
           >
             <Image
               src="/images/CNC.jpg"
@@ -173,9 +172,8 @@ export default function Home() {
           </div>
 
           <div
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              activeBackground === 3 ? "opacity-100" : "opacity-0"
-            }`}
+            className={`absolute inset-0 transition-opacity duration-1000 ${activeBackground === 3 ? "opacity-100" : "opacity-0"
+              }`}
           >
             <Image
               src="/images/Fondoprincipal1.jpeg"
@@ -192,9 +190,8 @@ export default function Home() {
             playsInline
             preload="metadata"
             onEnded={handleVideoEnded}
-            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
-              activeBackground === 2 ? "opacity-100" : "opacity-0"
-            }`}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${activeBackground === 2 ? "opacity-100" : "opacity-0"
+              }`}
           >
             <source src="/videos/videotornos.mp4" type="video/mp4" />
           </video>
@@ -271,11 +268,10 @@ export default function Home() {
                   onClick={() => selectBackground(1)}
                   aria-label="Mostrar imagen estática"
                   aria-pressed={activeBackground === 1}
-                  className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${
-                    activeBackground === 1
+                  className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${activeBackground === 1
                       ? "bg-[#2563FF] text-white"
                       : "text-slate-300 hover:bg-white/10"
-                  }`}
+                    }`}
                 >
                   1
                 </button>
@@ -285,11 +281,10 @@ export default function Home() {
                   onClick={() => selectBackground(2)}
                   aria-label="Mostrar video de tornos"
                   aria-pressed={activeBackground === 2}
-                  className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${
-                    activeBackground === 2
+                  className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${activeBackground === 2
                       ? "bg-[#2563FF] text-white"
                       : "text-slate-300 hover:bg-white/10"
-                  }`}
+                    }`}
                 >
                   2
                 </button>
@@ -299,11 +294,10 @@ export default function Home() {
                   onClick={() => selectBackground(3)}
                   aria-label="Mostrar imagen de maquinaria CNC"
                   aria-pressed={activeBackground === 3}
-                  className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${
-                    activeBackground === 3
+                  className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${activeBackground === 3
                       ? "bg-[#2563FF] text-white"
                       : "text-slate-300 hover:bg-white/10"
-                  }`}
+                    }`}
                 >
                   3
                 </button>
@@ -368,181 +362,226 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CINTA DE IDENTIDAD */}
-      <section className="border-b border-slate-200 bg-[#F3F5F9]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6 md:flex-row md:items-center md:justify-between md:px-10 lg:px-12">
-          <div className="flex items-center gap-3">
-            <span className="h-8 w-1 bg-[#2563FF]" />
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#0F172A]">
-                Experiencia que se transforma en capacidad
-              </p>
-              <p className="mt-1 text-sm text-slate-500">
-                Soluciones para necesidades reales de fabricación.
-              </p>
-            </div>
-          </div>
 
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-slate-600 sm:gap-x-6">
-            <span className="flex items-center gap-2">
-              <CheckCircle2 size={15} className="text-[#2563FF]" />
-              Producción en serie
-            </span>
-            <span className="flex items-center gap-2">
-              <CheckCircle2 size={15} className="text-[#2563FF]" />
-              Diversos metales
-            </span>
-            <span className="flex items-center gap-2">
-              <CheckCircle2 size={15} className="text-[#2563FF]" />
-              Mejora continua
-            </span>
-          </div>
-        </div>
-      </section>
+      {/* BLOQUE DE IDENTIDAD Y CAPACIDAD PRODUCTIVA */}
+      <section className="w-full bg-[#EAF0F8] py-8 sm:py-10 lg:py-12">
+        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
 
-      {/* CAPACIDAD PRODUCTIVA */}
-      <section className="bg-white px-6 py-16 md:px-10 md:py-20 lg:px-12">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-10 grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-16">
-            <div>
-              <div className="mb-5 flex items-center gap-3">
-                <span className="h-[2px] w-10 bg-[#2563FF]" />
-                <span className="text-xs font-bold uppercase tracking-[0.24em] text-[#2563FF]">
-                  Nuestra capacidad
-                </span>
+          {/* CINTA DE IDENTIDAD */}
+          <div className="flex flex-col gap-5 border-b border-slate-300/80 pb-6 md:flex-row md:items-center md:justify-between">
+            <div className="flex items-center gap-3">
+              <span className="h-10 w-1 shrink-0 bg-[#2563FF]" />
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0F172A] sm:text-sm">
+                  Experiencia que se transforma en capacidad
+                </p>
+                <p className="mt-1 text-sm text-slate-500">
+                  Soluciones para necesidades reales de fabricación.
+                </p>
               </div>
-
-              <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#0F172A] sm:text-4xl lg:text-5xl">
-                Infraestructura preparada para producir.
-              </h2>
             </div>
 
-            <p className="max-w-2xl leading-8 text-slate-600 lg:pb-1">
-              Combinamos experiencia, maquinaria especializada y organización
-              productiva para atender requerimientos de manufactura de componentes
-              metálicos.
-            </p>
+            <div className="flex flex-wrap gap-x-5 gap-y-3 text-xs font-semibold text-slate-600 sm:gap-x-6">
+              <span className="flex items-center gap-2">
+                <CheckCircle2 size={15} className="shrink-0 text-[#2563FF]" />
+                Producción en serie
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle2 size={15} className="shrink-0 text-[#2563FF]" />
+                Diversos metales
+              </span>
+              <span className="flex items-center gap-2">
+                <CheckCircle2 size={15} className="shrink-0 text-[#2563FF]" />
+                Mejora continua
+              </span>
+            </div>
           </div>
 
-          <div className="grid overflow-hidden border border-slate-200 lg:grid-cols-[0.72fr_1.28fr]">
-            <div className="relative flex min-h-[300px] flex-col justify-between overflow-hidden bg-[#0F172A] p-7 text-white sm:p-10 lg:min-h-[440px]">
-              <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full border border-white/[0.08]" />
-              <div className="absolute -right-8 -top-8 h-48 w-48 rounded-full border border-white/[0.08]" />
+          {/* CAPACIDAD PRODUCTIVA */}
+          <div className="mt-6 grid w-full grid-cols-1 overflow-hidden border-y border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)] lg:mt-8 lg:grid-cols-[0.85fr_1.15fr]">
 
-              <div className="relative">
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-                  Capacidad productiva
+            {/* PANEL IZQUIERDO */}
+            <div className="relative flex min-w-0 flex-col overflow-hidden bg-[#0F172A] px-6 py-8 text-white sm:px-8 sm:py-10 lg:px-10 lg:py-12">
+              <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border border-white/10" />
+              <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full border border-white/10" />
+
+              <div className="relative z-10">
+                <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#70A7FF]">
+                  <span className="h-1.5 w-1.5 bg-[#70A7FF]" />
+                  Infraestructura y tecnología
                 </span>
 
-                <h3 className="mt-5 max-w-sm text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-                  Recursos para responder a las exigencias industriales.
-                </h3>
+                <h2 className="mt-5 max-w-lg text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+                  Capacidad productiva
+                  <span className="text-[#70A7FF]"> para responder a tus necesidades.</span>
+                </h2>
 
-                <p className="mt-5 max-w-sm text-sm leading-7 text-slate-300">
-                  Procesos orientados a la continuidad de producción, la atención
-                  a especificaciones y el cumplimiento de los requerimientos
+                <p className="mt-5 max-w-lg text-sm leading-7 text-slate-300 sm:text-base">
+                  Contamos con infraestructura, maquinaria y experiencia para fabricar
+                  componentes metálicos de precisión, adaptándonos a los requerimientos
                   de cada proyecto.
                 </p>
               </div>
 
-              <div className="relative mt-10 flex items-center gap-3 border-t border-white/15 pt-5">
-                <span className="h-9 w-1 bg-[#2563FF]" />
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-slate-300">
-                  Experiencia en manufactura metálica
+              {/* IMAGEN PRINCIPAL */}
+              <div className="relative mt-8 min-h-[230px] flex-1 overflow-hidden border border-white/10 sm:min-h-[280px] lg:min-h-[320px]">
+                <img
+                  src="/images/inicio_capacidades.jpg"
+                  alt="Infraestructura y capacidad productiva de Aquametal"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0F172A]/80 to-transparent p-5 sm:p-6">
+                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#93B9FF]">
+                    Precisión industrial
+                  </p>
+                  <p className="mt-1 text-lg font-semibold text-white sm:text-xl">
+                    Tecnología y experiencia en cada pieza
+                  </p>
+                </div>
+              </div>
+
+              <div className="relative z-10 mt-6 flex items-center gap-3 border-t border-white/15 pt-5">
+                <CheckCircle2 size={19} className="shrink-0 text-[#70A7FF]" />
+                <p className="text-xs leading-5 text-slate-300 sm:text-sm">
+                  Compromiso con la calidad y la mejora continua.
                 </p>
               </div>
             </div>
 
-            <div className="grid bg-[#F3F5F9] sm:grid-cols-2">
-              {[
-                {
-                  number: "01",
-                  title: "Producción en dos turnos",
-                  description:
-                    "Organización operativa para atender las necesidades de fabricación.",
-                  icon: (
-                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
-                      strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                      className="h-8 w-8">
-                      <circle cx="32" cy="32" r="21" />
-                      <path d="M32 19v14l9 5" />
-                      <path d="M12 15l6 1-1 6M52 49l-6-1 1-6" />
-                    </svg>
-                  ),
-                },
-                {
-                  number: "02",
-                  title: "Planta de 1,000 m²",
-                  description:
-                    "Espacio destinado a las operaciones y procesos de manufactura.",
-                  icon: (
-                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
-                      strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                      className="h-8 w-8">
-                      <path d="M9 53V30l14 8V27l14 9V16l18-7v44H9Z" />
-                      <path d="M17 45h5m6 0h5m8-17h5m-5 10h5" />
-                      <path d="M5 53h54" />
-                    </svg>
-                  ),
-                },
-                {
-                  number: "03",
-                  title: "Más de 30 máquinas",
-                  description:
-                    "Equipos especializados para diferentes procesos de fabricación.",
-                  icon: (
-                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
-                      strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                      className="h-8 w-8">
-                      <rect x="10" y="12" width="44" height="34" rx="2" />
-                      <path d="M18 20h12v10H18zM30 25h12M36 25v10M16 46v6m32-6v6M10 53h44" />
-                      <circle cx="45" cy="20" r="2" />
-                    </svg>
-                  ),
-                },
-                {
-                  number: "04",
-                  title: "Atención a clientes industriales",
-                  description:
-                    "Fabricación de componentes conforme a las necesidades de cada cliente.",
-                  icon: (
-                    <svg viewBox="0 0 64 64" fill="none" stroke="currentColor"
-                      strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                      className="h-8 w-8">
-                      <circle cx="24" cy="21" r="7" />
-                      <circle cx="43" cy="24" r="5" />
-                      <path d="M10 45c0-8 6-13 14-13s14 5 14 13v4H10z" />
-                      <path d="M40 34c7-1 13 4 13 11v4H41" />
-                    </svg>
-                  ),
-                },
-              ].map((item) => (
-                <article
-                  key={item.number}
-                  className="group flex min-h-[220px] flex-col border-b border-slate-200 p-6 transition-colors duration-300 hover:bg-white sm:p-8 [&:nth-child(odd)]:sm:border-r"
-                >
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center bg-white text-[#2563FF] ring-1 ring-slate-200 transition-colors group-hover:bg-[#2563FF] group-hover:text-white group-hover:ring-[#2563FF]">
-                      {item.icon}
-                    </div>
-                    <span className="text-xs font-bold tracking-widest text-slate-400">
-                      {item.number}
-                    </span>
+            {/* PANEL DERECHO */}
+            <div className="min-w-0 bg-[#F5F8FD] p-5 sm:p-8 lg:p-10 xl:p-12">
+              <div className="mb-7">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2563FF]">
+                  Nuestra infraestructura
+                </p>
+                <h3 className="mt-2 text-2xl font-bold tracking-tight text-[#0F172A] sm:text-3xl">
+                  Una capacidad que marca la diferencia
+                </h3>
+                <p className="mt-3 max-w-xl text-sm leading-6 text-slate-500">
+                  Recursos y experiencia para respaldar las necesidades de producción
+                  de nuestros clientes.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6 lg:gap-5">
+
+                {/* TARJETA 1 */}
+                <article className="flex min-w-0 flex-col border border-slate-200 bg-white transition-colors duration-300 hover:border-[#2563FF]/50 lg:col-span-2">
+                  <div className="flex h-60 items-center justify-center bg-white p-2 sm:h-56 lg:h-60">
+                    <img
+                      src="/images/inicio_l1.png"
+                      alt="Producción en dos turnos"
+                      className="h-full w-full object-contain"
+                      loading="lazy"
+                    />
                   </div>
-
-                  <h3 className="mt-6 text-lg font-bold tracking-tight text-[#0F172A]">
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-2 text-sm leading-6 text-slate-500">
-                    {item.description}
-                  </p>
-
-                  <span className="mt-auto w-8 pt-5">
-                    <span className="block h-[2px] w-full bg-[#2563FF] transition-all duration-300 group-hover:w-14" />
-                  </span>
+                  <div className="flex flex-1 flex-col border-t border-slate-100 p-5">
+                    <p className="text-2xl font-bold tracking-tight text-[#2563FF]">
+                      Dos turnos
+                    </p>
+                    <h4 className="mt-2 text-sm font-bold text-[#0F172A]">
+                      Producción continua
+                    </h4>
+                    <p className="mt-2 text-xs leading-5 text-slate-500">
+                      Organización operativa para responder a los requerimientos de fabricación.
+                    </p>
+                  </div>
                 </article>
-              ))}
+
+                {/* TARJETA 2 */}
+                <article className="flex min-w-0 flex-col border border-slate-200 bg-white transition-colors duration-300 hover:border-[#2563FF]/50 lg:col-span-2">
+                   <div className="flex h-60 items-center justify-center bg-white p-2 sm:h-56 lg:h-60">
+                    <img
+                      src="/images/inicio_l2.png"
+                      alt="Superficie de la planta industrial"
+                      className="h-full w-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col border-t border-slate-100 p-5">
+                    <p className="text-2xl font-bold tracking-tight text-[#2563FF]">
+                      1,000 m²
+                    </p>
+                    <h4 className="mt-2 text-sm font-bold text-[#0F172A]">
+                      Superficie de planta
+                    </h4>
+                    <p className="mt-2 text-xs leading-5 text-slate-500">
+                      Espacio destinado a las operaciones y los procesos de fabricación.
+                    </p>
+                  </div>
+                </article>
+
+                {/* TARJETA 3 */}
+                <article className="flex min-w-0 flex-col border border-slate-200 bg-white transition-colors duration-300 hover:border-[#2563FF]/50 lg:col-span-2">
+                   <div className="flex h-60 items-center justify-center bg-white p-2 sm:h-56 lg:h-60">
+                    <img
+                      src="/images/inicio_l3.png"
+                      alt="Maquinaria para fabricación de piezas metálicas"
+                      className="h-full w-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col border-t border-slate-100 p-5">
+                    <p className="text-2xl font-bold tracking-tight text-[#2563FF]">
+                      +30
+                    </p>
+                    <h4 className="mt-2 text-sm font-bold text-[#0F172A]">
+                      Máquinas
+                    </h4>
+                    <p className="mt-2 text-xs leading-5 text-slate-500">
+                      Equipamiento para atender diferentes necesidades de mecanizado.
+                    </p>
+                  </div>
+                </article>
+
+                {/* TARJETA 4 */}
+                <article className="flex min-w-0 flex-col border border-slate-200 bg-white transition-colors duration-300 hover:border-[#2563FF]/50 lg:col-span-2 lg:col-start-2">
+                   <div className="flex h-60 items-center justify-center bg-white p-2 sm:h-56 lg:h-60">
+                    <img
+                      src="/images/inicio_l4.png"
+                      alt="Piezas metálicas de precisión para clientes"
+                      className="h-full w-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+          
+                  <div className="flex flex-1 flex-col border-t border-slate-100 p-5">
+                    <p className="text-2xl font-bold tracking-tight text-[#2563FF]">
+                      +100
+                    </p>
+                    <h4 className="mt-2 text-sm font-bold text-[#0F172A]">
+                      Clientes atendidos
+                    </h4>
+                    <p className="mt-2 text-xs leading-5 text-slate-500">
+                      Soluciones de fabricación enfocadas en las necesidades de cada cliente.
+                    </p>
+                  </div>
+                </article>
+
+                {/* TARJETA 5 */}
+                <article className="flex min-w-0 flex-col border border-slate-200 bg-white transition-colors duration-300 hover:border-[#2563FF]/50 lg:col-span-2">
+                  <div className="flex h-60 items-center justify-center bg-white p-2 sm:h-56 lg:h-60">
+                    <img
+                      src="/images/inicio_l5.png"
+                      alt="Capacidad de exportación internacional"
+                      className="h-full w-full object-contain"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col border-t border-slate-100 p-5">
+                    <p className="text-2xl font-bold tracking-tight text-[#2563FF]">
+                      Exportación
+                    </p>
+                    <h4 className="mt-2 text-sm font-bold text-[#0F172A]">
+                      Capacidad internacional
+                    </h4>
+                    <p className="mt-2 text-xs leading-5 text-slate-500">
+                      Capacidad para atender proyectos con requerimientos de exportación.
+                    </p>
+                  </div>
+                </article>
+
+              </div>
             </div>
           </div>
         </div>
@@ -709,11 +748,10 @@ export default function Home() {
             {materials.map((material, index) => (
               <div
                 key={material}
-                className={`flex min-h-24 items-center gap-3 border p-4 transition-colors hover:border-[#2563FF] ${
-                  index === 0
+                className={`flex min-h-24 items-center gap-3 border p-4 transition-colors hover:border-[#2563FF] ${index === 0
                     ? "border-[#2563FF] bg-blue-50"
                     : "border-slate-200 bg-white"
-                }`}
+                  }`}
               >
                 <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-[#0F172A] text-xs font-bold text-white">
                   0{index + 1}
