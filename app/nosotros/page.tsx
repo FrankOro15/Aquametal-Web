@@ -214,149 +214,7 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* MISIÓN, VISIÓN Y VALORES */}
-      <section className="bg-[#F1F4F7] px-6 py-14 md:px-10 md:py-16 lg:px-12">
-        <div className="mx-auto max-w-7xl">
-
-          {/* Encabezado compacto */}
-          <div className="mb-7">
-            <div className="mb-3 flex items-center gap-3">
-              <span className="h-[2px] w-9 bg-[#2563FF]" />
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#2563FF]">
-                Nuestra dirección
-              </span>
-            </div>
-
-            <h2 className="text-3xl font-bold tracking-tight text-[#0F172A] sm:text-4xl">
-              Misión y Visión 
-            </h2>
-
-            <p className="mt-2 text-sm text-slate-500 sm:text-base">
-              Lo que nos impulsa, hacia dónde vamos y los principios que nos definen.
-            </p>
-          </div>
-
-          {/* Misión y Visión */}
-          <div className="grid gap-4 md:grid-cols-2">
-
-            {/* MISIÓN */}
-            <article className="border border-slate-200 border-l-4 border-l-[#2563FF] bg-white p-6 sm:p-7">
-              <div className="mb-4 flex items-center gap-3">
-                <Target size={22} className="shrink-0 text-[#2563FF]" />
-                <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-[#2563FF]">
-                  Misión
-                </h3>
-              </div>
-
-              <p className="text-base font-semibold leading-7 text-[#0F172A] sm:text-lg">
-                Resolver los desafíos de la industria automotriz mediante
-                soluciones innovadoras y sostenibles en manufactura metálica,
-                creando valor para nuestros clientes, colaboradores y la sociedad.
-              </p>
-            </article>
-
-            {/* VISIÓN */}
-            <article className="border border-slate-200 border-l-4 border-l-[#0F172A] bg-white p-6 sm:p-7">
-              <div className="mb-4 flex items-center gap-3">
-                <Globe2 size={22} className="shrink-0 text-[#2563FF]" />
-                <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-[#0F172A]">
-                  Visión
-                </h3>
-                <span className="text-3xl font-bold tracking-tight text-[#2563FF]">
-                  2030
-                </span>
-              </div>
-
-              <p className="text-base font-semibold leading-7 text-[#0F172A] sm:text-lg">
-                Ser un referente nacional en manufactura metálica, reconocido
-                por transformar desafíos industriales en oportunidades
-                sostenibles que impulsen el sector automotriz.
-              </p>
-            </article>
-          </div>
-
-          {/* VALORES */}
-          <div className="mt-4 border border-slate-200 border-l-4 border-l-[#2563FF] bg-white p-6 sm:p-7">
-            <div className="mb-5 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-              <h3 className="text-lg font-bold text-[#0F172A] sm:text-xl">
-                Nuestros valores
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-2 gap-x-5 gap-y-5 sm:grid-cols-3 lg:grid-cols-6">
-              {[
-                {
-                  titulo: "Calidad",
-                  descripcion:
-                    "Cuidamos nuestros procesos y productos para cumplir con los requisitos de nuestros clientes.",
-                  icono: ShieldCheck,
-                },
-                {
-                  titulo: "Compromiso",
-                  descripcion:
-                    "Respondemos a las necesidades de cada proyecto con un servicio confiable y entregas oportunas.",
-                  icono: Handshake,
-                },
-                {
-                  titulo: "Mejora continua",
-                  descripcion:
-                    "Perfeccionamos nuestros procesos y capacidades para responder a los retos de la industria.",
-                  icono: TrendingUp,
-                },
-                {
-                  titulo: "Innovación",
-                  descripcion:
-                    "Impulsamos ideas y tecnologías que fortalecen nuestros procesos de manufactura.",
-                  icono: Layers3,
-                },
-                {
-                  titulo: "Desarrollo del talento",
-                  descripcion:
-                    "Promovemos las competencias, la seguridad y el desarrollo de nuestros colaboradores.",
-                  icono: Factory,
-                },
-                {
-                  titulo: "Integridad",
-                  descripcion:
-                    "Actuamos con responsabilidad y respeto, cumpliendo nuestros compromisos.",
-                  icono: ShieldCheck,
-                },
-              ].map((valor, index) => {
-                const Icon = valor.icono;
-
-                return (
-                  <article
-                    key={valor.titulo}
-                    className={`${
-                      index % 2 !== 0
-                        ? "border-l border-slate-200 pl-4 sm:border-l-0 sm:pl-0"
-                        : ""
-                    } sm:border-l sm:border-slate-200 sm:pl-4 ${
-                      index === 0 ? "sm:border-l-0 sm:pl-0" : ""
-                    }`}
-                  >
-                    <Icon
-                      size={23}
-                      strokeWidth={1.7}
-                      className="mb-3 text-[#2563FF]"
-                    />
-
-                    <h4 className="text-sm font-bold leading-5 text-[#0F172A]">
-                      {valor.titulo}
-                    </h4>
-
-                    <p className="mt-2 text-xs leading-5 text-slate-500">
-                      {valor.descripcion}
-                    </p>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-
-        </div>
-      </section>
-
+      
 
       {/* INFRAESTRUCTURA */}
       <section className="bg-[#0F172A] px-6 py-20 text-white md:px-10 md:py-28 lg:px-12">
@@ -520,6 +378,150 @@ export default function NosotrosPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      
+      {/* MISIÓN, VISIÓN Y VALORES */}
+      <section className="bg-[#F1F4F7] px-6 py-14 md:px-10 md:py-16 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+
+          {/* Encabezado compacto */}
+          <div className="mb-7">
+            <div className="mb-3 flex items-center gap-3">
+              <span className="h-[2px] w-9 bg-[#2563FF]" />
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#2563FF]">
+                Nuestra dirección
+              </span>
+            </div>
+
+            <h2 className="text-3xl font-bold tracking-tight text-[#0F172A] sm:text-4xl">
+              Misión y Visión 
+            </h2>
+
+            <p className="mt-2 text-sm text-slate-500 sm:text-base">
+              Lo que nos impulsa, hacia dónde vamos y los principios que nos definen.
+            </p>
+          </div>
+
+          {/* Misión y Visión */}
+          <div className="grid gap-4 md:grid-cols-2">
+
+            {/* MISIÓN */}
+            <article className="border border-slate-200 border-l-4 border-l-[#2563FF] bg-white p-6 sm:p-7">
+              <div className="mb-4 flex items-center gap-3">
+                <Target size={22} className="shrink-0 text-[#2563FF]" />
+                <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-[#2563FF]">
+                  Misión
+                </h3>
+              </div>
+
+              <p className="text-base font-semibold leading-7 text-[#0F172A] sm:text-lg">
+                Resolver los desafíos de la industria automotriz mediante
+                soluciones innovadoras y sostenibles en manufactura metálica,
+                creando valor para nuestros clientes, colaboradores y la sociedad.
+              </p>
+            </article>
+
+            {/* VISIÓN */}
+            <article className="border border-slate-200 border-l-4 border-l-[#0F172A] bg-white p-6 sm:p-7">
+              <div className="mb-4 flex items-center gap-3">
+                <Globe2 size={22} className="shrink-0 text-[#2563FF]" />
+                <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-[#0F172A]">
+                  Visión
+                </h3>
+                <span className="text-3xl font-bold tracking-tight text-[#2563FF]">
+                  2030
+                </span>
+              </div>
+
+              <p className="text-base font-semibold leading-7 text-[#0F172A] sm:text-lg">
+                Ser un referente nacional en manufactura metálica, reconocido
+                por transformar desafíos industriales en oportunidades
+                sostenibles que impulsen el sector automotriz.
+              </p>
+            </article>
+          </div>
+
+          {/* VALORES */}
+          <div className="mt-4 border border-slate-200 border-l-4 border-l-[#2563FF] bg-white p-6 sm:p-7">
+            <div className="mb-5 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+              <h3 className="text-lg font-bold text-[#0F172A] sm:text-xl">
+                Nuestros valores
+              </h3>
+            </div>
+
+            <div className="grid grid-cols-2 gap-x-5 gap-y-5 sm:grid-cols-3 lg:grid-cols-6">
+              {[
+                {
+                  titulo: "Calidad",
+                  descripcion:
+                    "Cuidamos nuestros procesos y productos para cumplir con los requisitos de nuestros clientes.",
+                  icono: ShieldCheck,
+                },
+                {
+                  titulo: "Compromiso",
+                  descripcion:
+                    "Respondemos a las necesidades de cada proyecto con un servicio confiable y entregas oportunas.",
+                  icono: Handshake,
+                },
+                {
+                  titulo: "Mejora continua",
+                  descripcion:
+                    "Perfeccionamos nuestros procesos y capacidades para responder a los retos de la industria.",
+                  icono: TrendingUp,
+                },
+                {
+                  titulo: "Innovación",
+                  descripcion:
+                    "Impulsamos ideas y tecnologías que fortalecen nuestros procesos de manufactura.",
+                  icono: Layers3,
+                },
+                {
+                  titulo: "Desarrollo del talento",
+                  descripcion:
+                    "Promovemos las competencias, la seguridad y el desarrollo de nuestros colaboradores.",
+                  icono: Factory,
+                },
+                {
+                  titulo: "Integridad",
+                  descripcion:
+                    "Actuamos con responsabilidad y respeto, cumpliendo nuestros compromisos.",
+                  icono: ShieldCheck,
+                },
+              ].map((valor, index) => {
+                const Icon = valor.icono;
+
+                return (
+                  <article
+                    key={valor.titulo}
+                    className={`${
+                      index % 2 !== 0
+                        ? "border-l border-slate-200 pl-4 sm:border-l-0 sm:pl-0"
+                        : ""
+                    } sm:border-l sm:border-slate-200 sm:pl-4 ${
+                      index === 0 ? "sm:border-l-0 sm:pl-0" : ""
+                    }`}
+                  >
+                    <Icon
+                      size={23}
+                      strokeWidth={1.7}
+                      className="mb-3 text-[#2563FF]"
+                    />
+
+                    <h4 className="text-sm font-bold leading-5 text-[#0F172A]">
+                      {valor.titulo}
+                    </h4>
+
+                    <p className="mt-2 text-xs leading-5 text-slate-500">
+                      {valor.descripcion}
+                    </p>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+
         </div>
       </section>
 
