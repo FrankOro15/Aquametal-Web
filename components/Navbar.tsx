@@ -75,34 +75,41 @@ export default function Navbar() {
       {/* Barra superior */}
       <div className="bg-slate-900 text-white text-xs py-2 px-3 sm:px-6 border-b border-slate-800">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
-          <div className="flex min-w-0 items-center gap-4">
-            <span className="hidden font-bold tracking-wide text-slate-300 uppercase text-[11px] sm:inline">
-              {lang === "ES"
-                ? "Torneado de alto volumen y CNC"
-                : "High-Volume Turning and CNC"}
-            </span>
+          <div className="flex min-w-0 items-center gap-2 sm:gap-4">
+  <span className="shrink-0 font-bold tracking-wide text-slate-300 uppercase text-[9px] sm:text-[11px] leading-tight">
+    <span className="sm:hidden">
+      {lang === "ES" ? "Torneado de alto vol." : "High-volume turning"}
+    </span>
 
-            <div className="flex items-center gap-3 sm:gap-4 text-slate-300">
-              <a
-                href="tel:5550846281"
-                aria-label="Llamar al 55 5084 6281"
-                className="inline-flex items-center gap-1.5 hover:text-white transition"
-              >
-                <Phone className="w-3.5 h-3.5 shrink-0" />
-                <span>55 5084 6281</span>
-              </a>
+    <span className="hidden sm:inline">
+      {lang === "ES"
+        ? "Torneado de alto volumen y CNC"
+        : "High-Volume Turning and CNC"}
+    </span>
+  </span>
 
-              <a
-                href="mailto:ventas@aqua-metal.com.mx"
-                aria-label="Enviar correo a ventas@aqua-metal.com.mx"
-                className="hidden lg:inline-flex items-center gap-1.5 hover:text-white transition"
-              >
-                <Mail className="w-3.5 h-3.5 shrink-0" />
-                <span>ventas@aqua-metal.com.mx</span>
-              </a>
-            </div>
-          </div>
+  <div className="flex items-center gap-1.5 sm:gap-4 text-slate-300">
+    <a
+      href="tel:5550846281"
+      aria-label="Llamar al 55 5084 6281"
+      className="inline-flex items-center gap-1.5 hover:text-white transition"
+    >
+      <Phone className="w-3.5 h-3.5 shrink-0" />
+      <span className="whitespace-nowrap text-[10px] sm:text-xs">
+        55 5084 6281
+      </span>
+    </a>
 
+    <a
+      href="mailto:ventas@aqua-metal.com.mx"
+      aria-label="Enviar correo a ventas@aqua-metal.com.mx"
+      className="hidden lg:inline-flex items-center gap-1.5 hover:text-white transition"
+    >
+      <Mail className="w-3.5 h-3.5 shrink-0" />
+      <span>ventas@aqua-metal.com.mx</span>
+    </a>
+  </div>
+</div>
           <div className="flex shrink-0 items-center gap-3 sm:gap-4">
             <div className="flex items-center gap-3 text-slate-300">
               {/* Facebook */}
