@@ -161,8 +161,7 @@ export default function Home() {
               }`}
           >
             <Image
-              src="/images/nosotros/nosotros
-              -plantaaa.jpg"
+              src="/images/nosotros/nosotros-plantaaa.jpg"
               alt=""
               fill
               sizes="(max-width: 1023px) 100vw, 53vw"
