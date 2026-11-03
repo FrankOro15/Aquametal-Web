@@ -25,7 +25,7 @@ export default function UpdateBanner() {
           <span className="font-semibold">
             Sitio web en actualización.
           </span>{" "}
-          Las secciones de capacidades, galería, blog e inicio aún están en desarrollo.
+          Las secciones de capacidades, galería y blog aún están en desarrollo.
           Algunos contenidos podrían no estar disponibles temporalmente.
           Agradecemos tu comprensión.
         </p>

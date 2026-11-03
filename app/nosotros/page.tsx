@@ -278,7 +278,7 @@ export default function NosotrosPage() {
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div className="relative mt-8 aspect-[4/5] overflow-hidden bg-slate-800">
                   <Image
-                    src="/images/nosotros/nosotros-plantaaa.jpg"
+                    src="/images/nosotros/vistasatelital.jpg"
                     alt="Instalaciones industriales de Aqua-Metal"
                     fill
                     sizes="(max-width: 640px) 45vw, 25vw"
@@ -531,51 +531,69 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      {/* CIERRE */}
-      <section className="bg-white px-6 py-20 md:px-10 md:py-24 lg:px-12">
-        <div className="relative mx-auto max-w-7xl overflow-hidden bg-[#0F172A] px-7 py-12 text-white sm:px-12 sm:py-16 lg:px-16 lg:py-20">
-          <div className="absolute inset-y-0 right-0 w-2/3 bg-gradient-to-l from-[#2563FF]/20 to-transparent" />
+     {/* CIERRE */}
+<section className="bg-white px-6 py-20 md:px-10 md:py-24 lg:px-12">
+  <div className="mx-auto grid max-w-7xl overflow-hidden bg-[#0F172A] lg:grid-cols-2">
 
-          <div className="absolute -right-10 -top-12 hidden text-white/[0.05] sm:block">
-            <Factory size={240} strokeWidth={0.7} />
-          </div>
+    {/* Contenido */}
+    <div className="relative flex flex-col justify-center overflow-hidden px-7 py-12 text-white sm:px-12 sm:py-16 lg:px-14 lg:py-20">
 
-          <div className="relative max-w-3xl">
-            <span className="text-xs font-bold uppercase tracking-[0.25em] text-blue-300">
-              Trabajemos juntos
-            </span>
+      <div className="absolute inset-y-0 right-0 w-2/3 bg-gradient-to-l from-[#2563FF]/20 to-transparent" />
 
-            <h2 className="mt-5 text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-              Tu próximo proyecto comienza con una buena alianza.
-            </h2>
+      <div className="absolute -right-10 -top-12 hidden text-white/[0.05] sm:block">
+        <Factory size={240} strokeWidth={0.7} />
+      </div>
 
-            <p className="mt-5 max-w-2xl leading-7 text-slate-300">
-              Conoce las capacidades de AquaMetal y conversemos sobre los
-              requerimientos de fabricación de tu proyecto industrial.
-            </p>
+      <div className="relative max-w-xl">
+        <span className="text-xs font-bold uppercase tracking-[0.25em] text-blue-300">
+          Trabajemos juntos
+        </span>
 
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/contacto"
-                className="group inline-flex min-h-14 items-center justify-center gap-3 bg-[#2563FF] px-7 py-4 text-sm font-bold text-white transition hover:bg-blue-500"
-              >
-                Contactar a AquaMetal
-                <ArrowRight
-                  size={18}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </Link>
+        <h2 className="mt-5 text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+          Experiencia, capacidad y compromiso para tu próximo proyecto.
+        </h2>
 
-              <Link
-                href="/servicios"
-                className="inline-flex min-h-14 items-center justify-center border border-white/25 px-7 py-4 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
-              >
-                Explorar capacidades
-              </Link>
-            </div>
-          </div>
+        <p className="mt-5 max-w-2xl leading-7 text-slate-300">
+          Conoce nuestra trayectoria y capacidades de fabricación.
+          Estamos listos para escuchar tus requerimientos y construir
+          una solución para tu proyecto industrial.
+        </p>
+
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+          <Link
+            href="/contacto"
+            className="group inline-flex min-h-14 items-center justify-center gap-3 bg-[#2563FF] px-7 py-4 text-sm font-bold text-white transition hover:bg-blue-500"
+          >
+            Contactar a Aquametal
+            <ArrowRight
+              size={18}
+              className="transition-transform group-hover:translate-x-1"
+            />
+          </Link>
+
+          <Link
+            href="/servicios"
+            className="inline-flex min-h-14 items-center justify-center border border-white/25 px-7 py-4 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+          >
+            Explorar servicios
+          </Link>
         </div>
-      </section>
+      </div>
+    </div>
+
+    {/* Imagen */}
+    <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
+      <Image
+        src="/images/cta.jpg"
+        alt="Maquinaria CNC durante un proceso de fabricación"
+        fill
+        className="object-cover"
+        sizes="(max-width: 1024px) 100vw, 50vw"
+      />
+    </div>
+
+  </div>
+</section>
 
       <Footer />
     </main>
