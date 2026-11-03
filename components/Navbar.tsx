@@ -5,6 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import UpdateBanner from "@/components/UpdateBanner";
+import IsoSeal from "@/components/IsoSeal";
 import {
   Phone,
   Mail,
@@ -210,21 +211,27 @@ export default function Navbar() {
       <div className="bg-white border-b border-slate-200 px-3 sm:px-6 py-3 sm:py-4">
         <div className="max-w-6xl mx-auto flex flex-row items-center justify-between gap-3 md:flex-row md:gap-8">
           {/* Logo */}
-          <Link
-            href="/"
-            onClick={handleNavigation}
-            aria-label="AquaMetal - Inicio"
-            className="flex shrink-0 items-center"
-          >
-            <Image
-              src="/images/logo.png"
-              alt="AquaMetal"
-              width={180}
-              height={180}
-              priority
-              className="h-12 w-32 object-cover object-center sm:h-14 sm:w-36"
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <Link
+              href="/"
+              onClick={handleNavigation}
+              aria-label="AquaMetal - Inicio"
+              className="flex shrink-0 items-center"
+            >
+              <Image
+                src="/images/logo.png"
+                alt="AquaMetal"
+                width={180}
+                height={180}
+                priority
+                className="h-12 w-32 object-cover object-center sm:h-14 sm:w-36"
+              />
+            </Link>
+            <IsoSeal
+              idPrefix="navbar-iso"
+              className="h-10 w-10 shrink-0 text-slate-500 sm:h-12 sm:w-12"
             />
-          </Link>
+          </div>
 
           {/* Botón hamburguesa: solo móvil */}
           <button

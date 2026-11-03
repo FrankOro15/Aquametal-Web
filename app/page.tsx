@@ -9,64 +9,49 @@ import {
   Award,
   CheckCircle2,
   Cog,
+  ChevronDown,
   Factory,
   Gauge,
-  Layers3,
   Play,
   Pause,
-  ShieldCheck,
-  Target,
-  TrendingUp,
 } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const capacityCards = [
+const materials = [
   {
-    number: "01",
-    label: "Torneado CNC",
-    description: "Precisión y productividad para componentes metálicos.",
-    tag: "Doble husillo",
+    name: "Acero",
+    image: "/images/acero.jpg",
+    description: "Material ferroso utilizado en una amplia variedad de componentes industriales.",
   },
   {
-    number: "02",
-    label: "Tornos automáticos",
-    description: "Procesos orientados a la fabricación en serie.",
-    tag: "Index / Traub",
+    name: "Aluminio",
+    image: "/images/aluminio.jpg",
+    description: "Material ligero para componentes que requieren reducir su peso.",
   },
   {
-    number: "03",
-    label: "Centros de maquinado",
-    description: "Soluciones de manufactura para distintas geometrías.",
-    tag: "Serie y especial",
+    name: "Bronce",
+    image: "/images/bronce.jpg",
+    description: "Aleación de cobre empleada en componentes de distintas aplicaciones industriales.",
   },
   {
-    number: "04",
-    label: "Producción de alto volumen",
-    description: "Capacidad para responder a requerimientos continuos.",
-    tag: "+5,000 pzas.",
+    name: "Latón",
+    image: "/images/laton.jpg",
+    description: "Aleación de cobre y zinc considerada para piezas y componentes metálicos.",
   },
   {
-    number: "05",
-    label: "Diseño y DFM",
-    description: "Ingeniería orientada a los requerimientos de fabricación.",
-    tag: "Ingeniería",
-  },
-  {
-    number: "06",
-    label: "Inspección de calidad",
-    description: "Atención a especificaciones y requisitos del cliente.",
-    tag: "ISO 9001",
+    name: "Cobre",
+    image: "/images/cobre.jpg",
+    description: "Metal utilizado en componentes de acuerdo con los requisitos de cada proyecto.",
   },
 ];
-
-const materials = ["Acero", "Aluminio", "Bronce", "Latón", "Cobre"];
 
 export default function Home() {
   const [activeBackground, setActiveBackground] = useState<1 | 2 | 3>(1);
   const [isPlaying, setIsPlaying] = useState(true);
   const [manualVideo, setManualVideo] = useState(false);
+  const [activeMaterial, setActiveMaterial] = useState<string | null>(null);
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const hasShownVideo = useRef(false);
@@ -176,7 +161,8 @@ export default function Home() {
               }`}
           >
             <Image
-              src="/images/Fondoprincipal1.jpeg"
+              src="/images/nosotros/nosotros
+              -plantaaa.jpg"
               alt=""
               fill
               sizes="(max-width: 1023px) 100vw, 53vw"
@@ -269,8 +255,8 @@ export default function Home() {
                   aria-label="Mostrar imagen estática"
                   aria-pressed={activeBackground === 1}
                   className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${activeBackground === 1
-                      ? "bg-[#2563FF] text-white"
-                      : "text-slate-300 hover:bg-white/10"
+                    ? "bg-[#2563FF] text-white"
+                    : "text-slate-300 hover:bg-white/10"
                     }`}
                 >
                   1
@@ -282,8 +268,8 @@ export default function Home() {
                   aria-label="Mostrar video de tornos"
                   aria-pressed={activeBackground === 2}
                   className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${activeBackground === 2
-                      ? "bg-[#2563FF] text-white"
-                      : "text-slate-300 hover:bg-white/10"
+                    ? "bg-[#2563FF] text-white"
+                    : "text-slate-300 hover:bg-white/10"
                     }`}
                 >
                   2
@@ -295,8 +281,8 @@ export default function Home() {
                   aria-label="Mostrar imagen de maquinaria CNC"
                   aria-pressed={activeBackground === 3}
                   className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${activeBackground === 3
-                      ? "bg-[#2563FF] text-white"
-                      : "text-slate-300 hover:bg-white/10"
+                    ? "bg-[#2563FF] text-white"
+                    : "text-slate-300 hover:bg-white/10"
                     }`}
                 >
                   3
@@ -363,223 +349,187 @@ export default function Home() {
       </section>
 
 
-      {/* BLOQUE DE IDENTIDAD Y CAPACIDAD PRODUCTIVA */}
       <section className="w-full bg-[#EAF0F8] py-8 sm:py-10 lg:py-12">
-        <div className="mx-auto w-full max-w-[1600px] px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-[1480px] px-4 sm:px-6 lg:px-8">
 
-          {/* CINTA DE IDENTIDAD */}
-          <div className="flex flex-col gap-5 border-b border-slate-300/80 pb-6 md:flex-row md:items-center md:justify-between">
-            <div className="flex items-center gap-3">
-              <span className="h-10 w-1 shrink-0 bg-[#2563FF]" />
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#0F172A] sm:text-sm">
-                  Experiencia que se transforma en capacidad
-                </p>
-                <p className="mt-1 text-sm text-slate-500">
-                  Soluciones para necesidades reales de fabricación.
-                </p>
-              </div>
+          {/* Franja de identidad */}
+          <div className="mb-5 flex flex-col gap-4 border border-[#C5D5EA] bg-[#DCE8F7] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#2563FF]">
+                Experiencia y capacidad industrial
+              </p>
+              <p className="mt-1 text-sm text-slate-600">
+                Fabricación de componentes metálicos para distintos sectores industriales.
+              </p>
             </div>
 
-            <div className="flex flex-wrap gap-x-5 gap-y-3 text-xs font-semibold text-slate-600 sm:gap-x-6">
-              <span className="flex items-center gap-2">
-                <CheckCircle2 size={15} className="shrink-0 text-[#2563FF]" />
-                Producción en serie
-              </span>
-              <span className="flex items-center gap-2">
-                <CheckCircle2 size={15} className="shrink-0 text-[#2563FF]" />
-                Diversos metales
-              </span>
-              <span className="flex items-center gap-2">
-                <CheckCircle2 size={15} className="shrink-0 text-[#2563FF]" />
-                Mejora continua
-              </span>
+            <div className="flex flex-wrap gap-x-5 gap-y-2">
+              {[
+                "Producción en serie",
+                "Trabajo con diversos metales",
+                "Calidad y mejora continua",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-2 text-sm font-medium text-slate-700"
+                >
+                  <CheckCircle2 size={17} className="text-[#2563FF]" />
+                  {item}
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* CAPACIDAD PRODUCTIVA */}
-          <div className="mt-6 grid w-full grid-cols-1 overflow-hidden border-y border-slate-200 bg-white shadow-[0_18px_50px_rgba(15,23,42,0.08)] lg:mt-8 lg:grid-cols-[0.85fr_1.15fr]">
+          {/* Presentación principal */}
+          <div className="overflow-hidden border border-[#C5D5EA] bg-[#F1F5FB] shadow-sm">
+            <div className="grid lg:grid-cols-[0.85fr_1.15fr]">
 
-            {/* PANEL IZQUIERDO */}
-            <div className="relative flex min-w-0 flex-col overflow-hidden bg-[#0F172A] px-6 py-8 text-white sm:px-8 sm:py-10 lg:px-10 lg:py-12">
-              <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full border border-white/10" />
-              <div className="pointer-events-none absolute -right-12 -top-12 h-48 w-48 rounded-full border border-white/10" />
-
-              <div className="relative z-10">
-                <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.22em] text-[#70A7FF]">
-                  <span className="h-1.5 w-1.5 bg-[#70A7FF]" />
-                  Infraestructura y tecnología
+              {/* Texto */}
+              <div className="flex flex-col justify-center px-6 py-8 sm:px-9 lg:px-10 lg:py-10">
+                <span className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#2563FF]">
+                  Infraestructura y experiencia
                 </span>
 
-                <h2 className="mt-5 max-w-lg text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-                  Capacidad productiva
-                  <span className="text-[#70A7FF]"> para responder a tus necesidades.</span>
+                <h2 className="max-w-xl text-3xl font-bold leading-tight text-[#1E293B] sm:text-4xl">
+                  Capacidad productiva respaldada por experiencia y tecnología.
                 </h2>
 
-                <p className="mt-5 max-w-lg text-sm leading-7 text-slate-300 sm:text-base">
-                  Contamos con infraestructura, maquinaria y experiencia para fabricar
-                  componentes metálicos de precisión, adaptándonos a los requerimientos
-                  de cada proyecto.
+                <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
+                  Contamos con instalaciones, maquinaria especializada y
+                  personal con experiencia en la fabricación de componentes
+                  metálicos. Nuestra infraestructura nos permite atender
+                  diferentes procesos y volúmenes de producción, de acuerdo con
+                  las especificaciones de cada cliente.
                 </p>
+
+                <div className="mt-7 flex items-center gap-3 border-t border-[#D5E0EF] pt-5">
+                  <CheckCircle2
+                    size={21}
+                    className="shrink-0 text-[#2563FF]"
+                  />
+                  <p className="text-sm font-semibold text-slate-700">
+                    Compromiso con la calidad en cada proceso de fabricación.
+                  </p>
+                </div>
               </div>
 
-              {/* IMAGEN PRINCIPAL */}
-              <div className="relative mt-8 min-h-[230px] flex-1 overflow-hidden border border-white/10 sm:min-h-[280px] lg:min-h-[320px]">
+              {/* Imagen principal */}
+              <div className="relative h-[240px] sm:h-[320px] lg:h-[390px] xl:h-[430px]">
                 <img
                   src="/images/inicio_capacidades.jpg"
                   alt="Infraestructura y capacidad productiva de Aquametal"
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="h-full w-full object-cover"
                 />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#0F172A]/80 to-transparent p-5 sm:p-6">
-                  <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#93B9FF]">
+
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/70 via-transparent to-transparent" />
+
+                <div className="absolute bottom-0 left-0 p-5 sm:p-7">
+                  <p className="text-lg font-bold text-white sm:text-xl">
                     Precisión industrial
                   </p>
-                  <p className="mt-1 text-lg font-semibold text-white sm:text-xl">
+                  <p className="mt-1 text-sm text-slate-200">
                     Tecnología y experiencia en cada pieza
                   </p>
                 </div>
               </div>
-
-              <div className="relative z-10 mt-6 flex items-center gap-3 border-t border-white/15 pt-5">
-                <CheckCircle2 size={19} className="shrink-0 text-[#70A7FF]" />
-                <p className="text-xs leading-5 text-slate-300 sm:text-sm">
-                  Compromiso con la calidad y la mejora continua.
-                </p>
-              </div>
             </div>
 
-            {/* PANEL DERECHO */}
-            <div className="min-w-0 bg-[#F5F8FD] p-5 sm:p-8 lg:p-10 xl:p-12">
-              <div className="mb-7">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#2563FF]">
+            {/* Separador */}
+            <div className="h-px bg-[#C5D5EA]" />
+
+            {/* Capacidades */}
+            <div className="bg-[#E7EBF0] px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
+
+              {/* Encabezado */}
+              <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
+                <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#2563EB]">
                   Nuestra infraestructura
-                </p>
-                <h3 className="mt-2 text-2xl font-bold tracking-tight text-[#0F172A] sm:text-3xl">
+                </span>
+
+                <h3 className="mt-3 text-3xl font-bold leading-tight text-[#1E293B] sm:text-4xl">
                   Una capacidad que marca la diferencia
                 </h3>
-                <p className="mt-3 max-w-xl text-sm leading-6 text-slate-500">
-                  Recursos y experiencia para respaldar las necesidades de producción
-                  de nuestros clientes.
+
+                <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#475569] sm:text-base">
+                  Recursos, tecnología y experiencia para respaldar las necesidades
+                  de producción de nuestros clientes.
                 </p>
+
+                <div className="mx-auto mt-5 h-1 w-16 rounded-full bg-[#2563EB]" />
               </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6 lg:gap-5">
+              {/* Elementos de capacidad */}
+              <div className="grid grid-cols-2 gap-x-6 gap-y-12 sm:gap-x-10 sm:gap-y-14 lg:grid-cols-6">
 
-                {/* TARJETA 1 */}
-                <article className="flex min-w-0 flex-col border border-slate-200 bg-white transition-colors duration-300 hover:border-[#2563FF]/50 lg:col-span-2">
-                  <div className="flex h-60 items-center justify-center bg-white p-2 sm:h-56 lg:h-60">
-                    <img
-                      src="/images/inicio_l1.png"
-                      alt="Producción en dos turnos"
-                      className="h-full w-full object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col border-t border-slate-100 p-5">
-                    <p className="text-2xl font-bold tracking-tight text-[#2563FF]">
-                      Dos turnos
-                    </p>
-                    <h4 className="mt-2 text-sm font-bold text-[#0F172A]">
-                      Producción continua
-                    </h4>
-                    <p className="mt-2 text-xs leading-5 text-slate-500">
-                      Organización operativa para responder a los requerimientos de fabricación.
-                    </p>
-                  </div>
-                </article>
+                {[
+                  {
+                    image: "/images/inicio_l1.png",
+                    value: "Dos turnos",
+                    title: "Producción continua",
+                    description:
+                      "Organización operativa para responder a los requerimientos de fabricación.",
+                  },
+                  {
+                    image: "/images/inicio_l2.png",
+                    value: "1,000 m²",
+                    title: "Superficie de planta",
+                    description:
+                      "Espacio destinado a las operaciones y los procesos de fabricación.",
+                  },
+                  {
+                    image: "/images/inicio_l3.png",
+                    value: "+30",
+                    title: "Máquinas",
+                    description:
+                      "Equipamiento para atender diferentes necesidades de mecanizado.",
+                  },
+                  {
+                    image: "/images/inicio_l4.png",
+                    value: "+100",
+                    title: "Clientes atendidos",
+                    description:
+                      "Soluciones de fabricación enfocadas en las necesidades de cada cliente.",
+                  },
+                  {
+                    image: "/images/inicio_l5.png",
+                    value: "Exportación",
+                    title: "Capacidad internacional",
+                    description:
+                      "Capacidad para atender proyectos con requerimientos de exportación.",
+                  },
+                ].map((item, index) => (
+                  <div
+                    key={item.title}
+                    className={`group col-span-1 flex flex-col items-center text-center ${index === 3
+                      ? "lg:col-span-2 lg:col-start-2"
+                      : "lg:col-span-2"
+                      }`}
+                  >
+                    {/* Imagen */}
+                    <div className="mb-5 flex h-44 w-full items-center justify-center sm:h-52 lg:h-56 xl:h-60">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="h-full w-full max-w-[250px] object-contain transition-transform duration-500 ease-out group-hover:scale-110"
+                      />
+                    </div>
 
-                {/* TARJETA 2 */}
-                <article className="flex min-w-0 flex-col border border-slate-200 bg-white transition-colors duration-300 hover:border-[#2563FF]/50 lg:col-span-2">
-                   <div className="flex h-60 items-center justify-center bg-white p-2 sm:h-56 lg:h-60">
-                    <img
-                      src="/images/inicio_l2.png"
-                      alt="Superficie de la planta industrial"
-                      className="h-full w-full object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col border-t border-slate-100 p-5">
-                    <p className="text-2xl font-bold tracking-tight text-[#2563FF]">
-                      1,000 m²
-                    </p>
-                    <h4 className="mt-2 text-sm font-bold text-[#0F172A]">
-                      Superficie de planta
-                    </h4>
-                    <p className="mt-2 text-xs leading-5 text-slate-500">
-                      Espacio destinado a las operaciones y los procesos de fabricación.
-                    </p>
-                  </div>
-                </article>
+                    {/* Información */}
+                    <div className="mx-auto max-w-sm">
+                      <p className="text-2xl font-bold text-[#2563EB] transition-colors duration-300 group-hover:text-[#1D4ED8] sm:text-3xl">
+                        {item.value}
+                      </p>
 
-                {/* TARJETA 3 */}
-                <article className="flex min-w-0 flex-col border border-slate-200 bg-white transition-colors duration-300 hover:border-[#2563FF]/50 lg:col-span-2">
-                   <div className="flex h-60 items-center justify-center bg-white p-2 sm:h-56 lg:h-60">
-                    <img
-                      src="/images/inicio_l3.png"
-                      alt="Maquinaria para fabricación de piezas metálicas"
-                      className="h-full w-full object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col border-t border-slate-100 p-5">
-                    <p className="text-2xl font-bold tracking-tight text-[#2563FF]">
-                      +30
-                    </p>
-                    <h4 className="mt-2 text-sm font-bold text-[#0F172A]">
-                      Máquinas
-                    </h4>
-                    <p className="mt-2 text-xs leading-5 text-slate-500">
-                      Equipamiento para atender diferentes necesidades de mecanizado.
-                    </p>
-                  </div>
-                </article>
+                      <h4 className="mt-2 text-lg font-bold text-[#1E293B]">
+                        {item.title}
+                      </h4>
 
-                {/* TARJETA 4 */}
-                <article className="flex min-w-0 flex-col border border-slate-200 bg-white transition-colors duration-300 hover:border-[#2563FF]/50 lg:col-span-2 lg:col-start-2">
-                   <div className="flex h-60 items-center justify-center bg-white p-2 sm:h-56 lg:h-60">
-                    <img
-                      src="/images/inicio_l4.png"
-                      alt="Piezas metálicas de precisión para clientes"
-                      className="h-full w-full object-contain"
-                      loading="lazy"
-                    />
+                      <p className="mt-3 text-sm leading-6 text-[#475569] sm:text-base">
+                        {item.description}
+                      </p>
+                    </div>
                   </div>
-          
-                  <div className="flex flex-1 flex-col border-t border-slate-100 p-5">
-                    <p className="text-2xl font-bold tracking-tight text-[#2563FF]">
-                      +100
-                    </p>
-                    <h4 className="mt-2 text-sm font-bold text-[#0F172A]">
-                      Clientes atendidos
-                    </h4>
-                    <p className="mt-2 text-xs leading-5 text-slate-500">
-                      Soluciones de fabricación enfocadas en las necesidades de cada cliente.
-                    </p>
-                  </div>
-                </article>
-
-                {/* TARJETA 5 */}
-                <article className="flex min-w-0 flex-col border border-slate-200 bg-white transition-colors duration-300 hover:border-[#2563FF]/50 lg:col-span-2">
-                  <div className="flex h-60 items-center justify-center bg-white p-2 sm:h-56 lg:h-60">
-                    <img
-                      src="/images/inicio_l5.png"
-                      alt="Capacidad de exportación internacional"
-                      className="h-full w-full object-contain"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col border-t border-slate-100 p-5">
-                    <p className="text-2xl font-bold tracking-tight text-[#2563FF]">
-                      Exportación
-                    </p>
-                    <h4 className="mt-2 text-sm font-bold text-[#0F172A]">
-                      Capacidad internacional
-                    </h4>
-                    <p className="mt-2 text-xs leading-5 text-slate-500">
-                      Capacidad para atender proyectos con requerimientos de exportación.
-                    </p>
-                  </div>
-                </article>
+                ))}
 
               </div>
             </div>
@@ -587,232 +537,305 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PROCESOS DE MANUFACTURA */}
-      <section className="bg-[#F3F5F9] px-6 py-20 md:px-10 md:py-28 lg:px-12">
-        <div className="mx-auto max-w-7xl">
-          <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-16">
-            <div>
-              <div className="mb-5 flex items-center gap-3">
-                <span className="h-[2px] w-10 bg-[#2563FF]" />
-                <span className="text-xs font-bold uppercase tracking-[0.24em] text-[#2563FF]">
-                  Procesos de manufactura
-                </span>
-              </div>
-
-              <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#0F172A] sm:text-4xl lg:text-5xl">
-                Tecnología y experiencia en cada componente.
-              </h2>
-            </div>
-
-            <p className="max-w-2xl leading-8 text-slate-600">
-              Trabajamos con diferentes configuraciones de maquinaria para
-              fabricar piezas de acuerdo con las características y
-              especificaciones de cada proyecto.
-            </p>
-          </div>
-
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            <article className="group relative min-h-[430px] overflow-hidden bg-[#0F172A]">
-              <Image
-                src="/images/CNC.jpg"
-                alt="Proceso de torneado CNC en Aqua-Metal"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover transition duration-700 group-hover:scale-105"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-[#080F1E] via-[#080F1E]/60 to-[#080F1E]/10" />
-              <div className="absolute left-0 top-0 h-1 w-24 bg-[#2563FF] transition-all duration-300 group-hover:w-40" />
-
-              <div className="relative flex min-h-[430px] flex-col justify-end p-7 sm:p-9">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center border border-white/25 bg-white/10 text-blue-300 backdrop-blur-sm">
-                  <Gauge size={25} />
-                </div>
-
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-                  Precisión y rendimiento
-                </span>
-
-                <h3 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
-                  Torneado CNC
-                </h3>
-
-                <p className="mt-4 max-w-lg text-sm leading-7 text-slate-200">
-                  Procesos de torneado de alta velocidad y doble husillo para
-                  componentes metálicos que requieren atender geometrías y
-                  especificaciones de fabricación.
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-3 border-t border-white/20 pt-5">
-                  <span className="border border-white/20 bg-white/[0.06] px-3 py-2 text-xs font-semibold text-white">
-                    Rango: 1–60 mm
-                  </span>
-                  <span className="border border-white/20 bg-white/[0.06] px-3 py-2 text-xs font-semibold text-white">
-                    Producción en serie
-                  </span>
-                </div>
-              </div>
-            </article>
-
-            <article className="group relative min-h-[430px] overflow-hidden bg-[#0F172A]">
-              <Image
-                src="/images/Fondoprincipal1.jpeg"
-                alt="Tornos automáticos en el área de producción"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover transition duration-700 group-hover:scale-105"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-[#080F1E] via-[#080F1E]/60 to-[#080F1E]/10" />
-              <div className="absolute left-0 top-0 h-1 w-24 bg-[#2563FF] transition-all duration-300 group-hover:w-40" />
-
-              <div className="relative flex min-h-[430px] flex-col justify-end p-7 sm:p-9">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center border border-white/25 bg-white/10 text-blue-300 backdrop-blur-sm">
-                  <Cog size={25} />
-                </div>
-
-                <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-300">
-                  Productividad industrial
-                </span>
-
-                <h3 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
-                  Tornos automáticos
-                </h3>
-
-                <p className="mt-4 max-w-lg text-sm leading-7 text-slate-200">
-                  Fabricación de componentes mediante equipos automáticos y
-                  procesos orientados a responder a necesidades de volumen,
-                  repetibilidad y continuidad productiva.
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-3 border-t border-white/20 pt-5">
-                  <span className="border border-white/20 bg-white/[0.06] px-3 py-2 text-xs font-semibold text-white">
-                    Index / Traub
-                  </span>
-                  <span className="border border-white/20 bg-white/[0.06] px-3 py-2 text-xs font-semibold text-white">
-                    Alto volumen
-                  </span>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <div className="mt-8 flex flex-col justify-between gap-5 border-l-2 border-[#2563FF] bg-white px-6 py-6 sm:flex-row sm:items-center sm:px-8">
-            <div>
-              <h3 className="font-bold text-[#0F172A]">
-                ¿Buscas un proceso para tu proyecto?
-              </h3>
-              <p className="mt-1 text-sm leading-6 text-slate-500">
-                Conoce nuestras capacidades y revisa las opciones de
-                manufactura disponibles.
-              </p>
-            </div>
-
-            <Link
-              href="/servicios"
-              className="group inline-flex shrink-0 items-center gap-2 text-sm font-bold text-[#2563FF] transition hover:text-blue-700"
-            >
-              Ver servicios
-              <ArrowRight
-                size={17}
-                className="transition-transform group-hover:translate-x-1"
-              />
-            </Link>
-          </div>
-        </div>
-      </section>
-
+      {/* ===== INICIO BLOQUE MATERIALES ===== */}
       {/* MATERIALES */}
-      <section className="bg-white px-6 py-16 md:px-10 md:py-20 lg:px-12">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
-          <div>
-            <div className="mb-5 flex items-center gap-3">
-              <span className="h-[2px] w-10 bg-[#2563FF]" />
-              <span className="text-xs font-bold uppercase tracking-[0.24em] text-[#2563FF]">
+      <section className="bg-[#0F172A] px-6 py-16 md:px-10 md:py-20 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+
+          {/* Encabezado */}
+          <div className="mb-10 mx-auto max-w-2xl text-center">
+            <div className="mb-5 flex items-center justify-center gap-3">
+              <span className="h-[2px] w-10 bg-[#70A7FF]" />
+              <span className="text-xs font-bold uppercase tracking-[0.24em] text-[#70A7FF]">
                 Materiales
               </span>
             </div>
 
-            <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#0F172A] sm:text-4xl">
-              Distintos metales. Requerimientos específicos.
+            <h2 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
+              Distintos metales.
+              <span className="block text-[#70A7FF]">
+                Requerimientos específicos.
+              </span>
             </h2>
 
-            <p className="mt-5 max-w-xl leading-8 text-slate-600">
+            <p className="mx-auto mt-5 max-w-xl leading-8 text-slate-300">
               Trabajamos con materiales ferrosos y no ferrosos de acuerdo con
-              las necesidades de cada proyecto y sus especificaciones de
-              fabricación.
+              las necesidades de cada proyecto y sus especificaciones de fabricación.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            {materials.map((material, index) => (
-              <div
-                key={material}
-                className={`flex min-h-24 items-center gap-3 border p-4 transition-colors hover:border-[#2563FF] ${index === 0
-                    ? "border-[#2563FF] bg-blue-50"
-                    : "border-slate-200 bg-white"
-                  }`}
-              >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center bg-[#0F172A] text-xs font-bold text-white">
-                  0{index + 1}
-                </span>
-                <span className="text-sm font-bold text-[#0F172A]">
-                  {material}
-                </span>
-              </div>
-            ))}
+          {/* Cuadrícula de materiales */}
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
+
+            {materials.map((material, index) => {
+              const isActive = activeMaterial === material.name;
+
+              return (
+                <button
+                  key={material.name}
+                  type="button"
+                  onClick={() =>
+                    setActiveMaterial(isActive ? null : material.name)
+                  }
+                  aria-expanded={isActive}
+                  className={`group relative min-h-[250px] overflow-hidden border text-left transition-all duration-300 sm:min-h-[270px] lg:col-span-2 ${index === 3 ? "lg:col-start-2" : ""
+                    } ${index === 4 ? "lg:col-start-4" : ""} ${isActive
+                    ? "border-[#70A7FF]"
+                    : "border-white/10 hover:border-white/40"
+                    }`}
+                >
+                  {/* Imagen de fondo */}
+                  <div
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                    style={{
+                      backgroundImage: `url(${material.image})`,
+                    }}
+                  />
+
+                  {/* Oscurecimiento */}
+                  <div
+                    className={`absolute inset-0 transition-all duration-300 ${isActive
+                      ? "bg-gradient-to-t from-[#0F172A]/90 via-[#0F172A]/40 to-[#0F172A]/20"
+                      : "bg-gradient-to-t from-[#0F172A]/85 via-[#0F172A]/50 to-[#0F172A]/30 group-hover:from-[#0F172A]/75"
+                      }`}
+                  />
+
+                  {/* Contenido */}
+                  <div className="relative z-10 flex min-h-[250px] flex-col justify-between p-5 sm:min-h-[270px] md:p-6">
+
+                    {/* Parte superior */}
+                    <div className="flex items-center justify-end">
+                      <span
+                        className={`flex h-9 w-9 items-center justify-center border border-white/40 text-white transition-all duration-300 ${isActive
+                          ? "rotate-180 border-[#2563FF] bg-[#2563FF]"
+                          : "group-hover:border-[#70A7FF] group-hover:bg-[#2563FF]"
+                          }`}
+                      >
+                        <ChevronDown size={18} />
+                      </span>
+                    </div>
+
+                    {/* Parte inferior */}
+                    <div>
+                      <h3 className="text-2xl font-bold text-white md:text-3xl">
+                        {material.name}
+                      </h3>
+
+                      {/* Descripción desplegable */}
+                      <div
+                        className={`grid transition-all duration-300 ${isActive
+                          ? "mt-4 grid-rows-[1fr] opacity-100"
+                          : "grid-rows-[0fr] opacity-0"
+                          }`}
+                      >
+                        <div className="overflow-hidden">
+                          <p className="max-w-md border-t border-white/30 pt-4 text-sm leading-7 text-slate-200">
+                            {material.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Indicador */}
+                      {!isActive && (
+                        <p className="mt-2 text-xs font-medium uppercase tracking-wider text-slate-300">
+                          Ver material
+                        </p>
+                      )}
+                    </div>
+
+                  </div>
+                </button>
+              );
+            })}
+
           </div>
         </div>
       </section>
+      {/* ===== FIN BLOQUE MATERIALES ===== */}
+
+      {/* SERVICIOS */}
+      <section className="bg-[#F3F5F9] pt-20 pb-8">
+        <div className="mx-auto max-w-7xl px-6">
+
+          {/* Encabezado */}
+          <div className="mb-12">
+            <span className="mb-3 block text-sm font-semibold uppercase tracking-[0.2em] text-[#2563EB]">
+              Lo que hacemos
+            </span>
+
+            <h2 className="text-3xl font-bold tracking-tight text-[#0F172A] md:text-4xl">
+              Servicios
+            </h2>
+
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
+              Soluciones de manufactura y soporte técnico para atender las
+              necesidades de cada proyecto.
+            </p>
+          </div>
+
+          {/* Servicios */}
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+
+            {/* Diseño */}
+            <div className="group">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src="/images/diseño.jpeg"
+                  alt="Diseño de piezas y soluciones de manufactura"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover saturate-[1.2] grayscale-[8%] sepia-[8%] transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+
+              <div className="mt-5 border-t-2 border-[#2563EB] pt-4">
+                <h3 className="text-xl font-bold text-[#0F172A]">
+                  Diseño
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  Soluciones personalizadas para cada proyecto.
+                </p>
+              </div>
+            </div>
+
+            {/* Fabricación */}
+            <div className="group">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src="/images/fabricacion.jpg"
+                  alt="Fabricación de componentes industriales"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover saturate-[1.2] grayscale-[8%] sepia-[8%] transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+
+              <div className="mt-5 border-t-2 border-[#2563EB] pt-4">
+                <h3 className="text-xl font-bold text-[#0F172A]">
+                  Fabricación
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  Manufactura de componentes con máxima precisión.
+                </p>
+              </div>
+            </div>
+
+            {/* Maquila de piezas */}
+            <div className="group">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src="/images/maquila.jpg"
+                  alt="Maquila de piezas mediante procesos especializados"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover saturate-[1.2] grayscale-[8%] sepia-[8%] transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+
+              <div className="mt-5 border-t-2 border-[#2563EB] pt-4">
+                <h3 className="text-xl font-bold text-[#0F172A]">
+                  Maquila de piezas
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  Procesos especializados de maquinado.
+                </p>
+              </div>
+            </div>
+
+            {/* Asistencia técnica */}
+            <div className="group">
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src="/images/asistencia.jpg"
+                  alt="Asistencia técnica en procesos de manufactura"
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  className="object-cover saturate-[1.2] grayscale-[8%] sepia-[8%] transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+
+              <div className="mt-5 border-t-2 border-[#2563EB] pt-4">
+                <h3 className="text-xl font-bold text-[#0F172A]">
+                  Asistencia técnica
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  Soporte integral durante el proceso productivo.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+      {/* ===== FIN BLOQUE SERVICIOS ===== */}
+
 
       {/* LLAMADO A LA ACCIÓN */}
-      <section className="bg-[#F3F5F9] px-6 py-16 md:px-10 md:py-24 lg:px-12">
-        <div className="relative mx-auto max-w-7xl overflow-hidden bg-[#0F172A] px-7 py-12 text-white sm:px-12 sm:py-16 lg:px-16 lg:py-20">
-          <div className="absolute inset-y-0 right-0 w-2/3 bg-gradient-to-l from-[#2563FF]/20 to-transparent" />
+      <section className="bg-[#F3F5F9] px-6 pt-8 pb-16 md:px-10 md:pt-12 md:pb-24 lg:px-12">
+  <div className="mx-auto grid max-w-7xl overflow-hidden bg-[#0F172A] text-white lg:grid-cols-[1.15fr_0.85fr]">
 
-          <div className="absolute -right-8 -top-8 hidden text-white/[0.05] sm:block">
-            <Factory size={250} strokeWidth={0.7} />
-          </div>
+    {/* Contenido */}
+    <div className="relative flex flex-col justify-center px-7 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20">
+      <div className="absolute -right-10 -top-10 text-white/[0.04]">
+        <Factory size={220} strokeWidth={0.7} />
+      </div>
 
-          <div className="relative max-w-3xl">
-            <div className="mb-5 flex items-center gap-3">
-              <span className="h-[2px] w-10 bg-[#2563FF]" />
-              <span className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">
-                Hablemos de tu proyecto
-              </span>
-            </div>
-
-            <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-              Busquemos la solución de fabricación que necesitas.
-            </h2>
-
-            <p className="mt-6 max-w-2xl leading-8 text-slate-300">
-              Conoce las capacidades de Aqua-Metal y conversemos sobre los
-              requerimientos de fabricación de tu próximo proyecto industrial.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/contacto"
-                className="group inline-flex min-h-14 items-center justify-center gap-3 bg-[#2563FF] px-7 py-4 text-sm font-bold text-white transition hover:bg-blue-500"
-              >
-                Contactar a AquaMetal
-                <ArrowRight
-                  size={18}
-                  className="transition-transform group-hover:translate-x-1"
-                />
-              </Link>
-
-              <Link
-                href="/servicios"
-                className="inline-flex min-h-14 items-center justify-center border border-white/25 px-7 py-4 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
-              >
-                Explorar servicios
-              </Link>
-            </div>
-          </div>
+      <div className="relative z-10">
+        <div className="mb-5 flex items-center gap-3">
+          <span className="h-[2px] w-10 bg-[#2563FF]" />
+          <span className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">
+            Hablemos de tu proyecto
+          </span>
         </div>
-      </section>
+
+        <h2 className="max-w-2xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+          ¿Buscas un proveedor para la fabricación de tus componentes?
+        </h2>
+
+        <p className="mt-6 max-w-xl leading-8 text-slate-300">
+          Conoce nuestros procesos de manufactura y compártenos los
+          requerimientos de tu proyecto. Estamos listos para conocer tus
+          necesidades de producción y trabajar contigo.
+        </p>
+
+        <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+          <Link
+            href="/contacto"
+            className="group inline-flex min-h-14 items-center justify-center gap-3 bg-[#2563FF] px-7 py-4 text-sm font-bold text-white transition hover:bg-blue-500"
+          >
+            Contactar a Aquametal
+            <ArrowRight
+              size={18}
+              className="transition-transform group-hover:translate-x-1"
+            />
+          </Link>
+
+          <Link
+            href="/servicios"
+            className="inline-flex min-h-14 items-center justify-center border border-white/25 px-7 py-4 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+          >
+            Explorar servicios
+          </Link>
+        </div>
+      </div>
+    </div>
+
+    {/* Imagen */}
+    <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
+      <Image
+        src="/images/cta.jpg"
+        alt="Maquinaria CNC durante un proceso de fabricación"
+        fill
+        sizes="(max-width: 1024px) 100vw, 42vw"
+        className="object-cover"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/30 to-transparent lg:bg-gradient-to-r lg:from-[#0F172A]/20 lg:to-transparent" />
+    </div>
+
+  </div>
+</section>
 
       <Footer />
     </main>
