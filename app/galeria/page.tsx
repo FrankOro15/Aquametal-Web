@@ -43,7 +43,7 @@ export default function GalleryPage() {
             EVIDENCIA VISUAL
           </span>
           <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
-            Galería de Manufactura CNC
+            Galería de Maquinado
           </h1>
           <p className="mt-4 text-slate-400 text-sm sm:text-base max-w-2xl mx-auto font-normal">
             Nuestra calidad habla a través de nuestros resultados.
@@ -51,7 +51,7 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* Grid de Puras Imágenes sin descripciones extrañas */}
+      {/* Grid de Puras Imágenes */}
       <div className="max-w-6xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {curatedImages.map((item) => {
@@ -70,7 +70,7 @@ export default function GalleryPage() {
                   className="object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500 rounded-none"
                 />
                 
-                {/* Overlay limpio solo con botón de Ampliar */}
+                {/* Overlay */}
                 <div className="absolute inset-0 bg-slate-950/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-blue-600 text-white text-xs font-mono font-bold px-4 py-2 flex items-center gap-2 rounded-none shadow-md">
                     <Eye className="w-4 h-4" /> Ampliar Imagen
