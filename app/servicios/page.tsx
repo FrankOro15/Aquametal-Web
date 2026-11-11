@@ -5,16 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowUpRight,
-  ArrowRight,
-  Factory,
-  Globe2,
-  Handshake,
-  Layers3,
-  ShieldCheck,
-  Target,
-  TrendingUp,
-  Cog,
-  Wrench,
+  Plus,
+  Minus,
 } from "lucide-react";
 
 import { useState } from "react";
@@ -87,12 +79,11 @@ export default function Servicios() {
       <Navbar />
 
       {/* HERO SECUNDARIO */}
-      <section className="relative overflow-hidden bg-[#0F172A] px-6 py-20 text-white md:px-10 md:py-24">
+      <section className="relative overflow-hidden bg-[#0F172A] px-5 py-20 text-white md:px-10 md:py-24">
 
         {/* FONDO */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A] via-[#0F172A] to-[#14264A]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0F172A] via-[#101D35] to-[#14264A]" />
 
-        {/* CONTENEDOR PRINCIPAL */}
         <div className="relative z-10 mx-auto max-w-7xl">
 
           {/* ENCABEZADO */}
@@ -127,7 +118,7 @@ export default function Servicios() {
           <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
             {servicios.map((servicio, index) => {
-              const activo = servicioActivo === index + 1;
+              const activo = servicioActivo === index;
 
               return (
                 <article
@@ -135,14 +126,15 @@ export default function Servicios() {
                   className="group min-w-0"
                 >
 
-                  {/* IMAGEN Y CONTENIDO */}
+                  {/* TARJETA CON IMAGEN */}
                   <button
                     type="button"
                     onClick={() =>
-                      setServicioActivo(activo ? null : index + 1)
+                      setServicioActivo(activo ? null : index)
                     }
                     aria-expanded={activo}
-                    className="relative block h-[260px] w-full cursor-pointer overflow-hidden bg-[#0F172A] text-left md:h-[310px]"
+                    aria-controls={`servicio-${servicio.numero}`}
+                    className="relative block h-[280px] w-full cursor-pointer overflow-hidden bg-[#0F172A] text-left md:h-[320px]"
                   >
 
                     <Image
@@ -150,22 +142,16 @@ export default function Servicios() {
                       alt={servicio.alt}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                      className={`object-cover transition-transform duration-700 ${activo
-                          ? "scale-105"
-                          : "group-hover:scale-105"
-                        }`}
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
 
                     {/* DEGRADADO */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/30 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/35 to-transparent" />
 
-                    {/* NÚMERO */}
-                    <span className="absolute right-5 top-5 text-sm font-bold tracking-widest text-white/70">
-                      {servicio.numero}
-                    </span>
-
-                    {/* INFORMACIÓN */}
+                    {/* CONTENIDO */}
                     <div className="absolute inset-x-0 bottom-0 p-6">
+
+                      <span className="mb-3 block h-[2px] w-9 bg-[#4D91FF] transition-all duration-300 group-hover:w-14" />
 
                       <h2 className="text-xl font-bold text-white md:text-2xl">
                         {servicio.titulo}
@@ -176,33 +162,40 @@ export default function Servicios() {
                       </p>
 
                       {/* INDICADOR */}
-                      <div className="mt-4 flex items-center gap-2 text-xs font-semibold text-blue-200">
-                        {activo ? "Cerrar información" : "Conocer servicio"}
+                      <div className="mt-4 flex items-center justify-between border-t border-white/20 pt-4">
 
-                        <ArrowUpRight
-                          size={15}
-                          className={`transition-transform duration-300 ${activo
-                              ? "rotate-90"
-                              : "group-hover:translate-x-1 group-hover:-translate-y-1"
-                            }`}
-                        />
+                        <span className="text-xs font-semibold uppercase tracking-wider text-blue-200">
+                          {activo ? "Ver menos" : "Conocer servicio"}
+                        </span>
+
+                        <span className="flex h-8 w-8 items-center justify-center border border-white/40 text-white transition-colors group-hover:border-[#2563FF] group-hover:bg-[#2563FF]">
+                          {activo ? (
+                            <Minus size={16} />
+                          ) : (
+                            <Plus size={16} />
+                          )}
+                        </span>
+
                       </div>
 
                     </div>
 
                   </button>
 
-                  {/* DESCRIPCIÓN DESPLEGABLE */}
+                  {/* TARJETA BLANCA DESPLEGABLE */}
                   <div
-                    className={`grid transition-all duration-500 ease-in-out ${activo
+                    id={`servicio-${servicio.numero}`}
+                    className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${
+                      activo
                         ? "grid-rows-[1fr] opacity-100"
                         : "grid-rows-[0fr] opacity-0"
-                      }`}
+                    }`}
+                    aria-hidden={!activo}
                   >
 
                     <div className="overflow-hidden">
 
-                      <div className="border-x border-b border-slate-200 bg-white p-5">
+                      <div className="border-x border-b border-slate-200 bg-white p-6 shadow-sm">
 
                         <p className="text-sm leading-7 text-slate-600">
                           {servicio.descripcion}
@@ -211,6 +204,7 @@ export default function Servicios() {
                         {/* ENLACE A CONTACTO */}
                         <Link
                           href="/contacto"
+                          tabIndex={activo ? 0 : -1}
                           className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-800"
                         >
                           Consultar servicio
@@ -234,55 +228,6 @@ export default function Servicios() {
 
       {/* SECCIÓN DE MAQUINARIA */}
       <Maquinaria />
-
-      {/* CIERRE: INVITACIÓN A CONTACTAR */}
-      <section className="px-6 py-16 md:px-10 md:py-20">
-        <div className="relative isolate mx-auto max-w-7xl overflow-hidden bg-[#0F172A]">
-
-          {/* IMAGEN DE FONDO */}
-          <div className="absolute inset-0 -z-20">
-            <Image
-              src="/images/serviciosfondo.jpeg"
-              alt="Capacidad de manufactura de Aquametal"
-              fill
-              sizes="100vw"
-              className="object-cover"
-            />
-          </div>
-
-          {/* CAPA OSCURA */}
-          <div className="absolute inset-0 -z-20 bg-[#0F172A]/85" />
-
-          {/* DETALLES */}
-          <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-blue-600/15 to-transparent" />
-
-          <div className="relative z-10 px-7 py-16 text-center md:px-16 md:py-24">
-
-            <span className="text-xs font-bold uppercase tracking-[0.3em] text-blue-300">
-              Estamos listos para ayudarte
-            </span>
-
-            <h2 className="mx-auto mt-6 max-w-3xl text-3xl font-bold leading-tight text-white md:text-5xl">
-              Hagamos realidad tu próximo proyecto.
-            </h2>
-
-            <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-slate-300 md:text-base">
-              Cuéntanos qué necesitas fabricar. Nuestro equipo está preparado
-              para ofrecerte soluciones de manufactura y maquinado de precisión
-              adaptadas a los requerimientos de tu empresa.
-            </p>
-
-            <Link
-              href="/contacto"
-              className="mt-9 inline-flex items-center gap-3 bg-[#2563EB] px-9 py-4 text-sm font-bold text-white transition-all duration-300 hover:bg-blue-700"
-            >
-              Solicitar información
-              <ArrowUpRight size={18} />
-            </Link>
-
-          </div>
-        </div>
-      </section>
 
       {/* FOOTER */}
       <Footer />
