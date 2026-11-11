@@ -75,7 +75,7 @@ export default function Servicios() {
   const [servicioActivo, setServicioActivo] = useState<number | null>(null);
 
   return (
-    <main className="min-h-screen bg-slate-50 font-sans text-slate-800 pt-44 sm:pt-10 md:pt-19">
+    <main className="min-h-screen bg-slate-50 font-sans text-slate-800 pt-28 sm:pt-10 md:pt-19">
       <Navbar />
 
       {/* HERO SECUNDARIO */}

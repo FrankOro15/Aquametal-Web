@@ -28,7 +28,6 @@ const maquinas = [
     capacidad: "12 mm",
     cantidad: 3,
   },
-
   {
     nombre: "TRAUB A25",
     modelo: "Torno automático de levas",
@@ -62,7 +61,7 @@ const maquinas = [
     capacidad: "4 mm",
     cantidad: 2,
   },
-   {
+  {
     nombre: "FADAL",
     modelo: "Centro de maquinado CNC de 40 x 20 pulgadas",
     categoria: "Maquinado CNC",
@@ -128,7 +127,6 @@ const maquinas = [
     capacidad: "25 mm",
     cantidad: 1,
   },
-
   {
     nombre: "HUARUI",
     modelo: "Roscadora automática",
@@ -250,7 +248,7 @@ export default function Maquinaria() {
       const posicion =
         elemento.getBoundingClientRect().top +
         window.scrollY -
-        210;
+        160;
 
       window.scrollTo({
         top: posicion,
@@ -259,16 +257,6 @@ export default function Maquinaria() {
     }, 250);
 
     return () => clearTimeout(timeout);
-  }, [seleccionada]);
-
-  // DETENER VIDEO AL CAMBIAR DE MÁQUINA
-  useEffect(() => {
-    setVideoActivo(false);
-
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
   }, [seleccionada]);
 
   // LIMPIAR TEMPORIZADORES
@@ -281,62 +269,91 @@ export default function Maquinaria() {
   }, []);
 
   return (
-    <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
+    <section className="bg-white px-5 pt-16 sm:px-8 sm:pt-20 lg:px-12">
       <div className="mx-auto max-w-7xl">
 
         {/* ENCABEZADO */}
-        <div className="mb-12 text-center">
-          <span className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600">
-            Nuestra infraestructura
-          </span>
+        <div className="relative mx-auto mb-12 max-w-4xl px-6 py-5 text-center">
+          <span
+            aria-hidden="true"
+            className="absolute left-0 top-0 h-8 w-8 border-l-2 border-t-2 border-[#2563FF]"
+          />
+          <div className="mb-3">
+            <span className="text-xs font-extrabold uppercase tracking-[0.24em] text-[#2563FF] sm:text-sm">
+              Nuestra infraestructura
+            </span>
+          </div>
 
-          <h2 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl">
+          <h2 className="text-4xl font-black tracking-tight text-[#0F172A] sm:text-5xl lg:text-6xl">
             Maquinaria y tecnología
           </h2>
 
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
+          <div aria-hidden="true" className="mx-auto mt-4 h-1 w-16 bg-[#2563FF]" />
+
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
             Contamos con equipos especializados para la fabricación de
             componentes metálicos, combinando tecnología, precisión y capacidad
             de producción.
           </p>
+          <span
+            aria-hidden="true"
+            className="absolute bottom-0 right-0 h-8 w-8 border-b-2 border-r-2 border-[#2563FF]"
+          />
         </div>
 
         {/* SELECTOR Y PANEL */}
-        <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.5fr] lg:gap-12">
+        <div className="grid items-stretch gap-0 lg:grid-cols-[0.85fr_1.5fr]">
 
-          {/* SELECTOR DE EQUIPOS */}
-          <div className="min-w-0">
-            <div className="mb-5 flex items-center justify-between">
-              <p className="text-sm font-bold uppercase tracking-wider text-slate-500">
+          {/* SELECTOR CON FONDO DE TUERCAS */}
+          <div className="relative isolate min-w-0 overflow-hidden p-4 sm:p-5 lg:p-6">
+
+            {/* FOTOGRAFÍA DE FONDO */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -z-20 bg-cover bg-center"
+              style={{
+                backgroundImage: "url('/images/maqfondo.jpg')",
+              }}
+            />
+
+            {/* FILTRO AZUL OSCURO */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -z-10 bg-[#10243F]/45"
+            />
+
+            {/* DEGRADADO */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 -z-10 bg-gradient-to-br from-[#0F172A]/30 via-transparent to-[#2563EB]/20"
+            />
+
+            <div className="relative z-10 mb-5">
+              <p className="text-sm font-bold uppercase tracking-wider text-white/90">
                 Selecciona un equipo
               </p>
 
+              <p className="mt-1 text-xs text-blue-100/70">
+                Conoce nuestra maquinaria y capacidades
+              </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-2">
+            {/* BOTONES */}
+            <div className="relative z-10 grid grid-cols-1 gap-2 sm:grid-cols-2">
               {maquinas.map((item, index) => (
                 <button
                   key={`${item.nombre}-${item.modelo}`}
                   type="button"
                   onClick={() => cambiarMaquina(index)}
                   aria-pressed={seleccionada === index}
-                  className={`border p-3 text-left transition-all duration-200 ${
+                  className={`min-w-0 border p-3 text-left transition-all duration-200 ${
                     seleccionada === index
-                      ? "border-blue-600 bg-blue-50 shadow-sm"
-                      : "border-slate-200 bg-white hover:border-blue-300 hover:bg-slate-50"
+                      ? "border-blue-400 bg-white shadow-lg"
+                      : "border-white/20 bg-white/90 hover:border-blue-300 hover:bg-white"
                   }`}
                 >
                   <span
-                    className={`block text-[10px] font-bold uppercase tracking-wider ${
-                      seleccionada === index
-                        ? "text-blue-600"
-                        : "text-slate-400"
-                    }`}
-                  >
-                  </span>
-
-                  <span
-                    className={`mt-1 block text-sm font-bold ${
+                    className={`block text-sm font-bold ${
                       seleccionada === index
                         ? "text-blue-700"
                         : "text-slate-800"
@@ -345,7 +362,7 @@ export default function Maquinaria() {
                     {item.nombre}
                   </span>
 
-                  <span className="mt-1 block text-xs leading-snug text-slate-500">
+                  <span className="mt-1 block text-xs leading-snug text-slate-600">
                     {item.modelo}
                   </span>
                 </button>
@@ -435,7 +452,7 @@ export default function Maquinaria() {
 
             {/* INFORMACIÓN DEL EQUIPO */}
             <div
-              className={`flex flex-col justify-center p-6 transition-opacity duration-300 sm:p-8 lg:p-9 ${
+              className={`flex min-w-0 flex-col justify-center p-6 transition-opacity duration-300 sm:p-8 lg:p-9 ${
                 imagenVisible ? "opacity-100" : "opacity-0"
               }`}
             >
@@ -508,15 +525,26 @@ export default function Maquinaria() {
         </div>
 
         {/* CTA FINAL */}
-        <div className="mt-20 border-t border-slate-200 pt-14">
-          <div className="flex flex-col items-center justify-between gap-6 text-center md:flex-row md:text-left">
+        <div className="relative left-1/2 mt-20 w-screen -translate-x-1/2 isolate overflow-hidden">
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-cover bg-center"
+            style={{ backgroundImage: "url('/images/maqfondo.jpg')" }}
+          />
+
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-gradient-to-r from-[#0F172A]/95 via-[#0F172A]/80 to-[#14264A]/70"
+          />
+
+          <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-5 py-14 text-center sm:px-8 md:flex-row md:text-left lg:px-12">
 
             <div>
-              <h3 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">
+              <h3 className="text-2xl font-extrabold text-white sm:text-3xl">
                 ¿Te interesan nuestros servicios?
               </h3>
 
-              <p className="mt-3 max-w-xl leading-relaxed text-slate-600">
+              <p className="mt-3 max-w-xl leading-relaxed text-blue-100">
                 Contáctanos y conoce cómo podemos ayudarte con tus
                 requerimientos de fabricación y maquinado.
               </p>
@@ -524,7 +552,7 @@ export default function Maquinaria() {
 
             <Link
               href="/contacto"
-              className="inline-flex shrink-0 items-center justify-center bg-blue-600 px-8 py-4 text-sm font-bold text-white transition hover:bg-blue-700"
+              className="inline-flex shrink-0 items-center justify-center bg-white px-8 py-4 text-sm font-bold text-accent-primary transition hover:bg-blue-50"
             >
               Solicitar cotización
             </Link>
