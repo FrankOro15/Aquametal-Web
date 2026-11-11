@@ -3,8 +3,9 @@
 
 import { useState } from "react";
 import { Info, X } from "lucide-react";
+import { usePathname } from "next/navigation";
 
-export default function UpdateBanner() {
+function UpdateNotice() {
   const [isVisible, setIsVisible] = useState(true);
 
   if (!isVisible) return null;
@@ -25,7 +26,7 @@ export default function UpdateBanner() {
           <span className="font-semibold">
             Sitio web en actualización.
           </span>{" "}
-          Las secciones de capacidades, galería y blog aún están en desarrollo.
+          Las secciones de galería y blog aún están en desarrollo.
           Algunos contenidos podrían no estar disponibles temporalmente.
           Agradecemos tu comprensión.
         </p>
@@ -40,4 +41,17 @@ export default function UpdateBanner() {
       </button>
     </aside>
   );
+}
+
+export default function UpdateBanner() {
+  const pathname = usePathname();
+  const showBanner =
+    pathname === "/" ||
+    pathname === "/galeria" ||
+    pathname === "/blog" ||
+    pathname.startsWith("/blog/");
+
+  if (!showBanner) return null;
+
+  return <UpdateNotice key={pathname} />;
 }
