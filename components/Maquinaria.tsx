@@ -13,8 +13,8 @@ const maquinas = [
     categoria: "Torneado automático de precisión",
     descripcion:
       "Torno automático de levas diseñado para la fabricación de componentes metálicos de pequeñas dimensiones en grandes volúmenes. Su sistema de alimentación y mecanizado automatizado permite producir piezas repetitivas con precisión y uniformidad, ideal para procesos de producción continua.",
-    imagen: "/images/maquinas/index42.jpg",
-    video: "/videos/maquinas/index42.mp4",
+    imagen: "/images/indexon.jpeg",
+    video: "/videos/indexon.mp4",
     capacidad: "42 mm",
     cantidad: 2,
   },
@@ -24,10 +24,21 @@ const maquinas = [
     categoria: "Torneado de precisión",
     descripcion:
       "Torno automático utilizado para fabricar componentes metálicos mediante operaciones de corte y mecanizado secuencial. Su automatización permite mantener ciclos de producción constantes y obtener piezas con características dimensionales uniformes.",
-    imagen: "/images/indexon.jpeg",
-    video: "/videos/indexon.mp4",
+    imagen: "/images/index42.jpeg",
     capacidad: "12 mm",
     cantidad: 3,
+  },
+
+  {
+    nombre: "TRAUB A25",
+    modelo: "Torno automático de levas",
+    categoria: "Manufactura de componentes",
+    descripcion:
+      "Equipo automático de torneado destinado a la fabricación de componentes metálicos mediante ciclos de mecanizado repetitivos. Está orientado a procesos de producción en serie donde la precisión dimensional y la consistencia entre piezas son fundamentales.",
+    imagen: "/images/traub-a25.jpeg",
+    video: "/videos/traub-a25.mp4",
+    capacidad: "42 mm",
+    cantidad: 10,
   },
   {
     nombre: "TRAUB A20",
@@ -35,21 +46,10 @@ const maquinas = [
     categoria: "Producción automatizada",
     descripcion:
       "Torno automático especializado en la fabricación de piezas torneadas de precisión. Su configuración permite realizar diferentes operaciones de mecanizado de forma secuencial, favoreciendo la producción de componentes pequeños con geometrías definidas y acabados uniformes.",
-    imagen: "/images/maquinas/traub-a20.jpg",
+    imagen: "/images/ta20.jpeg",
     video: "",
     capacidad: "42 mm",
     cantidad: 1,
-  },
-  {
-    nombre: "TRAUB A25",
-    modelo: "Torno automático de levas",
-    categoria: "Manufactura de componentes",
-    descripcion:
-      "Equipo automático de torneado destinado a la fabricación de componentes metálicos mediante ciclos de mecanizado repetitivos. Está orientado a procesos de producción en serie donde la precisión dimensional y la consistencia entre piezas son fundamentales.",
-    imagen: "/images/maquinas/traub-a25.jpg",
-    video: "",
-    capacidad: "42 mm",
-    cantidad: 10,
   },
   {
     nombre: "MOUTIER SUISSE PETERMANN",
@@ -57,21 +57,21 @@ const maquinas = [
     categoria: "Torneado automático",
     descripcion:
       "Torno automático utilizado para la fabricación de componentes metálicos mediante operaciones de torneado repetitivas. Está orientado a la producción de piezas de precisión, manteniendo uniformidad dimensional durante los procesos de fabricación.",
-    imagen: "/images/maquinas/tmsp.jpg",
-    video: "",
+    imagen: "/images/msp.jpeg",
+    video: "/videos/msp.mp4",
     capacidad: "4 mm",
     cantidad: 2,
   },
-  {
-    nombre: "GUSS & ROCH",
-    modelo: "Torno CNC de doble husillo",
-    categoria: "Mecanizado CNC",
+   {
+    nombre: "FADAL",
+    modelo: "Centro de maquinado CNC de 40 x 20 pulgadas",
+    categoria: "Maquinado CNC",
     descripcion:
-      "Torno CNC equipado con doble husillo, una configuración que permite trabajar con dos posiciones de mecanizado y realizar operaciones coordinadas sobre una pieza. Esta característica puede reducir tiempos de ciclo y facilitar la fabricación de componentes que requieren varias etapas de torneado.",
-    imagen: "/images/maquinas/guss-doble.jpg",
-    video: "",
-    capacidad: "60 mm",
-    cantidad: 2,
+      "Centro de maquinado CNC diseñado para realizar operaciones de fresado, barrenado y mecanizado de componentes metálicos. Su área de trabajo permite procesar piezas de diferentes dimensiones mediante trayectorias programadas y operaciones de precisión.",
+    imagen: "/images/CNC.jpg",
+    video: "/videos/fadal.mp4",
+    capacidad: "40 x 20 pulgadas",
+    cantidad: 1,
   },
   {
     nombre: "GUSS & ROCH",
@@ -79,10 +79,21 @@ const maquinas = [
     categoria: "Torneado CNC",
     descripcion:
       "Equipo de control numérico computarizado que permite fabricar componentes mediante instrucciones programadas. Su sistema CNC ofrece control sobre los movimientos de mecanizado, facilitando la elaboración de geometrías precisas y la repetición de procesos de fabricación.",
-    imagen: "/images/maquinas/guss-estandar.jpg",
-    video: "",
+    imagen: "/images/GREstandar.jpeg",
+    video: "/videos/GREstandar.mp4",
     capacidad: "42 mm",
     cantidad: 1,
+  },
+  {
+    nombre: "GUSS & ROCH",
+    modelo: "Torno CNC de doble husillo",
+    categoria: "Mecanizado CNC",
+    descripcion:
+      "Torno CNC equipado con doble husillo, una configuración que permite trabajar con dos posiciones de mecanizado y realizar operaciones coordinadas sobre una pieza. Esta característica puede reducir tiempos de ciclo y facilitar la fabricación de componentes que requieren varias etapas de torneado.",
+    imagen: "/images/GRdoble.jpg",
+    video: "",
+    capacidad: "60 mm",
+    cantidad: 2,
   },
   {
     nombre: "HEADMAN",
@@ -90,7 +101,7 @@ const maquinas = [
     categoria: "Mecanizado de precisión",
     descripcion:
       "Torno paralelo con control numérico utilizado para mecanizar piezas cilíndricas mediante operaciones como cilindrado, refrentado y ranurado. Su programación permite controlar las trayectorias de corte y mantener dimensiones uniformes durante la fabricación de componentes.",
-    imagen: "/images/maquinas/headman1.jpg",
+    imagen: "/images/headman.jpg",
     video: "",
     capacidad: "250 mm",
     cantidad: 1,
@@ -101,7 +112,7 @@ const maquinas = [
     categoria: "Maquinado CNC",
     descripcion:
       "Centro de maquinado diseñado para realizar operaciones como fresado, barrenado y otras tareas de mecanizado. Su configuración de doble mesa permite preparar una pieza mientras otra se encuentra en proceso, ayudando a optimizar los tiempos de operación y mejorar la continuidad de producción.",
-    imagen: "/images/maquinas/daewoo.jpg",
+    imagen: "/images/daewoo.jpg",
     video: "",
     capacidad: "400 x 400 mm",
     cantidad: 1,
@@ -113,28 +124,18 @@ const maquinas = [
     descripcion:
       "Equipo de torneado CNC utilizado para realizar operaciones secundarias sobre componentes previamente fabricados. Permite trabajar detalles dimensionales, ajustes y acabados mediante procesos programados que favorecen la precisión y repetibilidad.",
     imagen: "/images/t2op.jpeg",
-    video: "",
+    video: "/videos/t2op.mp4",
     capacidad: "25 mm",
     cantidad: 1,
   },
-  {
-    nombre: "FADAL",
-    modelo: "Centro de maquinado CNC de 40 x 20 pulgadas",
-    categoria: "Maquinado CNC",
-    descripcion:
-      "Centro de maquinado CNC diseñado para realizar operaciones de fresado, barrenado y mecanizado de componentes metálicos. Su área de trabajo permite procesar piezas de diferentes dimensiones mediante trayectorias programadas y operaciones de precisión.",
-    imagen: "/images/fadal.jpg",
-    video: "",
-    capacidad: "40 x 20 pulgadas",
-    cantidad: 1,
-  },
+
   {
     nombre: "HUARUI",
     modelo: "Roscadora automática",
     categoria: "Roscado de componentes",
     descripcion:
       "Equipo automático destinado a la fabricación de roscas en componentes metálicos. Permite realizar operaciones repetitivas de roscado, favoreciendo la uniformidad de los perfiles y la continuidad en procesos de producción en serie.",
-    imagen: "/images/rosca.jpg",
+    imagen: "/images/rosca.jpeg",
     video: "",
     capacidad: "10 mm",
     cantidad: 2,
