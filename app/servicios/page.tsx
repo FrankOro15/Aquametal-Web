@@ -57,7 +57,7 @@ const servicios = [
     resumen: "Verificación y seguimiento de los procesos.",
     descripcion:
       "La calidad forma parte de las distintas etapas de nuestro proceso de fabricación. Realizamos verificaciones dimensionales y revisiones de los componentes para evaluar su correspondencia con los requisitos establecidos. Trabajamos bajo un sistema de gestión de calidad basado en ISO 9001, orientado al seguimiento y mejora de nuestros procesos.",
-    imagen: "/images/calidad.jpg",
+    imagen: "/images/nosotros/nosotros-calidad.jpg",
     alt: "Inspección y control de calidad industrial",
   },
   {

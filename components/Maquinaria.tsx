@@ -112,7 +112,7 @@ const maquinas = [
     categoria: "Torneado CNC",
     descripcion:
       "Equipo de torneado CNC utilizado para realizar operaciones secundarias sobre componentes previamente fabricados. Permite trabajar detalles dimensionales, ajustes y acabados mediante procesos programados que favorecen la precisión y repetibilidad.",
-    imagen: "/images/t2op.jpg",
+    imagen: "/images/t2op.jpeg",
     video: "",
     capacidad: "25 mm",
     cantidad: 1,
@@ -191,9 +191,12 @@ export default function Maquinaria() {
   const [imagenVisible, setImagenVisible] = useState(true);
 
   const videoRef = useRef<HTMLVideoElement>(null);
+  const nombreRef = useRef<HTMLHeadingElement>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const maquina = maquinas[seleccionada];
 
+  // FINALIZAR VIDEO
   const finalizarVideo = () => {
     setVideoActivo(false);
 
@@ -203,6 +206,7 @@ export default function Maquinaria() {
     }
   };
 
+  // REPRODUCIR VIDEO
   const reproducirVideo = async () => {
     if (!maquina.video || !videoRef.current) return;
 
@@ -215,18 +219,48 @@ export default function Maquinaria() {
     }
   };
 
+  // CAMBIAR MAQUINARIA
   const cambiarMaquina = (index: number) => {
     if (index === seleccionada) return;
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
 
     setImagenVisible(false);
     finalizarVideo();
 
-    setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       setSeleccionada(index);
       setImagenVisible(true);
+      timeoutRef.current = null;
     }, 150);
   };
 
+  // ALINEAR EL NOMBRE DE LA MÁQUINA EN LA PANTALLA
+  useEffect(() => {
+    if (seleccionada === 0) return;
+
+    const timeout = setTimeout(() => {
+      const elemento = nombreRef.current;
+
+      if (!elemento) return;
+
+      const posicion =
+        elemento.getBoundingClientRect().top +
+        window.scrollY -
+        210;
+
+      window.scrollTo({
+        top: posicion,
+        behavior: "smooth",
+      });
+    }, 250);
+
+    return () => clearTimeout(timeout);
+  }, [seleccionada]);
+
+  // DETENER VIDEO AL CAMBIAR DE MÁQUINA
   useEffect(() => {
     setVideoActivo(false);
 
@@ -236,9 +270,19 @@ export default function Maquinaria() {
     }
   }, [seleccionada]);
 
+  // LIMPIAR TEMPORIZADORES
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   return (
     <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-12">
       <div className="mx-auto max-w-7xl">
+
         {/* ENCABEZADO */}
         <div className="mb-12 text-center">
           <span className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600">
@@ -256,19 +300,16 @@ export default function Maquinaria() {
           </p>
         </div>
 
-        {/* SELECTOR A LA IZQUIERDA Y CONTENIDO A LA DERECHA */}
+        {/* SELECTOR Y PANEL */}
         <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.5fr] lg:gap-12">
-          {/* TARJETAS DE MAQUINARIA */}
+
+          {/* SELECTOR DE EQUIPOS */}
           <div className="min-w-0">
             <div className="mb-5 flex items-center justify-between">
               <p className="text-sm font-bold uppercase tracking-wider text-slate-500">
                 Selecciona un equipo
               </p>
 
-              <span className="text-sm font-semibold text-blue-600">
-                {String(seleccionada + 1).padStart(2, "0")} /{" "}
-                {String(maquinas.length).padStart(2, "0")}
-              </span>
             </div>
 
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-2">
@@ -291,7 +332,6 @@ export default function Maquinaria() {
                         : "text-slate-400"
                     }`}
                   >
-                    Equipo {String(index + 1).padStart(2, "0")}
                   </span>
 
                   <span
@@ -312,30 +352,32 @@ export default function Maquinaria() {
             </div>
           </div>
 
-          {/* PANEL DERECHO: IMAGEN E INFORMACIÓN */}
+          {/* PANEL DE MAQUINARIA */}
           <div className="min-w-0 border border-slate-200 bg-slate-50 lg:grid lg:grid-cols-[1.15fr_0.85fr]">
-            {/* IMAGEN O VIDEO */}
-<div className="relative flex min-h-[340px] items-center justify-center overflow-hidden bg-[#172B45] sm:min-h-[440px] lg:min-h-[600px]">
 
-  {/* DEGRADADO CENTRAL */}
-  <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(59,130,246,0.28)_0%,_rgba(30,64,110,0.12)_45%,_transparent_80%)]" />
+            {/* IMAGEN Y VIDEO */}
+            <div className="relative flex min-h-[340px] items-center justify-center overflow-hidden bg-[#172B45] sm:min-h-[440px] lg:min-h-[600px]">
 
-  {/* CUADRÍCULA TÉCNICA */}
-  <div
-    className="absolute inset-0 opacity-[0.10]"
-    style={{
-      backgroundImage:
-        "linear-gradient(rgba(147,197,253,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(147,197,253,0.35) 1px, transparent 1px)",
-      backgroundSize: "35px 35px",
-    }}
-  />
+              {/* DEGRADADO CENTRAL */}
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(59,130,246,0.28)_0%,_rgba(30,64,110,0.12)_45%,_transparent_80%)]" />
 
-  {/* CÍRCULOS DECORATIVOS */}
-  <div className="absolute h-[75%] aspect-square rounded-full border border-blue-300/20" />
+              {/* CUADRÍCULA TÉCNICA */}
+              <div
+                className="absolute inset-0 opacity-[0.10]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(rgba(147,197,253,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(147,197,253,0.35) 1px, transparent 1px)",
+                  backgroundSize: "35px 35px",
+                }}
+              />
 
-  <div className="absolute h-[60%] aspect-square rounded-full border border-blue-300/15" />
+              {/* CÍRCULOS DECORATIVOS */}
+              <div className="absolute aspect-square h-[75%] rounded-full border border-blue-300/20" />
 
-  {/* CONTINÚA AQUÍ TU IMAGEN Y VIDEO */}              <div
+              <div className="absolute aspect-square h-[60%] rounded-full border border-blue-300/15" />
+
+              {/* IMAGEN */}
+              <div
                 className={`absolute inset-0 transition-opacity duration-300 ${
                   imagenVisible ? "opacity-100" : "opacity-0"
                 }`}
@@ -352,6 +394,7 @@ export default function Maquinaria() {
                   }`}
                 />
 
+                {/* VIDEO */}
                 {maquina.video && (
                   <>
                     <video
@@ -383,7 +426,8 @@ export default function Maquinaria() {
                 )}
               </div>
 
-              <span className="absolute bottom-4 left-5 text-xs font-bold uppercase tracking-widest text-slate-400">
+              {/* NOMBRE EN LA IMAGEN */}
+              <span className="absolute bottom-4 left-5 z-10 text-xs font-bold uppercase tracking-widest text-blue-100/60">
                 {maquina.nombre}
               </span>
             </div>
@@ -394,12 +438,16 @@ export default function Maquinaria() {
                 imagenVisible ? "opacity-100" : "opacity-0"
               }`}
             >
+              {/* NOMBRE Y MODELO */}
               <div className="border-l-4 border-blue-600 pl-5">
                 <span className="text-xs font-bold uppercase tracking-[0.15em] text-blue-600 sm:text-sm">
                   {maquina.categoria}
                 </span>
 
-                <h3 className="mt-3 text-2xl font-extrabold leading-tight text-slate-900 sm:text-3xl">
+                <h3
+                  ref={nombreRef}
+                  className="mt-3 text-2xl font-extrabold leading-tight text-slate-900 sm:text-3xl"
+                >
                   {maquina.nombre}
                 </h3>
 
@@ -408,15 +456,18 @@ export default function Maquinaria() {
                 </p>
               </div>
 
+              {/* DESCRIPCIÓN */}
               <p className="mt-6 text-sm leading-7 text-slate-600 sm:text-base">
                 {maquina.descripcion}
               </p>
 
               {/* DATOS TÉCNICOS */}
               <div className="mt-7 grid grid-cols-2 gap-3">
+
                 <div className="border border-slate-200 bg-white p-3 sm:p-4">
                   <div className="flex flex-wrap items-center gap-2 text-blue-600">
                     <Ruler size={17} />
+
                     <span className="text-[10px] font-bold uppercase tracking-wider sm:text-[11px]">
                       Capacidad
                     </span>
@@ -430,6 +481,7 @@ export default function Maquinaria() {
                 <div className="border border-slate-200 bg-white p-3 sm:p-4">
                   <div className="flex flex-wrap items-center gap-2 text-blue-600">
                     <Factory size={17} />
+
                     <span className="text-[10px] font-bold uppercase tracking-wider sm:text-[11px]">
                       Total máquinas
                     </span>
@@ -439,8 +491,10 @@ export default function Maquinaria() {
                     {maquina.cantidad}
                   </p>
                 </div>
+
               </div>
 
+              {/* TEXTO INFERIOR */}
               <div className="mt-7 border-t border-slate-200 pt-5">
                 <p className="text-sm leading-6 text-slate-500">
                   Nuestra infraestructura permite atender diferentes
@@ -455,6 +509,7 @@ export default function Maquinaria() {
         {/* CTA FINAL */}
         <div className="mt-20 border-t border-slate-200 pt-14">
           <div className="flex flex-col items-center justify-between gap-6 text-center md:flex-row md:text-left">
+
             <div>
               <h3 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">
                 ¿Te interesan nuestros servicios?
@@ -472,8 +527,10 @@ export default function Maquinaria() {
             >
               Solicitar cotización
             </Link>
+
           </div>
         </div>
+
       </div>
     </section>
   );
