@@ -26,7 +26,7 @@ function UpdateNotice() {
           <span className="font-semibold">
             Sitio web en actualización.
           </span>{" "}
-          Las secciones de galería y blog aún están en desarrollo.
+          El blog aún están en desarrollo.
           Algunos contenidos podrían no estar disponibles temporalmente.
           Agradecemos tu comprensión.
         </p>
@@ -46,8 +46,6 @@ function UpdateNotice() {
 export default function UpdateBanner() {
   const pathname = usePathname();
   const showBanner =
-    pathname === "/" ||
-    pathname === "/galeria" ||
     pathname === "/blog" ||
     pathname.startsWith("/blog/");
 

@@ -35,14 +35,11 @@ const curatedImages = [
   "/images/galeria/Gemini_Generated_Image_wiwy2lwiwy2lwiwy.jpg",
   "/images/galeria/Gemini_Generated_Image_wpexw0wpexw0wpex.jpg",
   "/images/galeria/Gemini_Generated_Image_wux9h9wux9h9wux9.jpg",
-  "/images/galeria/IMG_0009.JPG",
-  "/images/galeria/1d.jpeg",
+   "/images/galeria/IMG_0009.JPG",
   "/images/galeria/2d.jpeg",
   "/images/galeria/3d.jpeg",
-  "/images/galeria/5d.jpeg",
-  "/images/galeria/6d.jpeg",
-
 ];
+
 
 const additionalImageLayouts = [
   "col-span-2 aspect-[2/1] lg:col-span-5 lg:aspect-[1.6/1]",
@@ -104,7 +101,7 @@ export default function GalleryPage() {
         <section className="relative isolate min-h-[590px] overflow-hidden bg-[#0F172A] md:min-h-[650px]">
 
           <Image
-            src="/images/Fondoprincipal1.jpeg"
+            src="/images/galeria/1d.jpeg"
             alt=""
             fill
             priority
