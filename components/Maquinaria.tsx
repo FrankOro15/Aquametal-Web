@@ -8,6 +8,28 @@ import { Play, Ruler, Factory } from "lucide-react";
 
 const maquinas = [
   {
+    nombre: "MOUTIER SUISSE PETERMANN",
+    modelo: "Torno automático de precisión",
+    categoria: "Torneado automático",
+    descripcion:
+      "Torno automático utilizado para la fabricación de componentes metálicos mediante operaciones de torneado repetitivas. Está orientado a la producción de piezas de precisión, manteniendo uniformidad dimensional durante los procesos de fabricación.",
+    imagen: "/images/msp.jpeg",
+    video: "/videos/msp.mp4",
+    capacidad: "4 mm",
+    cantidad: 2,
+  },
+  {
+    nombre: "FADAL",
+    modelo: "Centro de maquinado CNC de 40 x 20 pulgadas",
+    categoria: "Maquinado CNC",
+    descripcion:
+      "Centro de maquinado CNC diseñado para realizar operaciones de fresado, barrenado y mecanizado de componentes metálicos. Su área de trabajo permite procesar piezas de diferentes dimensiones mediante trayectorias programadas y operaciones de precisión.",
+    imagen: "/images/CNC.jpg",
+    video: "/videos/fadal.mp4",
+    capacidad: "40 x 20 pulgadas",
+    cantidad: 1,
+  },
+  {
     nombre: "INDEX 42",
     modelo: "Torno automático de levas",
     categoria: "Torneado automático de precisión",
@@ -48,28 +70,6 @@ const maquinas = [
     imagen: "/images/ta20.jpeg",
     video: "",
     capacidad: "42 mm",
-    cantidad: 1,
-  },
-  {
-    nombre: "MOUTIER SUISSE PETERMANN",
-    modelo: "Torno automático de precisión",
-    categoria: "Torneado automático",
-    descripcion:
-      "Torno automático utilizado para la fabricación de componentes metálicos mediante operaciones de torneado repetitivas. Está orientado a la producción de piezas de precisión, manteniendo uniformidad dimensional durante los procesos de fabricación.",
-    imagen: "/images/msp.jpeg",
-    video: "/videos/msp.mp4",
-    capacidad: "4 mm",
-    cantidad: 2,
-  },
-  {
-    nombre: "FADAL",
-    modelo: "Centro de maquinado CNC de 40 x 20 pulgadas",
-    categoria: "Maquinado CNC",
-    descripcion:
-      "Centro de maquinado CNC diseñado para realizar operaciones de fresado, barrenado y mecanizado de componentes metálicos. Su área de trabajo permite procesar piezas de diferentes dimensiones mediante trayectorias programadas y operaciones de precisión.",
-    imagen: "/images/CNC.jpg",
-    video: "/videos/fadal.mp4",
-    capacidad: "40 x 20 pulgadas",
     cantidad: 1,
   },
   {
