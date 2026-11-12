@@ -117,7 +117,7 @@ const maquinas = [
     cantidad: 1,
   },
   {
-    nombre: "HUARUI",
+    nombre: "HEADMAN",
     modelo: "Torno CNC para segundas operaciones",
     categoria: "Torneado CNC",
     descripcion:
@@ -128,7 +128,7 @@ const maquinas = [
     cantidad: 1,
   },
   {
-    nombre: "HUARUI",
+    nombre: "HEADMAN",
     modelo: "Roscadora automática",
     categoria: "Roscado de componentes",
     descripcion:
@@ -139,7 +139,7 @@ const maquinas = [
     cantidad: 2,
   },
   {
-    nombre: "HUARUI",
+    nombre: "HEADMAN",
     modelo: "Moleteadora de 3 ejes",
     categoria: "Moleteado de precisión",
     descripcion:
@@ -150,7 +150,7 @@ const maquinas = [
     cantidad: 1,
   },
   {
-    nombre: "HUARUI",
+    nombre: "HEADMAN",
     modelo: "Roladora de cuerdas por peines",
     categoria: "Formado de roscas",
     descripcion:
@@ -161,7 +161,7 @@ const maquinas = [
     cantidad: 1,
   },
   {
-    nombre: "HUARUI",
+    nombre: "HEADMAN",
     modelo: "Forjadora de tuercas de 6 golpes",
     categoria: "Forjado en frío",
     descripcion:
@@ -172,7 +172,7 @@ const maquinas = [
     cantidad: 1,
   },
   {
-    nombre: "HUARUI",
+    nombre: "HEADMAN",
     modelo: "Forjadora de tornillos de 4 golpes",
     categoria: "Forjado en frío",
     descripcion:
