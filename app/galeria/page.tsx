@@ -109,7 +109,7 @@ export default function GalleryPage() {
             className="object-cover object-center"
           />
 
-          <div className="absolute inset-0 bg-[#07101F]/55" />
+          <div className="absolute inset-0 bg-[#07101F]/40" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#07101F]/95 via-[#07101F]/70 to-[#07101F]/10" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0B1220] via-transparent to-[#0B1220]/20" />
 
@@ -431,29 +431,34 @@ export default function GalleryPage() {
   </div>
 </section>
 
-
 {/* CIERRE */}
-<section className="relative overflow-hidden border-t border-white/[0.07] bg-[#111E33]">
+<section className="relative isolate overflow-hidden border-t border-white/[0.07] bg-[#111E33]">
 
-  <div className="absolute inset-0">
+  {/* IMAGEN DE FONDO */}
+  <div className="absolute inset-0 -z-10">
     <Image
-      src="/images/CNC.jpg"
+      src="/images/maqfondo.jpg"
       alt=""
       fill
       sizes="100vw"
-      className="object-cover opacity-[0.13]"
+      priority
+      className="object-cover object-center"
     />
-    <div className="absolute inset-0 bg-gradient-to-r from-[#0B1220] via-[#0B1220]/95 to-[#0B1220]/75" />
+
+    <div className="absolute inset-0 bg-gradient-to-r from-[#0F172A]/95 via-[#0F172A]/80 to-[#14264A]/70" />
   </div>
 
-  <div className="absolute -right-32 -top-40 h-[450px] w-[450px] rounded-full bg-[#2563FF]/10 blur-[100px]" />
+  {/* ILUMINACIÓN DECORATIVA */}
+  <div className="pointer-events-none absolute -right-32 -top-40 h-[450px] w-[450px] rounded-full bg-[#2563FF]/10 blur-[100px]" />
 
+  {/* CONTENIDO */}
   <div className="relative mx-auto flex max-w-7xl flex-col justify-between gap-10 px-6 py-20 sm:px-10 md:flex-row md:items-center lg:px-12">
 
     <div className="max-w-2xl">
 
       <div className="mb-5 flex items-center gap-3">
         <span className="h-[2px] w-10 bg-[#4D91FF]" />
+
         <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#70A7FF]">
           Maquinado de precisión
         </span>
@@ -466,7 +471,7 @@ export default function GalleryPage() {
         </span>
       </h2>
 
-      <p className="mt-6 max-w-xl text-base leading-8 text-slate-400">
+      <p className="mt-6 max-w-xl text-base leading-8 text-slate-300">
         En Aquametal contamos con experiencia en maquinado para
         desarrollar piezas de acuerdo con los requerimientos de tu proyecto.
       </p>
@@ -478,6 +483,7 @@ export default function GalleryPage() {
       className="group inline-flex shrink-0 items-center gap-4 border border-[#4D91FF]/50 bg-[#2563FF] px-7 py-5 text-sm font-bold text-white transition-all duration-300 hover:border-[#70A7FF] hover:bg-[#1D4ED8]"
     >
       Conoce nuestros servicios
+
       <ArrowRight
         size={19}
         className="transition-transform duration-300 group-hover:translate-x-1"
@@ -486,9 +492,10 @@ export default function GalleryPage() {
 
   </div>
 
+  {/* LÍNEA INFERIOR */}
   <div className="absolute bottom-0 left-0 h-[2px] w-full bg-gradient-to-r from-transparent via-[#2563FF] to-transparent" />
-</section>
 
+</section>
 
         {/* MODAL */}
         {selectedImage && selectedIndex !== null && (

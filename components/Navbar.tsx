@@ -53,14 +53,14 @@ export default function Navbar() {
       icon: ImageIcon,
     },
     {
-      name: lang === "ES" ? "Blog" : "Blog",
-      href: "/blog",
-      icon: FileText,
-    },
-    {
       name: lang === "ES" ? "Contacto" : "Contact",
       href: "/contacto",
       icon: MessageSquare,
+    },
+    {
+      name: lang === "ES" ? "Blog" : "Blog",
+      href: "/blog",
+      icon: FileText,
     },
   ];
 
