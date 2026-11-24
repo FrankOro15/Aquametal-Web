@@ -13,10 +13,7 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://aqua-metal.com"),
 
-  title: {
-    default: "Aquametal | Maquinado CNC y Producción de Alto Volumen",
-    template: "%s | Aquametal",
-  },
+  title: "Inicio | Aquametal",
 
   description:
     "Con más de 25 años de experiencia, en Aquametal fabricamos componentes metálicos de alta precisión mediante maquinado CNC, torneado automático y producción en serie. Trabajamos acero, aluminio, bronce, latón y cobre, con suministro programado desde Santa Ana Jilotzingo, Estado de México.",

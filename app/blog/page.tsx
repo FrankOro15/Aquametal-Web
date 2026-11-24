@@ -8,7 +8,7 @@ import BlogList, { BlogPostItem } from "@/components/BlogList";
 import { sanityFetch, SanityPost } from "@/lib/sanity";
 
 export const metadata: Metadata = {
-  title: "Del Metal al Conocimiento — Blog de Maquinado CNC | Aqua Metal",
+  title: "Blog",
   description:
     "Guías técnicas desde nuestra planta en México: procesos de maquinado CNC, tolerancias ISO, selección de materiales y diseño para manufactura.",
 };
@@ -104,7 +104,7 @@ export default async function BlogPage() {
             className="object-cover object-center"
           />
           {/* Overlay suave para que la máquina y las chispas se vean claras sin perder legibilidad */}
-          <div className="absolute inset-0 bg-[#07101F]/55" />
+          <div className="absolute inset-0 bg-[#07101F]/65" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#07101F] via-transparent to-[#07101F]/60" />
           {/* Trama de cuadrícula técnica sutil */}
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_50%,#000_50%,transparent_100%)] pointer-events-none" />
@@ -124,9 +124,9 @@ export default async function BlogPage() {
             </span>
           </div>
 
-          <h1 className="text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-display">
+          <h1 className="text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-display drop-shadow-[0_3px_20px_rgba(0,0,0,0.75)]">
             Del metal{" "}
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#8DB8FF] via-[#4D91FF] to-[#2563FF] drop-shadow-[0_0_35px_rgba(77,145,255,0.35)]">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#B9D6FF] via-[#8DB8FF] to-[#60A5FA]">
               al conocimiento.
             </span>
           </h1>

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -13,6 +14,12 @@ import {
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Nosotros",
+  description:
+    "Conoce a Aquametal, nuestra experiencia en manufactura metálica y nuestro compromiso con la calidad y la mejora continua.",
+};
 
 const qualityPrinciples = [
   {

@@ -71,12 +71,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) {
     return {
-      title: "Artículo | Aqua Metal Blog",
+      title: "Artículo técnico",
       description: "Artículo técnico sobre maquinado CNC y manufactura industrial.",
     };
   }
 
-  const title = post.seoTitle || `${post.title} — Aqua Metal`;
+  const title = (post.seoTitle || post.title).replace(
+    /\s*(?:\||—)\s*(?:Aqua Metal(?: Blog)?|Aquametal)$/i,
+    ""
+  );
   const description = post.seoDescription || post.excerpt || "Guía técnica sobre maquinado CNC.";
 
   return {
@@ -210,6 +213,7 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
       </header>
 
+      <div className="bg-slate-50 text-slate-900">
       {/* CONTENEDOR DE LA IMAGEN PRINCIPAL */}
       <section className="container mx-auto px-6 max-w-5xl -mt-6 sm:-mt-8 relative z-20">
         {post.imageUrl ? (
@@ -262,28 +266,28 @@ export default async function BlogPostPage({ params }: Props) {
 
             {/* SECCIÓN DE PREGUNTAS FRECUENTES INTERACTIVAS */}
             {post.faqs && post.faqs.length > 0 && (
-              <section className="mt-16 pt-12 border-t border-white/10" aria-label="Preguntas Frecuentes">
+              <section className="mt-16 pt-12 border-t border-slate-200" aria-label="Preguntas Frecuentes">
                 <div className="mb-8">
                   <div className="flex items-center gap-3 mb-2">
                     <span className="h-5 w-1.5 rounded-full bg-[#2563FF]" />
-                    <h2 className="text-2xl sm:text-3xl font-bold font-display text-white">
+                    <h2 className="text-2xl sm:text-3xl font-bold font-display text-slate-900">
                       Preguntas Frecuentes
                     </h2>
                   </div>
-                  <p className="text-slate-400 text-sm">
+                  <p className="text-slate-600 text-sm">
                     Respuestas directas desde la experiencia en planta sobre este proceso.
                   </p>
                 </div>
 
-                <FaqAccordion faqs={post.faqs} />
+                <FaqAccordion key={post._id} faqs={post.faqs} />
               </section>
             )}
 
             {/* Botón de volver */}
-            <div className="mt-14 pt-8 border-t border-white/[0.08] flex items-center justify-between">
+            <div className="mt-14 pt-8 border-t border-slate-200 flex items-center justify-between">
               <Link
                 href="/blog"
-                className="inline-flex items-center gap-2 text-sm font-bold text-[#70A7FF] hover:text-white transition-colors font-mono"
+                className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 hover:text-blue-900 transition-colors font-mono"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Volver a todos los artículos
@@ -294,22 +298,22 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Columna Lateral (Sidebar Técnico) */}
           <aside className="lg:col-span-4 space-y-8 sticky top-28">
             {/* Tarjeta de Acción Rápida: Cotización DFM */}
-            <div className="rounded-3xl border border-[#2563FF]/30 bg-gradient-to-br from-[#0F172A] via-[#101D35] to-[#07101F] p-7 shadow-xl shadow-blue-950/20">
+            <div className="rounded-3xl border border-blue-200 bg-white p-7 shadow-xl shadow-slate-200/70">
               <div className="flex items-center gap-3 mb-4">
                 <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#2563FF] text-white shadow-md shadow-blue-600/40">
                   <Factory className="h-5 w-5" />
                 </span>
                 <div>
-                  <h3 className="font-bold font-display text-white text-base">
+                  <h3 className="font-bold font-display text-slate-900 text-base">
                     Asesoría en Planta
                   </h3>
-                  <p className="text-xs text-[#8DB8FF] font-mono">
+                  <p className="text-xs text-blue-700 font-mono">
                     Revisión DFM en 24h
                   </p>
                 </div>
               </div>
 
-              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed mb-6">
+              <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
                 ¿Tienes un plano o requerimiento relacionado con este artículo? Analizamos la geometría de tu pieza para recomendarte la ruta más económica.
               </p>
 
@@ -323,31 +327,32 @@ export default async function BlogPostPage({ params }: Props) {
             </div>
 
             {/* Ficha de Capacidad de Planta */}
-            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 space-y-4">
-              <h4 className="text-xs font-mono uppercase tracking-[0.2em] text-[#8DB8FF]">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4">
+              <h4 className="text-xs font-mono uppercase tracking-[0.2em] text-blue-700">
                 Capacidad Industrial
               </h4>
-              <ul className="space-y-3 text-xs text-slate-300 font-mono">
-                <li className="flex items-center justify-between pb-2 border-b border-white/[0.04]">
-                  <span className="text-slate-400">Tolerancia Fina:</span>
-                  <span className="text-white font-bold">±0.5 mm</span>
+              <ul className="space-y-3 text-xs text-slate-700 font-mono">
+                <li className="flex items-center justify-between pb-2 border-b border-slate-100">
+                  <span className="text-slate-500">Tolerancia Fina:</span>
+                  <span className="text-slate-900 font-bold">±0.5 mm</span>
                 </li>
-                <li className="flex items-center justify-between pb-2 border-b border-white/[0.04]">
-                  <span className="text-slate-400">Capacidad por Lote:</span>
-                  <span className="text-white font-bold">+5,000 pzas</span>
+                <li className="flex items-center justify-between pb-2 border-b border-slate-100">
+                  <span className="text-slate-500">Capacidad por Lote:</span>
+                  <span className="text-slate-900 font-bold">+5,000 pzas</span>
                 </li>
-                <li className="flex items-center justify-between pb-2 border-b border-white/[0.04]">
-                  <span className="text-slate-400">Maquinaria:</span>
-                  <span className="text-white font-bold">+30 unidades</span>
+                <li className="flex items-center justify-between pb-2 border-b border-slate-100">
+                  <span className="text-slate-500">Maquinaria:</span>
+                  <span className="text-slate-900 font-bold">+30 unidades</span>
                 </li>
                 <li className="flex items-center justify-between">
-                  <span className="text-slate-400">Certificación:</span>
-                  <span className="text-emerald-400 font-bold">ISO 9001</span>
+                  <span className="text-slate-500">Certificación:</span>
+                  <span className="text-emerald-700 font-bold">ISO 9001</span>
                 </li>
               </ul>
             </div>
           </aside>
         </div>
+      </div>
       </div>
 
       {/* SECCIÓN FINAL: ARTÍCULOS RELACIONADOS */}

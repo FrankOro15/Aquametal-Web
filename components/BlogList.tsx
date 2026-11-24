@@ -97,7 +97,7 @@ export default function BlogList({ posts }: BlogListProps) {
       {/* Artículo Destacado (Hero Card) */}
       {featuredPost && (
         <section aria-label="Artículo destacado">
-          <article className="group relative overflow-hidden rounded-3xl border border-white/[0.12] bg-gradient-to-br from-[#0F172A]/90 via-[#101D35]/70 to-[#07101F] shadow-2xl transition-all duration-500 hover:border-[#2563FF]/60 hover:shadow-blue-900/20">
+          <article className="group relative overflow-hidden border border-white/[0.12] bg-gradient-to-br from-[#0F172A]/90 via-[#101D35]/70 to-[#07101F] shadow-2xl transition-all duration-500 hover:border-[#2563FF]/60 hover:shadow-blue-900/20">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-center">
               {/* Imagen del destacado */}
               <div className="relative h-[280px] sm:h-[360px] lg:h-[440px] lg:col-span-7 overflow-hidden">
@@ -133,7 +133,7 @@ export default function BlogList({ posts }: BlogListProps) {
               </div>
 
               {/* Contenido del destacado */}
-              <div className="p-8 sm:p-10 lg:p-12 lg:col-span-5 flex flex-col justify-between">
+              <div className="p-8 sm:p-10 lg:col-span-5 lg:p-12 flex flex-col justify-between">
                 <div>
                   <div className="mb-4 flex items-center gap-3 text-xs font-mono uppercase tracking-[0.2em] text-[#8DB8FF]">
                     <span className="rounded-full bg-[#2563FF]/15 border border-[#2563FF]/30 px-3 py-1 text-[#70A7FF]">
@@ -188,7 +188,7 @@ export default function BlogList({ posts }: BlogListProps) {
             {regularPosts.map((post) => (
               <article
                 key={post.slug}
-                className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] bg-[#0F172A]/70 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#2563FF]/50 hover:shadow-2xl hover:shadow-blue-950/40"
+                className="group flex flex-col justify-between overflow-hidden border border-white/[0.08] bg-[#0F172A]/70 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#2563FF]/50 hover:shadow-2xl hover:shadow-blue-950/40"
               >
                 <div>
                   {/* Imagen de la tarjeta */}

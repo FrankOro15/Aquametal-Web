@@ -1,9 +1,16 @@
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, ShieldCheck } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Aviso de Privacidad",
+  description:
+    "Consulta cómo Aquametal recopila, utiliza y protege los datos personales enviados a través de este sitio web.",
+};
 
 const correoPrivacidad = "administracion@aqua-metal.com.mx";
 

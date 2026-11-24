@@ -21,16 +21,16 @@ export default function PortableTextRenderer({ value }: PortableTextProps) {
     elements.push(
       <ul
         key={`list-${elements.length}`}
-        className="my-8 space-y-3.5 pl-2 sm:pl-4 text-slate-300 text-base sm:text-lg leading-relaxed"
+        className="my-8 space-y-3.5 pl-2 sm:pl-4 text-slate-700 text-base sm:text-lg leading-relaxed"
       >
         {currentList.items.map((item, idx) => (
           <li key={item._key || idx} className="flex items-start gap-3.5">
             {isBullet ? (
-              <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#2563FF]/20 text-[#70A7FF]">
+              <span className="mt-1.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-700">
                 <ChevronRight className="h-3.5 w-3.5" />
               </span>
             ) : (
-              <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-[#2563FF]/20 font-mono text-xs font-bold text-[#70A7FF] border border-[#2563FF]/30">
+              <span className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-blue-100 font-mono text-xs font-bold text-blue-700 border border-blue-200">
                 {idx + 1}
               </span>
             )}
@@ -66,10 +66,10 @@ export default function PortableTextRenderer({ value }: PortableTextProps) {
       switch (style) {
         case "h2":
           elements.push(
-            <div key={key} className="mt-14 mb-6 pt-6 border-t border-white/[0.08] first:border-0 first:pt-0">
+            <div key={key} className="mt-14 mb-6 pt-6 border-t border-slate-200 first:border-0 first:pt-0">
               <div className="flex items-center gap-3 mb-2">
                 <span className="h-5 w-1.5 rounded-full bg-[#2563FF]" />
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display text-white tracking-tight">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display text-slate-900 tracking-tight">
                   {content}
                 </h2>
               </div>
@@ -80,7 +80,7 @@ export default function PortableTextRenderer({ value }: PortableTextProps) {
           elements.push(
             <h3
               key={key}
-              className="text-xl sm:text-2xl font-bold font-display text-[#8DB8FF] mt-10 mb-4"
+              className="text-xl sm:text-2xl font-bold font-display text-blue-700 mt-10 mb-4"
             >
               {content}
             </h3>
@@ -90,7 +90,7 @@ export default function PortableTextRenderer({ value }: PortableTextProps) {
           elements.push(
             <h4
               key={key}
-              className="text-lg font-bold font-display text-white mt-8 mb-3"
+              className="text-lg font-bold font-display text-slate-900 mt-8 mb-3"
             >
               {content}
             </h4>
@@ -118,7 +118,7 @@ export default function PortableTextRenderer({ value }: PortableTextProps) {
           elements.push(
             <p
               key={key}
-              className="text-slate-300 leading-[1.8] text-base sm:text-lg mb-6"
+              className="text-slate-700 leading-[1.8] text-base sm:text-lg mb-6"
             >
               {content}
             </p>
@@ -161,14 +161,14 @@ function renderChildren(children: any[] = [], markDefs: any[] = []): React.React
     if (span.marks && Array.isArray(span.marks)) {
       span.marks.forEach((mark: string) => {
         if (mark === "strong") {
-          node = <strong key={idx} className="font-bold text-white tracking-wide">{node}</strong>;
+          node = <strong key={idx} className="font-bold text-slate-950 tracking-wide">{node}</strong>;
         } else if (mark === "em") {
-          node = <em key={idx} className="italic text-slate-200">{node}</em>;
+          node = <em key={idx} className="italic text-slate-700">{node}</em>;
         } else if (mark === "code") {
           node = (
             <code
               key={idx}
-              className="rounded-lg bg-white/10 px-2 py-0.5 font-mono text-sm text-[#70A7FF] border border-white/5"
+              className="rounded-lg bg-slate-200 px-2 py-0.5 font-mono text-sm text-blue-800 border border-slate-300"
             >
               {node}
             </code>
@@ -186,7 +186,7 @@ function renderChildren(children: any[] = [], markDefs: any[] = []): React.React
                 href={linkDef.href}
                 target={linkDef.href.startsWith("http") ? "_blank" : undefined}
                 rel={linkDef.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="text-[#70A7FF] hover:text-white underline underline-offset-4 decoration-[#2563FF] transition-colors"
+                className="text-blue-700 hover:text-blue-900 underline underline-offset-4 decoration-[#2563FF] transition-colors"
               >
                 {node}
               </a>
