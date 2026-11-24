@@ -91,7 +91,7 @@ export default async function BlogPage() {
       <Navbar />
 
       {/* HERO SECTION DE ALTO IMPACTO */}
-      <section className="relative overflow-hidden bg-[#07101F] px-5 pt-36 pb-24 text-white md:px-10 md:pt-44 md:pb-32 border-b border-white/[0.08]">
+      <section className="relative overflow-hidden bg-[#07101F] px-5 pt-36 pb-12 text-white md:px-10 md:pt-44 md:pb-16 border-b border-white/[0.08]">
         {/* Imagen de fondo con overlay cinematográfico */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -143,7 +143,7 @@ export default async function BlogPage() {
             </div>
             <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 backdrop-blur-md shadow-lg transition hover:border-blue-400/40 hover:bg-white/[0.07]">
               <ShieldCheck className="h-4 w-4 text-[#70A7FF]" />
-              <span>Normas ISO 2768</span>
+              <span>Certificación ISO 9001</span>
             </div>
             <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 backdrop-blur-md shadow-lg transition hover:border-blue-400/40 hover:bg-white/[0.07]">
               <Factory className="h-4 w-4 text-[#70A7FF]" />

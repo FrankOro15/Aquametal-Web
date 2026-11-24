@@ -4,7 +4,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import UpdateBanner from "@/components/UpdateBanner";
 import IsoSeal from "@/components/IsoSeal";
 import {
   Phone,
@@ -71,8 +70,6 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 shadow-md font-sans">
-      <UpdateBanner />
-
       {/* Barra superior */}
       <div className="bg-slate-900 text-white text-xs py-2 px-3 sm:px-6 border-b border-slate-800">
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">

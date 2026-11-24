@@ -330,7 +330,7 @@ export default async function BlogPostPage({ params }: Props) {
               <ul className="space-y-3 text-xs text-slate-300 font-mono">
                 <li className="flex items-center justify-between pb-2 border-b border-white/[0.04]">
                   <span className="text-slate-400">Tolerancia Fina:</span>
-                  <span className="text-white font-bold">±0.005 mm</span>
+                  <span className="text-white font-bold">±0.5 mm</span>
                 </li>
                 <li className="flex items-center justify-between pb-2 border-b border-white/[0.04]">
                   <span className="text-slate-400">Capacidad por Lote:</span>
