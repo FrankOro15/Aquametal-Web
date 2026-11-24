@@ -1,31 +1,46 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, FileText } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Wrench, ShieldCheck, Factory } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import BlogList, { BlogPostItem } from "@/components/BlogList";
+import { sanityFetch, SanityPost } from "@/lib/sanity";
 
 export const metadata: Metadata = {
-  title: "Blog de Maquinado CNC | Aqua Metal",
+  title: "Del Metal al Conocimiento — Blog de Maquinado CNC | Aqua Metal",
   description:
-    "Guías y artículos técnicos sobre maquinado CNC, torneado, tolerancias y manufactura industrial.",
+    "Guías técnicas desde nuestra planta en México: procesos de maquinado CNC, tolerancias ISO, selección de materiales y diseño para manufactura.",
 };
 
-const blogPosts = [
-  {
-    slug: "que-es-maquinado-cnc",
-    category: "Fundamentos",
-    readTime: "8 min",
-    title: "¿Qué es el Maquinado CNC y Cómo Funciona?",
-    excerpt:
-      "Conoce cómo funciona el control numérico computarizado, sus procesos y por qué permite fabricar piezas metálicas con precisión.",
-  },
+const SANITY_POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc){
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  category,
+  publishedAt,
+  "imageUrl": mainImage.asset->url,
+  "imageAlt": mainImage.alt
+}`;
+
+// Artículos base
+const fallbackPosts: BlogPostItem[] = [
   {
     slug: "torneado-vs-fresado-cnc",
     category: "Procesos",
     readTime: "6 min",
     title: "Torneado CNC vs Fresado CNC: ¿Cuál Necesitas?",
     excerpt:
-      "Descubre las diferencias entre ambos procesos, sus aplicaciones ideales y cómo elegir el adecuado para tu pieza.",
+      "Descubre las diferencias fundamentales entre ambos procesos, geometrías ideales y cómo decidimos en planta la ruta más eficiente para tu pieza.",
+  },
+  {
+    slug: "que-es-maquinado-cnc",
+    category: "Fundamentos",
+    readTime: "8 min",
+    title: "¿Qué es el Maquinado CNC y Cómo Funciona?",
+    excerpt:
+      "Conoce cómo opera el control numérico computarizado, sus ventajas en repetibilidad y tolerancias estrechas para la industria moderna.",
   },
   {
     slug: "tolerancias-maquinado-cnc",
@@ -33,7 +48,7 @@ const blogPosts = [
     readTime: "7 min",
     title: "Tolerancias de Maquinado CNC: Tabla de Referencia ISO",
     excerpt:
-      "Una guía práctica para entender las tolerancias dimensionales y especificarlas sin encarecer innecesariamente una pieza.",
+      "Una guía práctica para interpretar tolerancias dimensionales según la norma ISO 2768 y cómo especificarlas sin encarecer piezas innecesariamente.",
   },
   {
     slug: "costo-maquinado-cnc-mexico",
@@ -41,78 +56,167 @@ const blogPosts = [
     readTime: "9 min",
     title: "¿Cuánto Cuesta el Maquinado CNC en México?",
     excerpt:
-      "Conoce cómo influyen el material, la complejidad, el volumen y las tolerancias en el costo de una pieza maquinada.",
+      "Conoce los factores que mueven el precio real de una pieza: volumen, complejidad, selección de material, tolerancias y acabados.",
   },
 ];
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  // Consultar Sanity de forma dinámica
+  const sanityPosts = await sanityFetch<SanityPost[]>(SANITY_POSTS_QUERY);
+
+  // Unificar artículos: los de Sanity van de primeros y conservan prioridad
+  const postList: BlogPostItem[] = (() => {
+    if (!sanityPosts || sanityPosts.length === 0) {
+      return fallbackPosts;
+    }
+
+    const sanitySlugs = new Set(sanityPosts.map((p) => p.slug));
+    const remainingFallbacks = fallbackPosts.filter((fb) => !sanitySlugs.has(fb.slug));
+
+    return [
+      ...sanityPosts.map((p) => ({
+        slug: p.slug,
+        category: p.category || "Procesos",
+        readTime: "6 min",
+        title: p.title,
+        excerpt: p.excerpt || "",
+        imageUrl: p.imageUrl,
+      })),
+      ...remainingFallbacks,
+    ];
+  })();
+
   return (
-    <main className="min-h-screen bg-slate-50 font-sans text-slate-800">
+    <main className="min-h-screen bg-[#07101F] text-slate-100 font-sans selection:bg-[#2563FF] selection:text-white">
       <Navbar />
 
-      <section className="bg-slate-900 px-6 pb-16 pt-44 text-white sm:pt-44 md:pt-40">
-        <div className="mx-auto max-w-6xl text-center">
-          <span className="flex items-center justify-center gap-2 text-xs font-bold uppercase tracking-widest text-blue-400">
-            <FileText className="h-4 w-4" />
-            Centro de conocimiento
-          </span>
-          <h1 className="mt-3 text-4xl font-extrabold sm:text-5xl">
-            Blog y recursos técnicos
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
-            Artículos prácticos sobre maquinado CNC, calidad y manufactura
-            industrial.
-          </p>
+      {/* HERO SECTION DE ALTO IMPACTO */}
+      <section className="relative overflow-hidden bg-[#07101F] px-5 pt-36 pb-24 text-white md:px-10 md:pt-44 md:pb-32 border-b border-white/[0.08]">
+        {/* Imagen de fondo con overlay cinematográfico */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/blogh.jpg"
+            alt="Centro de maquinado CNC de precisión Aqua Metal"
+            fill
+            priority
+            sizes="100vw"
+            quality={95}
+            className="object-cover object-center"
+          />
+          {/* Overlay suave para que la máquina y las chispas se vean claras sin perder legibilidad */}
+          <div className="absolute inset-0 bg-[#07101F]/55" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#07101F] via-transparent to-[#07101F]/60" />
+          {/* Trama de cuadrícula técnica sutil */}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_50%,#000_50%,transparent_100%)] pointer-events-none" />
         </div>
-      </section>
 
-      <section className="mx-auto grid max-w-6xl gap-6 px-6 py-14 md:grid-cols-2 lg:grid-cols-3">
-        {blogPosts.map((post) => (
-          <article
-            key={post.slug}
-            className="group flex flex-col border border-slate-200 bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:border-blue-300 hover:shadow-md"
-          >
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <span className="bg-blue-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-blue-800">
-                {post.category}
-              </span>
-              <span className="text-xs text-slate-500">
-                {post.readTime} de lectura
-              </span>
-            </div>
-            <h2 className="text-xl font-bold leading-snug text-slate-900 transition-colors group-hover:text-blue-800">
-              <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-            </h2>
-            <p className="mt-3 flex-1 text-sm leading-6 text-slate-600">
-              {post.excerpt}
-            </p>
-            <Link
-              href={`/blog/${post.slug}`}
-              className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-blue-800"
-            >
-              Leer artículo
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-            </Link>
-          </article>
-        ))}
-      </section>
+        {/* Resplandor ambiental */}
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[320px] bg-blue-500/15 blur-[130px] rounded-full pointer-events-none" />
 
-      <section className="mx-auto mb-16 max-w-6xl px-6">
-        <div className="bg-blue-50 px-6 py-10 text-center sm:px-10">
-          <h2 className="text-2xl font-bold text-slate-900">
-            ¿Tienes un proyecto de maquinado?
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-600">
-            Comparte tus planos o especificaciones con nuestro equipo para
-            solicitar una cotización.
+        <div className="relative z-10 mx-auto max-w-5xl text-center">
+          <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-blue-400/30 bg-blue-500/10 px-4 py-1.5 backdrop-blur-md shadow-[0_0_20px_rgba(37,99,255,0.2)]">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
+            </span>
+            <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#A5C8FF] font-mono">
+              Aqua Metal · Centro de Conocimiento
+            </span>
+          </div>
+
+          <h1 className="text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-display">
+            Del metal{" "}
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#8DB8FF] via-[#4D91FF] to-[#2563FF] drop-shadow-[0_0_35px_rgba(77,145,255,0.35)]">
+              al conocimiento.
+            </span>
+          </h1>
+
+          <p className="mx-auto mt-6 max-w-2xl text-base sm:text-lg lg:text-xl leading-relaxed text-slate-200/90 font-normal">
+            Guías técnicas desde nuestra planta en México: procesos de maquinado CNC, tolerancias ISO, selección de materiales y diseño para manufactura.
           </p>
-          <Link
-            href="/contacto"
-            className="mt-6 inline-flex items-center gap-2 bg-blue-800 px-6 py-3 text-sm font-bold text-white transition hover:bg-blue-900"
-          >
-            Solicitar cotización
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+
+          {/* Micro stats técnicos estilo glassmorphism */}
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-mono uppercase tracking-wider text-slate-300 max-w-3xl mx-auto">
+            <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 backdrop-blur-md shadow-lg transition hover:border-blue-400/40 hover:bg-white/[0.07]">
+              <Wrench className="h-4 w-4 text-[#70A7FF]" />
+              <span>Torneado & Fresado CNC</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 backdrop-blur-md shadow-lg transition hover:border-blue-400/40 hover:bg-white/[0.07]">
+              <ShieldCheck className="h-4 w-4 text-[#70A7FF]" />
+              <span>Normas ISO 2768</span>
+            </div>
+            <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 backdrop-blur-md shadow-lg transition hover:border-blue-400/40 hover:bg-white/[0.07]">
+              <Factory className="h-4 w-4 text-[#70A7FF]" />
+              <span>Planta en México</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-0 left-0 h-[1px] w-full bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+      </section>
+
+      {/* SECCIÓN PRINCIPAL: FILTROS + DESTACADO + GRID */}
+      <section className="mx-auto max-w-7xl px-6 py-16 sm:px-10 lg:px-12">
+        <BlogList posts={postList} />
+      </section>
+
+      {/* BANNER CTA: COTIZACIÓN Y ANÁLISIS DFM */}
+      <section className="mx-auto mb-28 max-w-7xl px-6 sm:px-10 lg:px-12">
+        <div className="mx-auto grid max-w-7xl overflow-hidden rounded-3xl bg-[#0F172A] lg:grid-cols-2 border border-white/[0.08] shadow-2xl">
+
+          {/* Contenido */}
+          <div className="relative flex flex-col justify-center overflow-hidden px-7 py-12 text-white sm:px-12 sm:py-16 lg:px-14 lg:py-20">
+            <div className="absolute inset-y-0 right-0 w-2/3 bg-gradient-to-l from-[#2563FF]/20 to-transparent" />
+            <div className="absolute -right-10 -top-12 hidden text-white/[0.05] sm:block">
+              <Factory size={240} strokeWidth={0.7} />
+            </div>
+
+            <div className="relative max-w-xl">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-blue-300">
+                Asesoría DFM sin costo
+              </span>
+
+              <h2 className="mt-5 text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
+                ¿Tienes un plano y dudas sobre el proceso ideal?
+              </h2>
+
+              <p className="mt-5 max-w-2xl leading-7 text-slate-300">
+                Envíanos tus especificaciones técnicas. Nuestros ingenieros revisan la geometría de tu componente, tolerancias y te sugieren la ruta de producción más económica en menos de 24 horas.
+              </p>
+
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <Link
+                  href="/contacto"
+                  className="group inline-flex min-h-14 items-center justify-center gap-3 bg-[#2563FF] px-7 py-4 text-sm font-bold text-white transition hover:bg-blue-500"
+                >
+                  Enviar mis Planos para Cotizar
+                  <ArrowRight
+                    size={18}
+                    className="transition-transform group-hover:translate-x-1"
+                  />
+                </Link>
+
+                <Link
+                  href="/servicios"
+                  className="inline-flex min-h-14 items-center justify-center border border-white/25 px-7 py-4 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+                >
+                  Explorar servicios
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Imagen */}
+          <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
+            <Image
+              src="/images/cta.jpg"
+              alt="Maquinaria CNC durante un proceso de fabricación"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
+
         </div>
       </section>
 
