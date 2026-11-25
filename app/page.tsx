@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowDown,
@@ -18,36 +17,48 @@ import {
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { LocalizedLink, useLocale } from "@/components/LocaleProvider";
 
 const materials = [
   {
     name: "Acero",
+    englishName: "Steel",
     image: "/images/acero.jpg",
     description: "Material ferroso utilizado en una amplia variedad de componentes industriales.",
+    englishDescription: "A ferrous material used in a wide range of industrial components.",
   },
   {
     name: "Aluminio",
+    englishName: "Aluminum",
     image: "/images/aluminio.jpg",
     description: "Material ligero para componentes que requieren reducir su peso.",
+    englishDescription: "A lightweight material for components where weight reduction is important.",
   },
   {
     name: "Bronce",
+    englishName: "Bronze",
     image: "/images/bronce.jpg",
     description: "Aleación de cobre empleada en componentes de distintas aplicaciones industriales.",
+    englishDescription: "A copper alloy used in components for a variety of industrial applications.",
   },
   {
     name: "Latón",
+    englishName: "Brass",
     image: "/images/laton.jpg",
     description: "Aleación de cobre y zinc considerada para piezas y componentes metálicos.",
+    englishDescription: "A copper and zinc alloy used for metal parts and components.",
   },
   {
     name: "Cobre",
+    englishName: "Copper",
     image: "/images/cobre.jpg",
     description: "Metal utilizado en componentes de acuerdo con los requisitos de cada proyecto.",
+    englishDescription: "A metal used in components according to each project's requirements.",
   },
 ];
 
 export default function Home() {
+  const isEnglish = useLocale() === "en";
   const [activeBackground, setActiveBackground] = useState<1 | 2 | 3>(1);
   const [isPlaying, setIsPlaying] = useState(true);
   const [manualVideo, setManualVideo] = useState(false);
@@ -197,61 +208,62 @@ export default function Home() {
               <div className="mb-5 inline-flex max-w-full items-center gap-2 border border-white/20 bg-[#0F172A]/70 px-4 py-2 backdrop-blur-sm">
                 <Award size={16} className="shrink-0 text-[#70A7FF]" />
                 <span className="text-xs font-semibold text-slate-100 sm:text-sm">
-                  Más de 25 años de experiencia
+                  {isEnglish ? "Over 25 years of experience" : "Más de 25 años de experiencia"}
                 </span>
               </div>
 
               <h1 className="max-w-[620px] text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl xl:text-6xl">
-                Torneado de Alto Volumen.
+                {isEnglish ? "High-Volume Turning." : "Torneado de Alto Volumen."}
                 <span className="mt-2 block text-[#70A7FF]">
-                  Suministro Programado y Maquinado CNC
+                  {isEnglish
+                    ? "Scheduled Supply and CNC Machining"
+                    : "Suministro Programado y Maquinado CNC"}
                 </span>
               </h1>
 
               <p className="mt-5 max-w-md text-base leading-7 text-slate-200 sm:mt-6 sm:text-lg sm:leading-8">
-                Tu aliado estratégico en contratos de fabricación en serie.
-                Procesamos componentes metálicos en acero, aluminio, bronce,
-                latón y cobre para respaldar líneas de producción e industrias
-                exigentes.
+                {isEnglish
+                  ? "Your strategic partner for production manufacturing contracts. We process steel, aluminum, bronze, brass, and copper components to support demanding production lines and industries."
+                  : "Tu aliado estratégico en contratos de fabricación en serie. Procesamos componentes metálicos en acero, aluminio, bronce, latón y cobre para respaldar líneas de producción e industrias exigentes."}
               </p>
 
               <div className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:flex-wrap">
-                <Link
+                <LocalizedLink
                   href="/servicios"
                   className="group inline-flex min-h-14 items-center justify-center gap-3 bg-[#2563FF] px-6 py-4 text-sm font-bold text-white transition hover:bg-blue-500"
                 >
-                  Explorar capacidades
+                  {isEnglish ? "Explore our capabilities" : "Explorar capacidades"}
                   <ArrowRight
                     size={18}
                     className="transition-transform group-hover:translate-x-1"
                   />
-                </Link>
+                </LocalizedLink>
 
-                <Link
+                <LocalizedLink
                   href="/contacto"
                   className="inline-flex min-h-14 items-center justify-center gap-3 border border-white/35 bg-[#0F172A]/75 px-6 py-4 text-sm font-semibold text-white backdrop-blur-sm transition hover:border-white hover:bg-white/10"
                 >
-                  Hablemos de tu proyecto
+                  {isEnglish ? "Let's discuss your project" : "Hablemos de tu proyecto"}
                   <ArrowDown size={17} />
-                </Link>
+                </LocalizedLink>
               </div>
             </div>
 
             {/* CONTROLES DE IMAGEN Y VIDEO */}
             <div className="relative z-20 flex items-center justify-between gap-4 border-t border-white/15 py-4 lg:static lg:col-start-2 lg:row-start-1 lg:self-end lg:justify-self-end lg:border-0 lg:py-5">
               <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-white/80 sm:text-xs sm:tracking-[0.2em]">
-                Aqua-Metal · Manufactura industrial
+                {isEnglish ? "Aqua-Metal · Industrial Manufacturing" : "Aqua-Metal · Manufactura industrial"}
               </p>
 
               <div
                 className="flex shrink-0 items-center gap-1 border border-white/20 bg-[#0F172A]/85 p-1 backdrop-blur-md"
                 role="group"
-                aria-label="Controles del fondo"
+                aria-label={isEnglish ? "Background controls" : "Controles del fondo"}
               >
                 <button
                   type="button"
                   onClick={() => selectBackground(1)}
-                  aria-label="Mostrar imagen estática"
+                  aria-label={isEnglish ? "Show still image" : "Mostrar imagen estática"}
                   aria-pressed={activeBackground === 1}
                   className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${activeBackground === 1
                     ? "bg-[#2563FF] text-white"
@@ -264,7 +276,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => selectBackground(2)}
-                  aria-label="Mostrar video de tornos"
+                  aria-label={isEnglish ? "Show turning video" : "Mostrar video de tornos"}
                   aria-pressed={activeBackground === 2}
                   className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${activeBackground === 2
                     ? "bg-[#2563FF] text-white"
@@ -277,7 +289,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={() => selectBackground(3)}
-                  aria-label="Mostrar imagen de maquinaria CNC"
+                  aria-label={isEnglish ? "Show CNC machinery image" : "Mostrar imagen de maquinaria CNC"}
                   aria-pressed={activeBackground === 3}
                   className={`flex h-9 w-9 items-center justify-center text-sm font-bold transition ${activeBackground === 3
                     ? "bg-[#2563FF] text-white"
@@ -292,8 +304,16 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={togglePlayback}
-                  aria-label={isPlaying ? "Pausar secuencia" : "Reproducir secuencia"}
-                  title={isPlaying ? "Pausar secuencia" : "Reproducir secuencia"}
+                  aria-label={
+                    isEnglish
+                      ? isPlaying ? "Pause sequence" : "Play sequence"
+                      : isPlaying ? "Pausar secuencia" : "Reproducir secuencia"
+                  }
+                  title={
+                    isEnglish
+                      ? isPlaying ? "Pause sequence" : "Play sequence"
+                      : isPlaying ? "Pausar secuencia" : "Reproducir secuencia"
+                  }
                   className="flex h-9 w-9 items-center justify-center text-white transition hover:bg-white/10"
                 >
                   {isPlaying ? (
@@ -313,7 +333,7 @@ export default function Home() {
                 +5,000
               </p>
               <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-300">
-                Piezas por lote semanal
+                {isEnglish ? "Parts per weekly batch" : "Piezas por lote semanal"}
               </p>
             </div>
 
@@ -322,7 +342,7 @@ export default function Home() {
                 1–60 mm
               </p>
               <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-300">
-                Rango de maquinado
+                {isEnglish ? "Machining range" : "Rango de maquinado"}
               </p>
             </div>
 
@@ -331,7 +351,7 @@ export default function Home() {
                 +30
               </p>
               <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-300">
-                Máquinas especializadas
+                {isEnglish ? "Specialized machines" : "Máquinas especializadas"}
               </p>
             </div>
 
@@ -340,7 +360,7 @@ export default function Home() {
                 ISO 9001
               </p>
               <p className="mt-2 text-xs font-semibold uppercase leading-5 tracking-[0.12em] text-slate-300">
-                Sistema de gestión de calidad
+                {isEnglish ? "Quality management system" : "Sistema de gestión de calidad"}
               </p>
             </div>
           </div>
@@ -355,18 +375,20 @@ export default function Home() {
           <div className="mb-5 flex flex-col gap-4 border border-[#C5D5EA] bg-[#DCE8F7] px-5 py-5 sm:flex-row sm:items-center sm:justify-between sm:px-8">
             <div>
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#2563FF]">
-                Experiencia y capacidad industrial
+                {isEnglish ? "Experience and industrial capacity" : "Experiencia y capacidad industrial"}
               </p>
               <p className="mt-1 text-sm text-slate-600">
-                Fabricación de componentes metálicos para distintos sectores industriales.
+                {isEnglish
+                  ? "Metal component manufacturing for a range of industrial sectors."
+                  : "Fabricación de componentes metálicos para distintos sectores industriales."}
               </p>
             </div>
 
             <div className="flex flex-wrap gap-x-5 gap-y-2">
               {[
-                "Producción en serie",
-                "Trabajo con diversos metales",
-                "Calidad y mejora continua",
+                ...(isEnglish
+                  ? ["Production runs", "Work with various metals", "Quality and continuous improvement"]
+                  : ["Producción en serie", "Trabajo con diversos metales", "Calidad y mejora continua"]),
               ].map((item) => (
                 <div
                   key={item}
@@ -386,19 +408,19 @@ export default function Home() {
               {/* Texto */}
               <div className="flex flex-col justify-center px-6 py-8 sm:px-9 lg:px-10 lg:py-10">
                 <span className="mb-3 text-xs font-bold uppercase tracking-[0.18em] text-[#2563FF]">
-                  Infraestructura y experiencia
+                  {isEnglish ? "Infrastructure and experience" : "Infraestructura y experiencia"}
                 </span>
 
                 <h2 className="max-w-xl text-3xl font-bold leading-tight text-[#1E293B] sm:text-4xl">
-                  Capacidad productiva respaldada por experiencia y tecnología.
+                  {isEnglish
+                    ? "Production capacity backed by experience and technology."
+                    : "Capacidad productiva respaldada por experiencia y tecnología."}
                 </h2>
 
                 <p className="mt-5 max-w-xl text-sm leading-7 text-slate-600 sm:text-base">
-                  Contamos con instalaciones, maquinaria especializada y
-                  personal con experiencia en la fabricación de componentes
-                  metálicos. Nuestra infraestructura nos permite atender
-                  diferentes procesos y volúmenes de producción, de acuerdo con
-                  las especificaciones de cada cliente.
+                  {isEnglish
+                    ? "Our facilities, specialized machinery, and experienced team manufacture metal components. Our infrastructure supports a range of processes and production volumes based on each customer's specifications."
+                    : "Contamos con instalaciones, maquinaria especializada y personal con experiencia en la fabricación de componentes metálicos. Nuestra infraestructura nos permite atender diferentes procesos y volúmenes de producción, de acuerdo con las especificaciones de cada cliente."}
                 </p>
 
                 <div className="mt-7 flex items-center gap-3 border-t border-[#D5E0EF] pt-5">
@@ -407,7 +429,9 @@ export default function Home() {
                     className="shrink-0 text-[#2563FF]"
                   />
                   <p className="text-sm font-semibold text-slate-700">
-                    Compromiso con la calidad en cada proceso de fabricación.
+                    {isEnglish
+                      ? "Committed to quality at every stage of manufacturing."
+                      : "Compromiso con la calidad en cada proceso de fabricación."}
                   </p>
                 </div>
               </div>
@@ -416,7 +440,7 @@ export default function Home() {
               <div className="relative h-[240px] sm:h-[320px] lg:h-[390px] xl:h-[430px]">
                 <img
                   src="/images/inicio_capacidades.jpg"
-                  alt="Infraestructura y capacidad productiva de Aquametal"
+                  alt={isEnglish ? "Aquametal's facilities and production capacity" : "Infraestructura y capacidad productiva de Aquametal"}
                   className="h-full w-full object-cover"
                 />
 
@@ -424,10 +448,10 @@ export default function Home() {
 
                 <div className="absolute bottom-0 left-0 p-5 sm:p-7">
                   <p className="text-lg font-bold text-white sm:text-xl">
-                    Precisión industrial
+                    {isEnglish ? "Industrial precision" : "Precisión industrial"}
                   </p>
                   <p className="mt-1 text-sm text-slate-200">
-                    Tecnología y experiencia en cada pieza
+                    {isEnglish ? "Technology and experience in every part" : "Tecnología y experiencia en cada pieza"}
                   </p>
                 </div>
               </div>
@@ -442,16 +466,17 @@ export default function Home() {
               {/* Encabezado */}
               <div className="mx-auto mb-10 max-w-3xl text-center sm:mb-14">
                 <span className="inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#2563EB]">
-                  Nuestra infraestructura
+                  {isEnglish ? "Our infrastructure" : "Nuestra infraestructura"}
                 </span>
 
                 <h3 className="mt-3 text-3xl font-bold leading-tight text-[#1E293B] sm:text-4xl">
-                  Una capacidad que marca la diferencia
+                  {isEnglish ? "Capacity that makes a difference" : "Una capacidad que marca la diferencia"}
                 </h3>
 
                 <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-[#475569] sm:text-base">
-                  Recursos, tecnología y experiencia para respaldar las necesidades
-                  de producción de nuestros clientes.
+                  {isEnglish
+                    ? "Resources, technology, and experience to support our customers' production needs."
+                    : "Recursos, tecnología y experiencia para respaldar las necesidades de producción de nuestros clientes."}
                 </p>
 
                 <div className="mx-auto mt-5 h-1 w-16 rounded-full bg-[#2563EB]" />
@@ -463,38 +488,38 @@ export default function Home() {
                 {[
                   {
                     image: "/images/inicio_l1.png",
-                    value: "Dos turnos",
-                    title: "Producción continua",
+                    value: isEnglish ? "Two shifts" : "Dos turnos",
+                    title: isEnglish ? "Continuous production" : "Producción continua",
                     description:
-                      "Organización operativa para responder a los requerimientos de fabricación.",
+                      isEnglish ? "Operational planning to meet manufacturing requirements." : "Organización operativa para responder a los requerimientos de fabricación.",
                   },
                   {
                     image: "/images/inicio_l2.png",
                     value: "1,000 m²",
-                    title: "Superficie de planta",
+                    title: isEnglish ? "Plant area" : "Superficie de planta",
                     description:
-                      "Espacio destinado a las operaciones y los procesos de fabricación.",
+                      isEnglish ? "Space dedicated to manufacturing operations and processes." : "Espacio destinado a las operaciones y los procesos de fabricación.",
                   },
                   {
                     image: "/images/inicio_l3.png",
                     value: "+30",
-                    title: "Máquinas",
+                    title: isEnglish ? "Machines" : "Máquinas",
                     description:
-                      "Equipamiento para atender diferentes necesidades de mecanizado.",
+                      isEnglish ? "Equipment for a range of machining requirements." : "Equipamiento para atender diferentes necesidades de mecanizado.",
                   },
                   {
                     image: "/images/inicio_l4.png",
                     value: "+100",
-                    title: "Clientes atendidos",
+                    title: isEnglish ? "Customers served" : "Clientes atendidos",
                     description:
-                      "Soluciones de fabricación enfocadas en las necesidades de cada cliente.",
+                      isEnglish ? "Manufacturing solutions tailored to each customer's needs." : "Soluciones de fabricación enfocadas en las necesidades de cada cliente.",
                   },
                   {
                     image: "/images/inicio_l5.png",
-                    value: "Exportación",
-                    title: "Capacidad internacional",
+                    value: isEnglish ? "Export" : "Exportación",
+                    title: isEnglish ? "International capability" : "Capacidad internacional",
                     description:
-                      "Capacidad para atender proyectos con requerimientos de exportación.",
+                      isEnglish ? "Capacity to support projects with export requirements." : "Capacidad para atender proyectos con requerimientos de exportación.",
                   },
                 ].map((item, index) => (
                   <div
@@ -546,20 +571,21 @@ export default function Home() {
             <div className="mb-5 flex items-center justify-center gap-3">
               <span className="h-[2px] w-10 bg-[#70A7FF]" />
               <span className="text-xs font-bold uppercase tracking-[0.24em] text-[#70A7FF]">
-                Materiales
+                {isEnglish ? "Materials" : "Materiales"}
               </span>
             </div>
 
             <h2 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
-              Distintos metales.
+              {isEnglish ? "Different metals." : "Distintos metales."}
               <span className="block text-[#70A7FF]">
-                Requerimientos específicos.
+                {isEnglish ? "Specific requirements." : "Requerimientos específicos."}
               </span>
             </h2>
 
             <p className="mx-auto mt-5 max-w-xl leading-8 text-slate-300">
-              Trabajamos con materiales ferrosos y no ferrosos de acuerdo con
-              las necesidades de cada proyecto y sus especificaciones de fabricación.
+              {isEnglish
+                ? "We work with ferrous and non-ferrous materials to meet each project's manufacturing needs and specifications."
+                : "Trabajamos con materiales ferrosos y no ferrosos de acuerdo con las necesidades de cada proyecto y sus especificaciones de fabricación."}
             </p>
           </div>
 
@@ -567,14 +593,15 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-6">
 
             {materials.map((material, index) => {
-              const isActive = activeMaterial === material.name;
+              const materialName = isEnglish ? material.englishName : material.name;
+              const isActive = activeMaterial === materialName;
 
               return (
                 <button
                   key={material.name}
                   type="button"
                   onClick={() =>
-                    setActiveMaterial(isActive ? null : material.name)
+                    setActiveMaterial(isActive ? null : materialName)
                   }
                   aria-expanded={isActive}
                   className={`group relative min-h-[250px] overflow-hidden border text-left transition-all duration-300 sm:min-h-[270px] lg:col-span-2 ${index === 3 ? "lg:col-start-2" : ""
@@ -617,7 +644,7 @@ export default function Home() {
                     {/* Parte inferior */}
                     <div>
                       <h3 className="text-2xl font-bold text-white md:text-3xl">
-                        {material.name}
+                        {materialName}
                       </h3>
 
                       {/* Descripción desplegable */}
@@ -629,7 +656,7 @@ export default function Home() {
                       >
                         <div className="overflow-hidden">
                           <p className="max-w-md border-t border-white/30 pt-4 text-sm leading-7 text-slate-200">
-                            {material.description}
+                            {isEnglish ? material.englishDescription : material.description}
                           </p>
                         </div>
                       </div>
@@ -637,7 +664,7 @@ export default function Home() {
                       {/* Indicador */}
                       {!isActive && (
                         <p className="mt-2 text-xs font-medium uppercase tracking-wider text-slate-300">
-                          Ver material
+                          {isEnglish ? "View material" : "Ver material"}
                         </p>
                       )}
                     </div>
@@ -659,16 +686,17 @@ export default function Home() {
           {/* Encabezado */}
           <div className="mb-12">
             <span className="mb-3 block text-sm font-semibold uppercase tracking-[0.2em] text-[#2563EB]">
-              Lo que hacemos
+              {isEnglish ? "What we do" : "Lo que hacemos"}
             </span>
 
             <h2 className="text-3xl font-bold tracking-tight text-[#0F172A] md:text-4xl">
-              Servicios
+              {isEnglish ? "Services" : "Servicios"}
             </h2>
 
             <p className="mt-4 max-w-2xl text-base leading-relaxed text-slate-600">
-              Soluciones de manufactura y soporte técnico para atender las
-              necesidades de cada proyecto.
+              {isEnglish
+                ? "Manufacturing solutions and technical support tailored to each project's needs."
+                : "Soluciones de manufactura y soporte técnico para atender las necesidades de cada proyecto."}
             </p>
           </div>
 
@@ -680,7 +708,7 @@ export default function Home() {
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
                   src="/images/diseño.jpeg"
-                  alt="Diseño de piezas y soluciones de manufactura"
+                  alt={isEnglish ? "Part design and manufacturing solutions" : "Diseño de piezas y soluciones de manufactura"}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover saturate-[1.2] grayscale-[8%] sepia-[8%] transition-transform duration-500 group-hover:scale-105"
@@ -689,10 +717,10 @@ export default function Home() {
 
               <div className="mt-5 border-t-2 border-[#2563EB] pt-4">
                 <h3 className="text-xl font-bold text-[#0F172A]">
-                  Diseño
+                  {isEnglish ? "Design" : "Diseño"}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Soluciones personalizadas para cada proyecto.
+                  {isEnglish ? "Custom solutions for every project." : "Soluciones personalizadas para cada proyecto."}
                 </p>
               </div>
             </div>
@@ -702,7 +730,7 @@ export default function Home() {
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
                   src="/images/fabricacion.jpg"
-                  alt="Fabricación de componentes industriales"
+                  alt={isEnglish ? "Manufacturing of industrial components" : "Fabricación de componentes industriales"}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover saturate-[1.2] grayscale-[8%] sepia-[8%] transition-transform duration-500 group-hover:scale-105"
@@ -711,10 +739,10 @@ export default function Home() {
 
               <div className="mt-5 border-t-2 border-[#2563EB] pt-4">
                 <h3 className="text-xl font-bold text-[#0F172A]">
-                  Fabricación
+                  {isEnglish ? "Manufacturing" : "Fabricación"}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Manufactura de componentes con máxima precisión.
+                  {isEnglish ? "Precision manufacturing of components." : "Manufactura de componentes con máxima precisión."}
                 </p>
               </div>
             </div>
@@ -724,7 +752,7 @@ export default function Home() {
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
                   src="/images/maquila.jpg"
-                  alt="Maquila de piezas mediante procesos especializados"
+                  alt={isEnglish ? "Contract machining using specialized processes" : "Maquila de piezas mediante procesos especializados"}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover saturate-[1.2] grayscale-[8%] sepia-[8%] transition-transform duration-500 group-hover:scale-105"
@@ -733,10 +761,10 @@ export default function Home() {
 
               <div className="mt-5 border-t-2 border-[#2563EB] pt-4">
                 <h3 className="text-xl font-bold text-[#0F172A]">
-                  Maquila de piezas
+                  {isEnglish ? "Contract machining" : "Maquila de piezas"}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Procesos especializados de maquinado.
+                  {isEnglish ? "Specialized machining processes." : "Procesos especializados de maquinado."}
                 </p>
               </div>
             </div>
@@ -746,7 +774,7 @@ export default function Home() {
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
                   src="/images/asistencia.jpg"
-                  alt="Asistencia técnica en procesos de manufactura"
+                  alt={isEnglish ? "Technical support for manufacturing processes" : "Asistencia técnica en procesos de manufactura"}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   className="object-cover saturate-[1.2] grayscale-[8%] sepia-[8%] transition-transform duration-500 group-hover:scale-105"
@@ -755,10 +783,10 @@ export default function Home() {
 
               <div className="mt-5 border-t-2 border-[#2563EB] pt-4">
                 <h3 className="text-xl font-bold text-[#0F172A]">
-                  Asistencia técnica
+                  {isEnglish ? "Technical support" : "Asistencia técnica"}
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                  Soporte integral durante el proceso productivo.
+                  {isEnglish ? "Comprehensive support throughout production." : "Soporte integral durante el proceso productivo."}
                 </p>
               </div>
             </div>
@@ -784,38 +812,40 @@ export default function Home() {
         <div className="mb-5 flex items-center gap-3">
           <span className="h-[2px] w-10 bg-[#2563FF]" />
           <span className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">
-            Hablemos de tu proyecto
+            {isEnglish ? "Let's discuss your project" : "Hablemos de tu proyecto"}
           </span>
         </div>
 
         <h2 className="max-w-2xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-          ¿Buscas un proveedor para la fabricación de tus componentes?
+          {isEnglish
+            ? "Looking for a supplier to manufacture your components?"
+            : "¿Buscas un proveedor para la fabricación de tus componentes?"}
         </h2>
 
         <p className="mt-6 max-w-xl leading-8 text-slate-300">
-          Conoce nuestros procesos de manufactura y compártenos los
-          requerimientos de tu proyecto. Estamos listos para conocer tus
-          necesidades de producción y trabajar contigo.
+          {isEnglish
+            ? "Learn about our manufacturing processes and share your project requirements. We are ready to understand your production needs and work with you."
+            : "Conoce nuestros procesos de manufactura y compártenos los requerimientos de tu proyecto. Estamos listos para conocer tus necesidades de producción y trabajar contigo."}
         </p>
 
         <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-          <Link
+          <LocalizedLink
             href="/contacto"
             className="group inline-flex min-h-14 items-center justify-center gap-3 bg-[#2563FF] px-7 py-4 text-sm font-bold text-white transition hover:bg-blue-500"
           >
-            Contactar a Aquametal
+            {isEnglish ? "Contact Aquametal" : "Contactar a Aquametal"}
             <ArrowRight
               size={18}
               className="transition-transform group-hover:translate-x-1"
             />
-          </Link>
+          </LocalizedLink>
 
-          <Link
+          <LocalizedLink
             href="/servicios"
             className="inline-flex min-h-14 items-center justify-center border border-white/25 px-7 py-4 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
           >
-            Explorar servicios
-          </Link>
+            {isEnglish ? "Explore services" : "Explorar servicios"}
+          </LocalizedLink>
         </div>
       </div>
     </div>
@@ -824,7 +854,7 @@ export default function Home() {
     <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
       <Image
         src="/images/cta.jpg"
-        alt="Maquinaria CNC durante un proceso de fabricación"
+        alt={isEnglish ? "CNC machinery during manufacturing" : "Maquinaria CNC durante un proceso de fabricación"}
         fill
         sizes="(max-width: 1024px) 100vw, 42vw"
         className="object-cover"

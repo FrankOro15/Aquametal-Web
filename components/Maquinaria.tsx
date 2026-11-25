@@ -2,9 +2,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { Play, Ruler, Factory } from "lucide-react";
+import { LocalizedLink, useLocale } from "@/components/LocaleProvider";
 
 const maquinas = [
   {
@@ -184,7 +184,107 @@ const maquinas = [
   },
 ];
 
+const machineTranslations = [
+  {
+    model: "Precision automatic lathe",
+    category: "Automatic turning",
+    description:
+      "An automatic lathe used to manufacture metal components through repeatable turning operations. Designed for precision parts, it maintains dimensional consistency throughout production.",
+  },
+  {
+    model: "40 x 20-inch CNC machining center",
+    category: "CNC machining",
+    description:
+      "A CNC machining center for milling, drilling, and machining metal components. Its work area accommodates parts of different sizes using programmed toolpaths and precision operations.",
+  },
+  {
+    model: "Automatic cam-operated lathe",
+    category: "Precision automatic turning",
+    description:
+      "An automatic cam-operated lathe designed for high-volume production of small metal components. Its automated feeding and machining system delivers precise, consistent parts for continuous production.",
+  },
+  {
+    model: "Automatic cam-operated lathe",
+    category: "Precision turning",
+    description:
+      "An automatic lathe that manufactures metal components through sequential cutting and machining operations. Automation helps maintain consistent production cycles and dimensional accuracy.",
+  },
+  {
+    model: "Automatic cam-operated lathe",
+    category: "Component manufacturing",
+    description:
+      "Automatic turning equipment for manufacturing metal components through repeatable machining cycles. Designed for production runs where dimensional precision and part-to-part consistency are essential.",
+  },
+  {
+    model: "Automatic cam-operated lathe",
+    category: "Automated production",
+    description:
+      "An automatic lathe specialized in precision-turned parts. Its configuration supports sequential machining operations, helping produce small components with defined geometries and consistent finishes.",
+  },
+  {
+    model: "Standard CNC lathe",
+    category: "CNC turning",
+    description:
+      "Computer numerical control equipment that manufactures components from programmed instructions. Its CNC system controls machining movements to produce precise geometries and repeatable results.",
+  },
+  {
+    model: "Dual-spindle CNC lathe",
+    category: "CNC machining",
+    description:
+      "A dual-spindle CNC lathe that works with two machining positions and coordinates operations on a part. This configuration can reduce cycle times and support components requiring multiple turning stages.",
+  },
+  {
+    model: "CNC engine lathe",
+    category: "Precision machining",
+    description:
+      "A CNC-controlled engine lathe for machining cylindrical parts through operations such as turning, facing, and grooving. Programming controls cutting paths and maintains consistent dimensions.",
+  },
+  {
+    model: "Dual-table CNC machining center",
+    category: "CNC machining",
+    description:
+      "A machining center for milling, drilling, and other machining tasks. Its dual-table configuration allows one part to be prepared while another is being machined, improving operating efficiency and production continuity.",
+  },
+  {
+    model: "CNC lathe for secondary operations",
+    category: "CNC turning",
+    description:
+      "CNC turning equipment for secondary operations on previously manufactured components. Programmed processes deliver precise, repeatable dimensional adjustments and finishes.",
+  },
+  {
+    model: "Automatic tapping machine",
+    category: "Component threading",
+    description:
+      "Automatic equipment for cutting threads in metal components. Repeatable threading operations help produce consistent thread profiles for production runs.",
+  },
+  {
+    model: "Three-axis knurling machine",
+    category: "Precision knurling",
+    description:
+      "Specialized equipment that knurls metal surfaces to create patterns that improve grip and component functionality. Its three-axis configuration accommodates different geometries.",
+  },
+  {
+    model: "Thread rolling machine with flat dies",
+    category: "Thread forming",
+    description:
+      "Equipment that forms threads through flat-die rolling. This chipless process shapes the material through deformation, supporting strong, consistent components.",
+  },
+  {
+    model: "Six-blow nut former",
+    category: "Cold forming",
+    description:
+      "Metal forming equipment that manufactures nuts through a staged forging process. Six blows progressively shape the material into the geometry required for fasteners.",
+  },
+  {
+    model: "Four-blow screw former",
+    category: "Cold forming",
+    description:
+      "Specialized equipment for manufacturing screws through successive forming blows. The material is progressively shaped into consistent fasteners suited to production runs.",
+  },
+];
+
 export default function Maquinaria() {
+  const isEnglish = useLocale() === "en";
   const [seleccionada, setSeleccionada] = useState(0);
   const [videoActivo, setVideoActivo] = useState(false);
   const [imagenVisible, setImagenVisible] = useState(true);
@@ -194,6 +294,7 @@ export default function Maquinaria() {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const maquina = maquinas[seleccionada];
+  const machineTranslation = machineTranslations[seleccionada];
 
   // FINALIZAR VIDEO
   const finalizarVideo = () => {
@@ -280,20 +381,20 @@ export default function Maquinaria() {
           />
           <div className="mb-3">
             <span className="text-xs font-extrabold uppercase tracking-[0.24em] text-[#2563FF] sm:text-sm">
-              Nuestra infraestructura
+              {isEnglish ? "Our infrastructure" : "Nuestra infraestructura"}
             </span>
           </div>
 
           <h2 className="text-4xl font-black tracking-tight text-[#0F172A] sm:text-5xl lg:text-6xl">
-            Maquinaria y tecnología
+            {isEnglish ? "Machinery and technology" : "Maquinaria y tecnología"}
           </h2>
 
           <div aria-hidden="true" className="mx-auto mt-4 h-1 w-16 bg-[#2563FF]" />
 
           <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-slate-600 sm:text-lg">
-            Contamos con equipos especializados para la fabricación de
-            componentes metálicos, combinando tecnología, precisión y capacidad
-            de producción.
+            {isEnglish
+              ? "We use specialized equipment to manufacture metal components, combining technology, precision, and production capacity."
+              : "Contamos con equipos especializados para la fabricación de componentes metálicos, combinando tecnología, precisión y capacidad de producción."}
           </p>
           <span
             aria-hidden="true"
@@ -330,11 +431,13 @@ export default function Maquinaria() {
 
             <div className="relative z-10 mb-5">
               <p className="text-sm font-bold uppercase tracking-wider text-white/90">
-                Selecciona un equipo
+                {isEnglish ? "Select a machine" : "Selecciona un equipo"}
               </p>
 
               <p className="mt-1 text-xs text-blue-100/70">
-                Conoce nuestra maquinaria y capacidades
+                {isEnglish
+                  ? "Explore our machinery and capabilities"
+                  : "Conoce nuestra maquinaria y capacidades"}
               </p>
             </div>
 
@@ -363,7 +466,9 @@ export default function Maquinaria() {
                   </span>
 
                   <span className="mt-1 block text-xs leading-snug text-slate-600">
-                    {item.modelo}
+                    {isEnglish
+                      ? machineTranslations[index].model
+                      : item.modelo}
                   </span>
                 </button>
               ))}
@@ -403,7 +508,9 @@ export default function Maquinaria() {
                 <Image
                   key={maquina.imagen}
                   src={maquina.imagen}
-                  alt={`${maquina.nombre} - ${maquina.modelo}`}
+                  alt={`${maquina.nombre} - ${
+                    isEnglish ? machineTranslation.model : maquina.modelo
+                  }`}
                   fill
                   priority={seleccionada === 0}
                   sizes="(max-width: 1023px) 100vw, 45vw"
@@ -434,7 +541,11 @@ export default function Maquinaria() {
                       <button
                         type="button"
                         onClick={reproducirVideo}
-                        aria-label={`Reproducir video de ${maquina.nombre}`}
+                        aria-label={
+                          isEnglish
+                            ? `Play video of ${maquina.nombre}`
+                            : `Reproducir video de ${maquina.nombre}`
+                        }
                         className="absolute right-5 top-5 z-10 flex h-12 w-12 items-center justify-center bg-blue-600 text-white shadow-lg transition hover:bg-blue-700"
                       >
                         <Play size={21} fill="currentColor" />
@@ -459,7 +570,7 @@ export default function Maquinaria() {
               {/* NOMBRE Y MODELO */}
               <div className="border-l-4 border-blue-600 pl-5">
                 <span className="text-xs font-bold uppercase tracking-[0.15em] text-blue-600 sm:text-sm">
-                  {maquina.categoria}
+                  {isEnglish ? machineTranslation.category : maquina.categoria}
                 </span>
 
                 <h3
@@ -470,13 +581,15 @@ export default function Maquinaria() {
                 </h3>
 
                 <p className="mt-2 text-base font-medium text-slate-500 sm:text-lg">
-                  {maquina.modelo}
+                  {isEnglish ? machineTranslation.model : maquina.modelo}
                 </p>
               </div>
 
               {/* DESCRIPCIÓN */}
               <p className="mt-6 text-sm leading-7 text-slate-600 sm:text-base">
-                {maquina.descripcion}
+                {isEnglish
+                  ? machineTranslation.description
+                  : maquina.descripcion}
               </p>
 
               {/* DATOS TÉCNICOS */}
@@ -487,7 +600,7 @@ export default function Maquinaria() {
                     <Ruler size={17} />
 
                     <span className="text-[10px] font-bold uppercase tracking-wider sm:text-[11px]">
-                      Capacidad
+                      {isEnglish ? "Capacity" : "Capacidad"}
                     </span>
                   </div>
 
@@ -501,7 +614,7 @@ export default function Maquinaria() {
                     <Factory size={17} />
 
                     <span className="text-[10px] font-bold uppercase tracking-wider sm:text-[11px]">
-                      Total máquinas
+                      {isEnglish ? "Total machines" : "Total máquinas"}
                     </span>
                   </div>
 
@@ -515,9 +628,9 @@ export default function Maquinaria() {
               {/* TEXTO INFERIOR */}
               <div className="mt-7 border-t border-slate-200 pt-5">
                 <p className="text-sm leading-6 text-slate-500">
-                  Nuestra infraestructura permite atender diferentes
-                  requerimientos de fabricación, desde componentes de precisión
-                  hasta procesos de producción en serie.
+                  {isEnglish
+                    ? "Our infrastructure supports a range of manufacturing needs, from precision components to production runs."
+                    : "Nuestra infraestructura permite atender diferentes requerimientos de fabricación, desde componentes de precisión hasta procesos de producción en serie."}
                 </p>
               </div>
             </div>
@@ -541,21 +654,22 @@ export default function Maquinaria() {
 
             <div>
               <h3 className="text-2xl font-extrabold text-white sm:text-3xl">
-                ¿Te interesan nuestros servicios?
+                {isEnglish ? "Interested in our services?" : "¿Te interesan nuestros servicios?"}
               </h3>
 
               <p className="mt-3 max-w-xl leading-relaxed text-blue-100">
-                Contáctanos y conoce cómo podemos ayudarte con tus
-                requerimientos de fabricación y maquinado.
+                {isEnglish
+                  ? "Contact us to learn how we can help with your manufacturing and machining requirements."
+                  : "Contáctanos y conoce cómo podemos ayudarte con tus requerimientos de fabricación y maquinado."}
               </p>
             </div>
 
-            <Link
+            <LocalizedLink
               href="/contacto"
               className="inline-flex shrink-0 items-center justify-center bg-white px-8 py-4 text-sm font-bold text-accent-primary transition hover:bg-blue-50"
             >
-              Solicitar cotización
-            </Link>
+              {isEnglish ? "Request a quote" : "Solicitar cotización"}
+            </LocalizedLink>
 
           </div>
         </div>

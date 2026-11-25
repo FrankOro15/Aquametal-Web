@@ -2,9 +2,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import IsoSeal from "@/components/IsoSeal";
+import { LocalizedLink, useLocale } from "@/components/LocaleProvider";
 import {
   Phone,
   Mail,
@@ -20,44 +20,58 @@ import {
 } from "lucide-react";
 
 export default function Navbar() {
-  const [lang, setLang] = useState<"ES" | "EN">("ES");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const locale = useLocale();
+  const isEnglish = locale === "en";
 
   const scrollToTop = () =>
     window.scrollTo({ top: 0, behavior: "smooth" });
 
-  const toggleLanguage = () => {
-    setLang((prev) => (prev === "ES" ? "EN" : "ES"));
+  const changeLanguage = (nextLocale: "es" | "en") => {
+    if (nextLocale === locale) return;
+
+    const currentPath = window.location.pathname;
+    const spanishPath = currentPath.replace(/^\/en(?=\/|$)/, "") || "/";
+    const nextPath =
+      nextLocale === "en"
+        ? `/en${spanishPath === "/" ? "" : spanishPath}`
+        : spanishPath;
+
+    const targetUrl = new URL(
+      `${nextPath}${window.location.search}${window.location.hash}`,
+      window.location.origin
+    );
+    window.location.assign(targetUrl.href);
   };
 
   const navLinks = [
     {
-      name: lang === "ES" ? "Inicio" : "Home",
+      name: isEnglish ? "Home" : "Inicio",
       href: "/",
       icon: HomeIcon,
     },
     {
-      name: lang === "ES" ? "Nosotros" : "About Us",
+      name: isEnglish ? "About Us" : "Nosotros",
       href: "/nosotros",
       icon: Users,
     },
     {
-      name: lang === "ES" ? "Capacidades" : "Capabilities",
+      name: isEnglish ? "Capabilities" : "Capacidades",
       href: "/servicios",
       icon: Wrench,
     },
     {
-      name: lang === "ES" ? "Galería" : "Gallery",
+      name: isEnglish ? "Gallery" : "Galería",
       href: "/galeria",
       icon: ImageIcon,
     },
     {
-      name: lang === "ES" ? "Contacto" : "Contact",
+      name: isEnglish ? "Contact" : "Contacto",
       href: "/contacto",
       icon: MessageSquare,
     },
     {
-      name: lang === "ES" ? "Blog" : "Blog",
+      name: "Blog",
       href: "/blog",
       icon: FileText,
     },
@@ -76,20 +90,20 @@ export default function Navbar() {
           <div className="flex min-w-0 items-center gap-2 sm:gap-4">
   <span className="shrink-0 font-bold tracking-wide text-slate-300 uppercase text-[9px] sm:text-[11px] leading-tight">
     <span className="sm:hidden">
-      {lang === "ES" ? "Torneado de alto volumen" : "High-volume turning"}
+      {isEnglish ? "High-volume turning" : "Torneado de alto volumen"}
     </span>
 
     <span className="hidden sm:inline">
-      {lang === "ES"
-        ? "Torneado de alto volumen y CNC"
-        : "High-Volume Turning and CNC"}
+      {isEnglish
+        ? "High-Volume Turning and CNC"
+        : "Torneado de alto volumen y CNC"}
     </span>
   </span>
 
   <div className="flex items-center gap-1.5 sm:gap-4 text-slate-300">
     <a
       href="tel:5550846281"
-      aria-label="Llamar al 55 5084 6281"
+      aria-label={isEnglish ? "Call 55 5084 6281" : "Llamar al 55 5084 6281"}
       className="hidden md:inline-flex items-center gap-1.5 hover:text-white transition"
     >
       <Phone className="w-3.5 h-3.5 shrink-0" />
@@ -100,7 +114,11 @@ export default function Navbar() {
 
     <a
       href="mailto:ventas@aqua-metal.com.mx"
-      aria-label="Enviar correo a ventas@aqua-metal.com.mx"
+      aria-label={
+        isEnglish
+          ? "Email sales at ventas@aqua-metal.com.mx"
+          : "Enviar correo a ventas@aqua-metal.com.mx"
+      }
       className="hidden lg:inline-flex items-center gap-1.5 hover:text-white transition"
     >
       <Mail className="w-3.5 h-3.5 shrink-0" />
@@ -187,19 +205,35 @@ export default function Navbar() {
             </div>
 
             {/* Selector de idioma */}
-            <button
-              type="button"
-              onClick={toggleLanguage}
-              aria-label={
-                lang === "ES"
-                  ? "Switch to English"
-                  : "Cambiar a español"
-              }
-              className="flex items-center gap-1 bg-blue-600 hover:bg-blue-700 px-2.5 py-1 text-[11px] font-bold transition text-white cursor-pointer shadow-sm"
+            <div
+              aria-label={isEnglish ? "Select language" : "Seleccionar idioma"}
+              className="flex items-center gap-1 bg-blue-600 px-2.5 py-1 text-[11px] font-bold text-white shadow-sm"
             >
               <Globe className="w-3 h-3 text-white" />
-              {lang === "ES" ? "EN" : "ES"}
-            </button>
+              <button
+                type="button"
+                onClick={() => changeLanguage("es")}
+                aria-label="Español"
+                aria-pressed={!isEnglish}
+                className={`cursor-pointer transition hover:text-white ${
+                  isEnglish ? "text-blue-200" : "text-white underline"
+                }`}
+              >
+                ES
+              </button>
+              <span aria-hidden="true">/</span>
+              <button
+                type="button"
+                onClick={() => changeLanguage("en")}
+                aria-label="English"
+                aria-pressed={isEnglish}
+                className={`cursor-pointer transition hover:text-white ${
+                  isEnglish ? "text-white underline" : "text-blue-200"
+                }`}
+              >
+                EN
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -209,10 +243,10 @@ export default function Navbar() {
         <div className="max-w-6xl mx-auto flex flex-row items-center justify-between gap-3 md:flex-row md:gap-8">
           {/* Logo */}
           <div className="flex shrink-0 items-center gap-2 sm:gap-3">
-            <Link
+            <LocalizedLink
               href="/"
               onClick={handleNavigation}
-              aria-label="AquaMetal - Inicio"
+              aria-label={isEnglish ? "Aquametal - Home" : "AquaMetal - Inicio"}
               className="flex shrink-0 items-center"
             >
               <Image
@@ -223,7 +257,7 @@ export default function Navbar() {
                 priority
                 className="h-12 w-32 object-cover object-center sm:h-14 sm:w-36"
               />
-            </Link>
+            </LocalizedLink>
             <IsoSeal
               idPrefix="navbar-iso"
               className="h-10 w-10 shrink-0 text-slate-500 sm:h-12 sm:w-12"
@@ -236,10 +270,10 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-label={
               mobileMenuOpen
-                ? lang === "ES"
+                ? !isEnglish
                   ? "Cerrar menú"
                   : "Close menu"
-                : lang === "ES"
+                : !isEnglish
                   ? "Abrir menú"
                   : "Open menu"
             }
@@ -257,7 +291,7 @@ export default function Navbar() {
           {/* Menú de escritorio: se conserva visible en PC */}
           <nav
             aria-label={
-              lang === "ES"
+              !isEnglish
                 ? "Navegación principal"
                 : "Main navigation"
             }
@@ -268,7 +302,7 @@ export default function Navbar() {
                 const Icon = link.icon;
 
                 return (
-                  <Link
+                  <LocalizedLink
                     key={link.name}
                     href={link.href}
                     onClick={handleNavigation}
@@ -276,7 +310,7 @@ export default function Navbar() {
                   >
                     <Icon className="h-4 w-4 shrink-0 text-slate-500 transition group-hover:text-blue-600" />
                     <span>{link.name}</span>
-                  </Link>
+                  </LocalizedLink>
                 );
               })}
             </div>
@@ -296,7 +330,7 @@ export default function Navbar() {
         >
           <nav
             aria-label={
-              lang === "ES"
+              !isEnglish
                 ? "Navegación móvil"
                 : "Mobile navigation"
             }
@@ -307,7 +341,7 @@ export default function Navbar() {
                 const Icon = link.icon;
 
                 return (
-                  <Link
+                  <LocalizedLink
                     key={link.name}
                     href={link.href}
                     onClick={handleNavigation}
@@ -316,7 +350,7 @@ export default function Navbar() {
                   >
                     <Icon className="h-5 w-5 shrink-0 text-slate-500 group-hover:text-blue-600" />
                     <span>{link.name}</span>
-                  </Link>
+                  </LocalizedLink>
                 );
               })}
             </div>

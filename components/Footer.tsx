@@ -1,11 +1,12 @@
 
 "use client";
 
-import Link from "next/link";
+import { LocalizedLink, useLocale } from "@/components/LocaleProvider";
 import { MapPin, Phone, Mail, FileText } from "lucide-react";
 import IsoSeal from "@/components/IsoSeal";
 
 export default function Footer() {
+  const isEnglish = useLocale() === "en";
   const scrollToTop = () =>
     window.scrollTo({ top: 0, behavior: "smooth" });
 
@@ -21,13 +22,13 @@ export default function Footer() {
         <div className="w-fit space-y-2.5">
           {/* Logo + Sello ISO */}
           <div className="flex items-center gap-14">
-            <Link
+            <LocalizedLink
               href="/"
               onClick={scrollToTop}
               className="flex items-center gap-0 text-xl font-black tracking-tight text-white transition-colors hover:text-blue-400"
             >
               AQUA<span className="text-blue-400">METAL</span>
-            </Link>
+            </LocalizedLink>
 
             {/* Sello ISO */}
             <IsoSeal
@@ -38,63 +39,64 @@ export default function Footer() {
 
           {/* Descripción: desde el inicio del logo hasta el final del sello */}
           <p className="w-full max-w-[250px] text-xs leading-relaxed text-slate-400">
-            Manufactura de componentes metálicos de precisión para el sector
-            industrial, con tecnología, experiencia y compromiso con la calidad.
+            {isEnglish
+              ? "Precision metal component manufacturing for industry, backed by technology, experience, and a commitment to quality."
+              : "Manufactura de componentes metálicos de precisión para el sector industrial, con tecnología, experiencia y compromiso con la calidad."}
           </p>
         </div>
 
         {/* Columna 2: Navegación */}
         <div>
           <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-100">
-            Navegación
+            {isEnglish ? "Navigation" : "Navegación"}
           </h3>
 
           <ul className="space-y-1.5 text-xs font-medium">
             <li>
-              <Link
+              <LocalizedLink
                 href="/"
                 onClick={scrollToTop}
                 className="transition-colors hover:text-blue-400"
               >
-                Inicio
-              </Link>
+                {isEnglish ? "Home" : "Inicio"}
+              </LocalizedLink>
             </li>
             <li>
-              <Link
+              <LocalizedLink
                 href="/nosotros"
                 onClick={scrollToTop}
                 className="transition-colors hover:text-blue-400"
               >
-                Nosotros
-              </Link>
+                {isEnglish ? "About Us" : "Nosotros"}
+              </LocalizedLink>
             </li>
             <li>
-              <Link
+              <LocalizedLink
                 href="/servicios"
                 onClick={scrollToTop}
                 className="transition-colors hover:text-blue-400"
               >
-                Servicios y Capacidades
-              </Link>
+                {isEnglish ? "Services and Capabilities" : "Servicios y Capacidades"}
+              </LocalizedLink>
             </li>
             <li>
-              <Link
+              <LocalizedLink
                 href="/contacto"
                 onClick={scrollToTop}
                 className="transition-colors hover:text-blue-400"
               >
-                Contacto
-              </Link>
+                {isEnglish ? "Contact" : "Contacto"}
+              </LocalizedLink>
             </li>
             <li>
-              <Link
+              <LocalizedLink
                 href="/privacidad"
                 onClick={scrollToTop}
                 className="flex items-center gap-1.5 transition-colors hover:text-blue-400"
               >
                 <FileText className="h-3.5 w-3.5 text-blue-400" />
-                Aviso de Privacidad
-              </Link>
+                {isEnglish ? "Privacy Notice" : "Aviso de Privacidad"}
+              </LocalizedLink>
             </li>
           </ul>
         </div>
@@ -102,14 +104,16 @@ export default function Footer() {
         {/* Columna 3: Contacto */}
         <div>
           <h3 className="mb-2 text-xs font-bold uppercase tracking-wider text-slate-100">
-            Contacto Directo
+            {isEnglish ? "Direct Contact" : "Contacto Directo"}
           </h3>
 
           <ul className="space-y-2 text-xs">
             <li className="flex items-start gap-2">
               <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-blue-400" />
               <span>
-                Santa Ana Jilotzingo, Estado de México, México
+                {isEnglish
+                  ? "Santa Ana Jilotzingo, State of Mexico, Mexico"
+                  : "Santa Ana Jilotzingo, Estado de México, México"}
               </span>
             </li>
 
@@ -140,13 +144,13 @@ export default function Footer() {
       <div className="border-t border-slate-700/80 bg-slate-900/40 py-3 text-xs text-slate-400">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-6 sm:flex-row">
           <p className="text-center sm:text-left">
-            © {new Date().getFullYear()} Aquametal. Todos los derechos
-            reservados.
+            © {new Date().getFullYear()} Aquametal.{" "}
+            {isEnglish ? "All rights reserved." : "Todos los derechos reservados."}
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
             <span>
-              Desarrollado por{" "}
+              {isEnglish ? "Developed by " : "Desarrollado por "}
               <strong className="font-semibold text-slate-200">
                   Francisco Orozco
               </strong>
@@ -158,7 +162,9 @@ export default function Footer() {
               href="https://github.com/FrankOro15"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="GitHub de Francisco Orozco"
+              aria-label={
+                isEnglish ? "Francisco Orozco on GitHub" : "GitHub de Francisco Orozco"
+              }
               className="flex items-center gap-1.5 font-medium transition-colors hover:text-blue-400"
             >
               <svg

@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Clock, Tag, Search, Sparkles, BookOpen } from "lucide-react";
+import { LocalizedLink, useLocale } from "@/components/LocaleProvider";
 
 export interface BlogPostItem {
   slug: string;
@@ -21,20 +21,22 @@ interface BlogListProps {
 }
 
 export default function BlogList({ posts }: BlogListProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>("Todos");
+  const isEnglish = useLocale() === "en";
+  const allCategory = "__all__";
+  const [selectedCategory, setSelectedCategory] = useState<string>(allCategory);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Obtener categorías únicas
   const categories = useMemo(() => {
     const cats = new Set(posts.map((p) => p.category));
-    return ["Todos", ...Array.from(cats)];
-  }, [posts]);
+    return [allCategory, ...Array.from(cats)];
+  }, [posts, allCategory]);
 
   // Filtrar artículos por categoría y búsqueda
   const filteredPosts = useMemo(() => {
     return posts.filter((post) => {
       const matchesCategory =
-        selectedCategory === "Todos" ||
+        selectedCategory === allCategory ||
         post.category.toLowerCase() === selectedCategory.toLowerCase();
 
       const matchesSearch =
@@ -45,10 +47,10 @@ export default function BlogList({ posts }: BlogListProps) {
 
       return matchesCategory && matchesSearch;
     });
-  }, [posts, selectedCategory, searchQuery]);
+  }, [posts, selectedCategory, searchQuery, allCategory]);
 
   // El primer artículo puede ser destacado si no hay búsqueda activa
-  const featuredPost = filteredPosts.length > 0 && selectedCategory === "Todos" && searchQuery === "" 
+  const featuredPost = filteredPosts.length > 0 && selectedCategory === allCategory && searchQuery === ""
     ? filteredPosts[0] 
     : null;
 
@@ -75,7 +77,7 @@ export default function BlogList({ posts }: BlogListProps) {
                     : "bg-white/[0.04] text-slate-300 hover:bg-white/[0.08] hover:text-white border border-white/[0.06] font-mono"
                 }`}
               >
-                {cat}
+                {cat === allCategory ? (isEnglish ? "All" : "Todos") : cat}
               </button>
             );
           })}
@@ -88,7 +90,9 @@ export default function BlogList({ posts }: BlogListProps) {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Buscar por tema o pieza..."
+            placeholder={
+              isEnglish ? "Search by topic or part..." : "Buscar por tema o pieza..."
+            }
             className="w-full rounded-full border border-white/10 bg-white/[0.03] py-2 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:border-[#2563FF] focus:bg-[#0F172A] focus:outline-none focus:ring-1 focus:ring-[#2563FF] transition-all"
           />
         </div>
@@ -96,7 +100,7 @@ export default function BlogList({ posts }: BlogListProps) {
 
       {/* Artículo Destacado (Hero Card) */}
       {featuredPost && (
-        <section aria-label="Artículo destacado">
+        <section aria-label={isEnglish ? "Featured article" : "Artículo destacado"}>
           <article className="group relative overflow-hidden border border-white/[0.12] bg-gradient-to-br from-[#0F172A]/90 via-[#101D35]/70 to-[#07101F] shadow-2xl transition-all duration-500 hover:border-[#2563FF]/60 hover:shadow-blue-900/20">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 items-center">
               {/* Imagen del destacado */}
@@ -115,7 +119,7 @@ export default function BlogList({ posts }: BlogListProps) {
                     <div className="absolute -right-12 -top-12 h-44 w-44 rounded-full bg-[#2563FF]/15 blur-2xl pointer-events-none" />
                     <div className="relative z-10 space-y-2">
                       <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#8DB8FF] block">
-                        Ingeniería & Manufactura CNC
+                        {isEnglish ? "CNC Engineering & Manufacturing" : "Ingeniería & Manufactura CNC"}
                       </span>
                       <p className="text-xl sm:text-2xl font-bold font-display text-white max-w-sm mx-auto">
                         {featuredPost.title}
@@ -128,7 +132,7 @@ export default function BlogList({ posts }: BlogListProps) {
                 {/* Badge de destacado */}
                 <div className="absolute top-5 left-5 inline-flex items-center gap-1.5 rounded-full bg-[#2563FF] px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-blue-900/50">
                   <Sparkles className="h-3 w-3" />
-                  Destacado
+                  {isEnglish ? "Featured" : "Destacado"}
                 </div>
               </div>
 
@@ -147,9 +151,9 @@ export default function BlogList({ posts }: BlogListProps) {
                   </div>
 
                   <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display text-white leading-tight group-hover:text-[#70A7FF] transition-colors mb-4">
-                    <Link href={`/blog/${featuredPost.slug}`}>
+                    <LocalizedLink href={`/blog/${featuredPost.slug}`}>
                       {featuredPost.title}
-                    </Link>
+                    </LocalizedLink>
                   </h2>
 
                   <p className="text-slate-300 text-sm sm:text-base leading-relaxed line-clamp-4 mb-8">
@@ -158,13 +162,13 @@ export default function BlogList({ posts }: BlogListProps) {
                 </div>
 
                 <div>
-                  <Link
+                  <LocalizedLink
                     href={`/blog/${featuredPost.slug}`}
                     className="inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#2563FF] to-[#4D91FF] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/30 transition hover:shadow-blue-600/50 hover:brightness-110"
                   >
-                    Leer artículo completo
+                    {isEnglish ? "Read full article" : "Leer artículo completo"}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
+                  </LocalizedLink>
                 </div>
               </div>
             </div>
@@ -174,12 +178,18 @@ export default function BlogList({ posts }: BlogListProps) {
 
       {/* Grid de Artículos Secundarios */}
       {regularPosts.length > 0 ? (
-        <section aria-label="Lista de artículos">
+        <section aria-label={isEnglish ? "Article list" : "Lista de artículos"}>
           {featuredPost && (
             <div className="mb-8 flex items-center gap-3">
               <span className="h-[2px] w-8 bg-[#2563FF]" />
               <h3 className="text-xl font-bold font-display text-white">
-                {selectedCategory === "Todos" ? "Más publicaciones técnicas" : `Artículos en ${selectedCategory}`}
+                {selectedCategory === allCategory
+                  ? isEnglish
+                    ? "More technical articles"
+                    : "Más publicaciones técnicas"
+                  : isEnglish
+                    ? `Articles in ${selectedCategory}`
+                    : `Artículos en ${selectedCategory}`}
               </h3>
             </div>
           )}
@@ -229,9 +239,9 @@ export default function BlogList({ posts }: BlogListProps) {
                   {/* Texto de la tarjeta */}
                   <div className="p-6">
                     <h4 className="text-lg sm:text-xl font-bold font-display leading-snug text-white transition-colors group-hover:text-[#70A7FF] line-clamp-2 mb-3">
-                      <Link href={`/blog/${post.slug}`}>
+                      <LocalizedLink href={`/blog/${post.slug}`}>
                         {post.title}
-                      </Link>
+                      </LocalizedLink>
                     </h4>
 
                     <p className="text-slate-400 text-sm leading-relaxed line-clamp-3">
@@ -241,13 +251,13 @@ export default function BlogList({ posts }: BlogListProps) {
                 </div>
 
                 <div className="px-6 pb-6 pt-2 border-t border-white/[0.04]">
-                  <Link
+                  <LocalizedLink
                     href={`/blog/${post.slug}`}
                     className="inline-flex items-center gap-2 text-sm font-bold text-[#70A7FF] group-hover:text-white transition-colors"
                   >
-                    Leer artículo
+                    {isEnglish ? "Read article" : "Leer artículo"}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1.5" />
-                  </Link>
+                  </LocalizedLink>
                 </div>
               </article>
             ))}
@@ -258,20 +268,22 @@ export default function BlogList({ posts }: BlogListProps) {
         <div className="rounded-2xl border border-white/[0.08] bg-white/[0.02] p-12 text-center my-12">
           <BookOpen className="mx-auto h-12 w-12 text-slate-600 mb-4" />
           <h3 className="text-lg font-bold font-display text-white mb-2">
-            No se encontraron artículos
+            {isEnglish ? "No articles found" : "No se encontraron artículos"}
           </h3>
           <p className="text-slate-400 text-sm max-w-md mx-auto mb-6">
-            No encontramos publicaciones que coincidan con &ldquo;{searchQuery}&rdquo; en la categoría &ldquo;{selectedCategory}&rdquo;.
+            {isEnglish
+              ? `No posts matched "${searchQuery}" in the "${selectedCategory === allCategory ? "All" : selectedCategory}" category.`
+              : <>No encontramos publicaciones que coincidan con &ldquo;{searchQuery}&rdquo; en la categoría &ldquo;{selectedCategory === allCategory ? "Todos" : selectedCategory}&rdquo;.</>}
           </p>
           <button
             type="button"
             onClick={() => {
-              setSelectedCategory("Todos");
+              setSelectedCategory(allCategory);
               setSearchQuery("");
             }}
             className="rounded-full bg-[#2563FF] px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-blue-600 transition-colors"
           >
-            Ver todos los artículos
+            {isEnglish ? "View all articles" : "Ver todos los artículos"}
           </button>
         </div>
       )}

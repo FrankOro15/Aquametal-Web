@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Link from "next/link";
+import { LocalizedLink, useLocale } from "@/components/LocaleProvider";
 
 const WHATSAPP_NUMBER = "525613440508";
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}`;
 
 export default function WhatsAppBubble() {
   const bubbleRef = useRef<HTMLAnchorElement>(null);
+  const isEnglish = useLocale() === "en";
 
   useEffect(() => {
     const el = bubbleRef.current;
@@ -28,12 +29,14 @@ export default function WhatsAppBubble() {
   }, []);
 
   return (
-    <Link
+    <LocalizedLink
       ref={bubbleRef}
       href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chatear con Aquametal por WhatsApp"
+      aria-label={
+        isEnglish ? "Chat with Aquametal on WhatsApp" : "Chatear con Aquametal por WhatsApp"
+      }
       className="whatsapp-bubble group fixed bottom-6 right-6 z-[9999]"
     >
       {/* Anillo de pulso */}
@@ -55,8 +58,8 @@ export default function WhatsAppBubble() {
 
       {/* Tooltip */}
       <span className="pointer-events-none absolute bottom-2 right-16 translate-x-2 whitespace-nowrap rounded-lg border border-white/10 bg-[#001d3d] px-3 py-1.5 text-sm font-medium text-white opacity-0 shadow-lg transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100">
-        Chatea con nosotros
+        {isEnglish ? "Chat with us" : "Chatea con nosotros"}
       </span>
-    </Link>
+    </LocalizedLink>
   );
 }

@@ -3,9 +3,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { LocalizedLink, useLocale } from "@/components/LocaleProvider";
 import {
   Eye,
   X,
@@ -52,6 +52,7 @@ const additionalImageLayouts = [
 
 export default function GalleryPage() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const isEnglish = useLocale() === "en";
 
   const selectedImage =
     selectedIndex !== null ? curatedImages[selectedIndex] : null;
@@ -123,19 +124,22 @@ export default function GalleryPage() {
               <div className="mb-8 flex items-center gap-4">
                 <span className="h-[2px] w-12 bg-[#4D91FF]" />
                 <span className="text-xs font-bold uppercase tracking-[0.32em] text-[#8DB8FF]">
-                  Aquametal / Galería
+                  {isEnglish ? "Aquametal / Gallery" : "Aquametal / Galería"}
                 </span>
               </div>
 
               <h1 className="max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl">
-                Precisión que
+                {isEnglish ? "Precision you" : "Precisión que"}
                 <br />
-                <span className="text-[#70A7FF]">se puede ver.</span>
+                <span className="text-[#70A7FF]">
+                  {isEnglish ? "can see." : "se puede ver."}
+                </span>
               </h1>
 
               <p className="mt-8 max-w-xl border-l-2 border-[#2563FF] pl-5 text-base leading-8 text-slate-300 sm:text-lg">
-                Cada pieza refleja experiencia, tecnología y atención al detalle.
-                Descubre una muestra de lo que hacemos en Aquametal.
+                {isEnglish
+                  ? "Every part reflects experience, technology, and attention to detail. Explore a sample of our work at Aquametal."
+                  : "Cada pieza refleja experiencia, tecnología y atención al detalle. Descubre una muestra de lo que hacemos en Aquametal."}
               </p>
 
               <button
@@ -147,7 +151,7 @@ export default function GalleryPage() {
                 }
                 className="group mt-10 inline-flex items-center gap-4 border border-white/20 px-6 py-4 text-xs font-bold uppercase tracking-[0.18em] text-white transition-all duration-300 hover:border-[#2563FF] hover:bg-[#2563FF]"
               >
-                Ver galería
+                {isEnglish ? "View gallery" : "Ver galería"}
                 <ArrowRight
                   size={17}
                   className="transition-transform duration-300 group-hover:translate-x-1"
@@ -179,27 +183,30 @@ export default function GalleryPage() {
         <div className="mb-5 flex items-center gap-3">
           <span className="h-[2px] w-10 bg-[#2563FF]" />
           <span className="text-xs font-bold uppercase tracking-[0.28em] text-[#70A7FF]">
-            Galería de manufactura
+            {isEnglish ? "Manufacturing gallery" : "Galería de manufactura"}
           </span>
         </div>
 
         <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-          Cada pieza tiene
-          <span className="text-[#70A7FF]"> su precisión.</span>
+          {isEnglish ? "Every part has" : "Cada pieza tiene"}
+          <span className="text-[#70A7FF]">
+            {isEnglish ? " its precision." : " su precisión."}
+          </span>
         </h2>
 
         <p className="mt-6 max-w-xl text-base leading-8 text-slate-400">
-          Descubre algunos de nuestros trabajos de maquinado y conoce
-          de cerca la precisión que aplicamos en cada pieza.
+          {isEnglish
+            ? "Explore some of our machining work and see the precision we bring to every part."
+            : "Descubre algunos de nuestros trabajos de maquinado y conoce de cerca la precisión que aplicamos en cada pieza."}
         </p>
       </div>
 
       <div className="hidden border-l border-white/10 pb-2 pl-8 md:block">
         <span className="block text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-          Nuestro enfoque
+          {isEnglish ? "Our focus" : "Nuestro enfoque"}
         </span>
         <span className="mt-2 block text-2xl font-bold text-white">
-          Precisión en cada pieza.
+          {isEnglish ? "Precision in every part." : "Precisión en cada pieza."}
         </span>
       </div>
 
@@ -212,12 +219,12 @@ export default function GalleryPage() {
       <button
         type="button"
         onClick={() => setSelectedIndex(0)}
-        aria-label="Ampliar imagen 1"
+        aria-label={isEnglish ? "Enlarge image 1" : "Ampliar imagen 1"}
         className="group relative col-span-2 aspect-[1.55/1] overflow-hidden bg-[#172238] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] lg:col-span-7 lg:row-span-2 lg:aspect-auto lg:min-h-[600px]"
       >
         <Image
           src={curatedImages[0]}
-          alt="Instalaciones de Aquametal"
+          alt={isEnglish ? "Aquametal facilities" : "Instalaciones de Aquametal"}
           fill
           priority
           sizes="(max-width: 1024px) 100vw, 58vw"
@@ -228,10 +235,10 @@ export default function GalleryPage() {
 
         <div className="absolute bottom-0 left-0 p-6 sm:p-9">
           <span className="mb-3 block text-xs font-bold uppercase tracking-[0.25em] text-[#8DB8FF]">
-            Maquinado de precisión
+            {isEnglish ? "Precision machining" : "Maquinado de precisión"}
           </span>
           <span className="block text-2xl font-bold text-white sm:text-3xl">
-            Del proceso a la pieza terminada
+            {isEnglish ? "From process to finished part" : "Del proceso a la pieza terminada"}
           </span>
         </div>
 
@@ -244,12 +251,12 @@ export default function GalleryPage() {
       <button
         type="button"
         onClick={() => setSelectedIndex(1)}
-        aria-label="Ampliar imagen 2"
+        aria-label={isEnglish ? "Enlarge image 2" : "Ampliar imagen 2"}
         className="group relative col-span-1 aspect-square overflow-hidden bg-[#172238] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] lg:col-span-5 lg:aspect-[1.8/1]"
       >
         <Image
           src={curatedImages[1]}
-          alt="Maquinaria CNC de Aquametal"
+          alt={isEnglish ? "Aquametal CNC machinery" : "Maquinaria CNC de Aquametal"}
           fill
           sizes="(max-width: 1024px) 50vw, 42vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -262,12 +269,12 @@ export default function GalleryPage() {
       <button
         type="button"
         onClick={() => setSelectedIndex(2)}
-        aria-label="Ampliar imagen 3"
+        aria-label={isEnglish ? "Enlarge image 3" : "Ampliar imagen 3"}
         className="group relative col-span-1 aspect-square overflow-hidden bg-[#172238] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] lg:col-span-5 lg:aspect-[1.8/1]"
       >
         <Image
           src={curatedImages[2]}
-          alt="Fotografía de Aquametal"
+          alt={isEnglish ? "Aquametal photo" : "Fotografía de Aquametal"}
           fill
           sizes="(max-width: 1024px) 50vw, 42vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -280,12 +287,12 @@ export default function GalleryPage() {
       <button
         type="button"
         onClick={() => setSelectedIndex(3)}
-        aria-label="Ampliar imagen 4"
+        aria-label={isEnglish ? "Enlarge image 4" : "Ampliar imagen 4"}
         className="group relative col-span-2 aspect-[2/1] overflow-hidden bg-[#172238] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] lg:col-span-4 lg:aspect-[1.2/1]"
       >
         <Image
           src={curatedImages[3]}
-          alt="Detalles de Aquametal"
+          alt={isEnglish ? "Aquametal details" : "Detalles de Aquametal"}
           fill
           sizes="(max-width: 1024px) 100vw, 33vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -298,12 +305,12 @@ export default function GalleryPage() {
       <button
         type="button"
         onClick={() => setSelectedIndex(4)}
-        aria-label="Ampliar imagen 5"
+        aria-label={isEnglish ? "Enlarge image 5" : "Ampliar imagen 5"}
         className="group relative col-span-1 aspect-square overflow-hidden bg-[#172238] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] lg:col-span-4 lg:aspect-[1.2/1]"
       >
         <Image
           src={curatedImages[4]}
-          alt="Instalaciones de Aquametal"
+          alt={isEnglish ? "Aquametal facilities" : "Instalaciones de Aquametal"}
           fill
           sizes="(max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -316,12 +323,12 @@ export default function GalleryPage() {
       <button
         type="button"
         onClick={() => setSelectedIndex(5)}
-        aria-label="Ampliar imagen 6"
+        aria-label={isEnglish ? "Enlarge image 6" : "Ampliar imagen 6"}
         className="group relative col-span-1 aspect-square overflow-hidden bg-[#172238] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] lg:col-span-4 lg:aspect-[1.2/1]"
       >
         <Image
           src={curatedImages[5]}
-          alt="Trabajo de manufactura de Aquametal"
+          alt={isEnglish ? "Aquametal manufacturing work" : "Trabajo de manufactura de Aquametal"}
           fill
           sizes="(max-width: 1024px) 50vw, 33vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -334,12 +341,12 @@ export default function GalleryPage() {
       <button
         type="button"
         onClick={() => setSelectedIndex(6)}
-        aria-label="Ampliar imagen 7"
+        aria-label={isEnglish ? "Enlarge image 7" : "Ampliar imagen 7"}
         className="group relative col-span-1 aspect-[1/1.15] overflow-hidden bg-[#172238] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] lg:col-span-3 lg:aspect-[0.9/1]"
       >
         <Image
           src={curatedImages[6]}
-          alt="Planta de Aquametal"
+          alt={isEnglish ? "Aquametal facility" : "Planta de Aquametal"}
           fill
           sizes="(max-width: 1024px) 50vw, 25vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -352,12 +359,12 @@ export default function GalleryPage() {
       <button
         type="button"
         onClick={() => setSelectedIndex(7)}
-        aria-label="Ampliar imagen 8"
+        aria-label={isEnglish ? "Enlarge image 8" : "Ampliar imagen 8"}
         className="group relative col-span-1 aspect-[1/1.15] overflow-hidden bg-[#172238] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] lg:col-span-3 lg:aspect-[0.9/1]"
       >
         <Image
           src={curatedImages[7]}
-          alt="Instalaciones de producción"
+          alt={isEnglish ? "Production facilities" : "Instalaciones de producción"}
           fill
           sizes="(max-width: 1024px) 50vw, 25vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -370,12 +377,12 @@ export default function GalleryPage() {
       <button
         type="button"
         onClick={() => setSelectedIndex(8)}
-        aria-label="Ampliar imagen 9"
+        aria-label={isEnglish ? "Enlarge image 9" : "Ampliar imagen 9"}
         className="group relative col-span-2 aspect-[2/1] overflow-hidden bg-[#172238] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] lg:col-span-3 lg:aspect-[0.9/1]"
       >
         <Image
           src={curatedImages[8]}
-          alt="Calidad de manufactura Aquametal"
+          alt={isEnglish ? "Aquametal manufacturing quality" : "Calidad de manufactura Aquametal"}
           fill
           sizes="(max-width: 1024px) 100vw, 25vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -388,12 +395,12 @@ export default function GalleryPage() {
       <button
         type="button"
         onClick={() => setSelectedIndex(9)}
-        aria-label="Ampliar imagen 10"
+        aria-label={isEnglish ? "Enlarge image 10" : "Ampliar imagen 10"}
         className="group relative col-span-2 aspect-[2/1] overflow-hidden bg-[#172238] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] lg:col-span-3 lg:aspect-[0.9/1]"
       >
         <Image
           src={curatedImages[9]}
-          alt="Calidad y procesos de Aquametal"
+          alt={isEnglish ? "Aquametal quality and processes" : "Calidad y procesos de Aquametal"}
           fill
           sizes="(max-width: 1024px) 100vw, 25vw"
           className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -410,12 +417,20 @@ export default function GalleryPage() {
             key={image}
             type="button"
             onClick={() => setSelectedIndex(imageIndex)}
-            aria-label={`Ampliar imagen ${imageIndex + 1}`}
+            aria-label={
+              isEnglish
+                ? `Enlarge image ${imageIndex + 1}`
+                : `Ampliar imagen ${imageIndex + 1}`
+            }
             className={`group relative overflow-hidden bg-[#172238] text-left outline-none focus-visible:ring-2 focus-visible:ring-[#2563FF] ${additionalImageLayouts[index % additionalImageLayouts.length]}`}
           >
             <Image
               src={image}
-              alt="Fotografía de procesos e instalaciones de Aquametal"
+              alt={
+                isEnglish
+                  ? "Aquametal processes and facilities"
+                  : "Fotografía de procesos e instalaciones de Aquametal"
+              }
               fill
               sizes="(max-width: 1024px) 50vw, 33vw"
               className="object-cover transition-transform duration-700 group-hover:scale-[1.04]"
@@ -460,35 +475,36 @@ export default function GalleryPage() {
         <span className="h-[2px] w-10 bg-[#4D91FF]" />
 
         <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#70A7FF]">
-          Maquinado de precisión
+          {isEnglish ? "Precision machining" : "Maquinado de precisión"}
         </span>
       </div>
 
       <h2 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
-        ¿Necesitas fabricar
+        {isEnglish ? "Need to manufacture" : "¿Necesitas fabricar"}
         <span className="block text-[#70A7FF]">
-          piezas de precisión?
+          {isEnglish ? "precision parts?" : "piezas de precisión?"}
         </span>
       </h2>
 
       <p className="mt-6 max-w-xl text-base leading-8 text-slate-300">
-        En Aquametal contamos con experiencia en maquinado para
-        desarrollar piezas de acuerdo con los requerimientos de tu proyecto.
+        {isEnglish
+          ? "Aquametal has the machining experience to manufacture parts to your project's requirements."
+          : "En Aquametal contamos con experiencia en maquinado para desarrollar piezas de acuerdo con los requerimientos de tu proyecto."}
       </p>
 
     </div>
 
-    <Link
+    <LocalizedLink
       href="/servicios"
       className="group inline-flex shrink-0 items-center gap-4 border border-[#4D91FF]/50 bg-[#2563FF] px-7 py-5 text-sm font-bold text-white transition-all duration-300 hover:border-[#70A7FF] hover:bg-[#1D4ED8]"
     >
-      Conoce nuestros servicios
+      {isEnglish ? "Explore our services" : "Conoce nuestros servicios"}
 
       <ArrowRight
         size={19}
         className="transition-transform duration-300 group-hover:translate-x-1"
       />
-    </Link>
+    </LocalizedLink>
 
   </div>
 
@@ -519,7 +535,7 @@ export default function GalleryPage() {
                       AQUAMETAL
                     </span>
                     <span className="mt-1 block text-[10px] uppercase tracking-[0.22em] text-slate-500">
-                      Galería de proyectos
+                      {isEnglish ? "Project gallery" : "Galería de proyectos"}
                     </span>
                   </div>
                 </div>
@@ -535,7 +551,7 @@ export default function GalleryPage() {
                   <button
                     type="button"
                     onClick={closeModal}
-                    aria-label="Cerrar galería"
+                    aria-label={isEnglish ? "Close gallery" : "Cerrar galería"}
                     className="flex h-11 w-11 items-center justify-center border border-white/15 text-white transition-all duration-300 hover:border-[#2563FF] hover:bg-[#2563FF]"
                   >
                     <X size={21} />
@@ -551,7 +567,7 @@ export default function GalleryPage() {
                 <Image
                   key={selectedImage}
                   src={selectedImage}
-                  alt="Fotografía ampliada de Aquametal"
+                  alt={isEnglish ? "Enlarged Aquametal photo" : "Fotografía ampliada de Aquametal"}
                   fill
                   priority
                   sizes="100vw"
@@ -573,11 +589,11 @@ export default function GalleryPage() {
                     size={19}
                     className="transition-transform group-hover:-translate-x-1"
                   />
-                  <span className="hidden sm:inline">Anterior</span>
+                  <span className="hidden sm:inline">{isEnglish ? "Previous" : "Anterior"}</span>
                 </button>
 
                 <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-slate-600 sm:text-xs">
-                  Precisión industrial
+                  {isEnglish ? "Industrial precision" : "Precisión industrial"}
                 </span>
 
                 <button
@@ -585,7 +601,7 @@ export default function GalleryPage() {
                   onClick={showNext}
                   className="group flex items-center gap-3 border border-white/15 px-4 py-3 text-sm font-semibold text-white transition-all duration-300 hover:border-[#2563FF] hover:bg-[#2563FF] sm:px-6"
                 >
-                  <span className="hidden sm:inline">Siguiente</span>
+                  <span className="hidden sm:inline">{isEnglish ? "Next" : "Siguiente"}</span>
                   <ChevronRight
                     size={19}
                     className="transition-transform group-hover:translate-x-1"

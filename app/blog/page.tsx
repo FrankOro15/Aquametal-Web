@@ -1,17 +1,22 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Wrench, ShieldCheck, Factory } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BlogList, { BlogPostItem } from "@/components/BlogList";
 import { sanityFetch, SanityPost } from "@/lib/sanity";
+import { getLocale } from "@/lib/i18n";
+import { LocalizedLink } from "@/components/LocaleProvider";
 
-export const metadata: Metadata = {
-  title: "Blog",
-  description:
-    "Guías técnicas desde nuestra planta en México: procesos de maquinado CNC, tolerancias ISO, selección de materiales y diseño para manufactura.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const isEnglish = (await getLocale()) === "en";
+  return {
+    title: "Blog",
+    description: isEnglish
+      ? "Technical guides from our facility in Mexico on CNC machining, ISO tolerances, material selection, and design for manufacturing."
+      : "Guías técnicas desde nuestra planta en México: procesos de maquinado CNC, tolerancias ISO, selección de materiales y diseño para manufactura.",
+  };
+}
 
 const SANITY_POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc){
   _id,
@@ -60,18 +65,55 @@ const fallbackPosts: BlogPostItem[] = [
   },
 ];
 
+const fallbackPostsEnglish: BlogPostItem[] = [
+  {
+    slug: "torneado-vs-fresado-cnc",
+    category: "Processes",
+    readTime: "6 min",
+    title: "CNC Turning vs. CNC Milling: Which Do You Need?",
+    excerpt:
+      "Learn the key differences between these processes, the geometries each is suited for, and how we choose the most efficient manufacturing route for your part.",
+  },
+  {
+    slug: "que-es-maquinado-cnc",
+    category: "Fundamentals",
+    readTime: "8 min",
+    title: "What Is CNC Machining and How Does It Work?",
+    excerpt:
+      "Find out how computer numerical control works and how it delivers repeatability and tight tolerances for modern industry.",
+  },
+  {
+    slug: "tolerancias-maquinado-cnc",
+    category: "Quality",
+    readTime: "7 min",
+    title: "CNC Machining Tolerances: ISO Reference Table",
+    excerpt:
+      "A practical guide to interpreting dimensional tolerances under ISO 2768 and specifying them without unnecessarily increasing part costs.",
+  },
+  {
+    slug: "costo-maquinado-cnc-mexico",
+    category: "Industry",
+    readTime: "9 min",
+    title: "How Much Does CNC Machining Cost in Mexico?",
+    excerpt:
+      "Explore the factors that determine a part's cost: volume, complexity, material selection, tolerances, and finishes.",
+  },
+];
+
 export default async function BlogPage() {
+  const isEnglish = (await getLocale()) === "en";
   // Consultar Sanity de forma dinámica
   const sanityPosts = await sanityFetch<SanityPost[]>(SANITY_POSTS_QUERY);
 
   // Unificar artículos: los de Sanity van de primeros y conservan prioridad
   const postList: BlogPostItem[] = (() => {
     if (!sanityPosts || sanityPosts.length === 0) {
-      return fallbackPosts;
+      return isEnglish ? fallbackPostsEnglish : fallbackPosts;
     }
 
     const sanitySlugs = new Set(sanityPosts.map((p) => p.slug));
-    const remainingFallbacks = fallbackPosts.filter((fb) => !sanitySlugs.has(fb.slug));
+    const remainingFallbacks = (isEnglish ? fallbackPostsEnglish : fallbackPosts)
+      .filter((fb) => !sanitySlugs.has(fb.slug));
 
     return [
       ...sanityPosts.map((p) => ({
@@ -96,7 +138,11 @@ export default async function BlogPage() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/blogh.jpg"
-            alt="Centro de maquinado CNC de precisión Aqua Metal"
+            alt={
+              isEnglish
+                ? "Aqua Metal precision CNC machining center"
+                : "Centro de maquinado CNC de precisión Aqua Metal"
+            }
             fill
             priority
             sizes="100vw"
@@ -120,34 +166,38 @@ export default async function BlogPage() {
               <span className="relative inline-flex h-2 w-2 rounded-full bg-blue-500" />
             </span>
             <span className="text-xs font-semibold uppercase tracking-[0.25em] text-[#A5C8FF] font-mono">
-              Aqua Metal · Centro de Conocimiento
+              {isEnglish
+                ? "Aqua Metal · Knowledge Center"
+                : "Aqua Metal · Centro de Conocimiento"}
             </span>
           </div>
 
           <h1 className="text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl font-display drop-shadow-[0_3px_20px_rgba(0,0,0,0.75)]">
-            Del metal{" "}
+            {isEnglish ? "From metal" : "Del metal"}{" "}
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#B9D6FF] via-[#8DB8FF] to-[#60A5FA]">
-              al conocimiento.
+              {isEnglish ? "to knowledge." : "al conocimiento."}
             </span>
           </h1>
 
           <p className="mx-auto mt-6 max-w-2xl text-base sm:text-lg lg:text-xl leading-relaxed text-slate-200/90 font-normal">
-            Guías técnicas desde nuestra planta en México: procesos de maquinado CNC, tolerancias ISO, selección de materiales y diseño para manufactura.
+            {isEnglish
+              ? "Technical guides from our facility in Mexico: CNC machining processes, ISO tolerances, material selection, and design for manufacturing."
+              : "Guías técnicas desde nuestra planta en México: procesos de maquinado CNC, tolerancias ISO, selección de materiales y diseño para manufactura."}
           </p>
 
           {/* Micro stats técnicos estilo glassmorphism */}
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs font-mono uppercase tracking-wider text-slate-300 max-w-3xl mx-auto">
             <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 backdrop-blur-md shadow-lg transition hover:border-blue-400/40 hover:bg-white/[0.07]">
               <Wrench className="h-4 w-4 text-[#70A7FF]" />
-              <span>Torneado & Fresado CNC</span>
+              <span>{isEnglish ? "CNC Turning & Milling" : "Torneado & Fresado CNC"}</span>
             </div>
             <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 backdrop-blur-md shadow-lg transition hover:border-blue-400/40 hover:bg-white/[0.07]">
               <ShieldCheck className="h-4 w-4 text-[#70A7FF]" />
-              <span>Certificación ISO 9001</span>
+              <span>{isEnglish ? "ISO 9001 Certified" : "Certificación ISO 9001"}</span>
             </div>
             <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 backdrop-blur-md shadow-lg transition hover:border-blue-400/40 hover:bg-white/[0.07]">
               <Factory className="h-4 w-4 text-[#70A7FF]" />
-              <span>Planta en México</span>
+              <span>{isEnglish ? "Facility in Mexico" : "Planta en México"}</span>
             </div>
           </div>
         </div>
@@ -173,35 +223,41 @@ export default async function BlogPage() {
 
             <div className="relative max-w-xl">
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-blue-300">
-                Asesoría DFM sin costo
+                {isEnglish
+                  ? "Complimentary DFM consultation"
+                  : "Asesoría DFM sin costo"}
               </span>
 
               <h2 className="mt-5 text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-                ¿Tienes un plano y dudas sobre el proceso ideal?
+                {isEnglish
+                  ? "Have a drawing and questions about the right process?"
+                  : "¿Tienes un plano y dudas sobre el proceso ideal?"}
               </h2>
 
               <p className="mt-5 max-w-2xl leading-7 text-slate-300">
-                Envíanos tus especificaciones técnicas. Nuestros ingenieros revisan la geometría de tu componente, tolerancias y te sugieren la ruta de producción más económica en menos de 24 horas.
+                {isEnglish
+                  ? "Send us your technical specifications. Our engineers will review your component geometry and tolerances and recommend the most cost-effective production route within 24 hours."
+                  : "Envíanos tus especificaciones técnicas. Nuestros ingenieros revisan la geometría de tu componente, tolerancias y te sugieren la ruta de producción más económica en menos de 24 horas."}
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <Link
+                <LocalizedLink
                   href="/contacto"
                   className="group inline-flex min-h-14 items-center justify-center gap-3 bg-[#2563FF] px-7 py-4 text-sm font-bold text-white transition hover:bg-blue-500"
                 >
-                  Enviar mis Planos para Cotizar
+                  {isEnglish ? "Send Drawings for a Quote" : "Enviar mis Planos para Cotizar"}
                   <ArrowRight
                     size={18}
                     className="transition-transform group-hover:translate-x-1"
                   />
-                </Link>
+                </LocalizedLink>
 
-                <Link
+                <LocalizedLink
                   href="/servicios"
                   className="inline-flex min-h-14 items-center justify-center border border-white/25 px-7 py-4 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
                 >
-                  Explorar servicios
-                </Link>
+                  {isEnglish ? "Explore services" : "Explorar servicios"}
+                </LocalizedLink>
               </div>
             </div>
           </div>
@@ -210,7 +266,11 @@ export default async function BlogPage() {
           <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
             <Image
               src="/images/cta.jpg"
-              alt="Maquinaria CNC durante un proceso de fabricación"
+              alt={
+                isEnglish
+                  ? "CNC machinery during manufacturing"
+                  : "Maquinaria CNC durante un proceso de fabricación"
+              }
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"

@@ -10,10 +10,43 @@ import {
   LoaderCircle,
   AlertCircle,
 } from "lucide-react";
+import { LocalizedLink, useLocale } from "@/components/LocaleProvider";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
 
+function translateApiError(message: string) {
+  const messages: Record<string, string> = {
+    "El servicio de correo no está configurado.":
+      "The email service is not configured.",
+    "El servicio de verificación no está configurado.":
+      "The verification service is not configured.",
+    "Completa la verificación de seguridad.":
+      "Complete the security verification.",
+    "No fue posible verificar la seguridad. Inténtalo nuevamente.":
+      "Security verification failed. Please try again.",
+    "La verificación de seguridad no fue válida. Inténtalo nuevamente.":
+      "Security verification was not valid. Please try again.",
+    "Completa los campos obligatorios.": "Complete all required fields.",
+    "Uno o más campos exceden el límite permitido.":
+      "One or more fields exceed the allowed length.",
+    "Escribe un correo electrónico válido.":
+      "Enter a valid email address.",
+    "No se pudo enviar tu solicitud. Inténtalo nuevamente más tarde.":
+      "Your request could not be sent. Please try again later.",
+    "Ocurrió un error al procesar la solicitud.":
+      "An error occurred while processing your request.",
+  };
+
+  return (
+    messages[message] ||
+    (message === "No se pudo enviar tu solicitud. Inténtalo nuevamente."
+      ? "Your request could not be sent. Please try again."
+      : message)
+  );
+}
+
 export default function ContactForm() {
+  const isEnglish = useLocale() === "en";
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
@@ -37,7 +70,9 @@ export default function ContactForm() {
     if (!captchaToken) {
       setStatus("error");
       setErrorMessage(
-        "Completa la verificación de Google antes de enviar tu solicitud."
+        isEnglish
+          ? "Complete Google's verification before submitting your request."
+          : "Completa la verificación de Google antes de enviar tu solicitud."
       );
       return;
     }
@@ -73,7 +108,9 @@ export default function ContactForm() {
       if (!response.ok || !result.ok) {
         throw new Error(
           result.error ||
-            "No se pudo enviar tu solicitud. Inténtalo nuevamente."
+            (isEnglish
+              ? "Your request could not be sent. Please try again."
+              : "No se pudo enviar tu solicitud. Inténtalo nuevamente.")
         );
       }
 
@@ -82,8 +119,12 @@ export default function ContactForm() {
       setStatus("error");
       setErrorMessage(
         error instanceof Error
-          ? error.message
-          : "No se pudo conectar con el servidor. Inténtalo nuevamente."
+          ? isEnglish
+            ? translateApiError(error.message)
+            : error.message
+          : isEnglish
+            ? "Could not connect to the server. Please try again."
+            : "No se pudo conectar con el servidor. Inténtalo nuevamente."
       );
 
       setCaptchaToken(null);
@@ -97,8 +138,9 @@ export default function ContactForm() {
         role="alert"
         className="border border-red-200 bg-red-50 p-4 text-sm text-red-700"
       >
-        No se encontró la clave pública de reCAPTCHA. Revisa tu archivo
-        .env.local y reinicia el servidor.
+        {isEnglish
+          ? "The reCAPTCHA site key was not found. Check your .env.local file and restart the server."
+          : "No se encontró la clave pública de reCAPTCHA. Revisa tu archivo .env.local y reinicia el servidor."}
       </div>
     );
   }
@@ -114,13 +156,13 @@ export default function ContactForm() {
           </div>
 
           <h2 className="mt-4 text-xl font-bold text-slate-900">
-            ¡Solicitud enviada!
+            {isEnglish ? "Request sent!" : "¡Solicitud enviada!"}
           </h2>
 
           <p className="mt-2 max-w-sm text-sm leading-6 text-slate-600">
-            Recibimos tu solicitud correctamente. Nuestro equipo revisará
-            la información y se pondrá en contacto contigo para coordinar
-            una reunión y conocer mejor tus necesidades.
+            {isEnglish
+              ? "We received your request. Our team will review the information and contact you to arrange a meeting and learn more about your needs."
+              : "Recibimos tu solicitud correctamente. Nuestro equipo revisará la información y se pondrá en contacto contigo para coordinar una reunión y conocer mejor tus necesidades."}
           </p>
         </div>
       </div>
@@ -135,15 +177,17 @@ export default function ContactForm() {
         <div className="p-5 sm:p-6 lg:p-7">
           <div className="mb-6">
             <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-blue-700">
-              Atención personalizada
+              {isEnglish ? "PERSONALIZED SUPPORT" : "Atención personalizada"}
             </span>
 
             <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-slate-900">
-              Solicita una cotización
+              {isEnglish ? "Request a quote" : "Solicita una cotización"}
             </h2>
 
             <p className="mt-2 text-sm leading-6 text-slate-500">
-              Cuéntanos sobre tu proyecto y los requerimientos de tu pieza.
+              {isEnglish
+                ? "Tell us about your project and component requirements."
+                : "Cuéntanos sobre tu proyecto y los requerimientos de tu pieza."}
             </p>
           </div>
 
@@ -151,7 +195,7 @@ export default function ContactForm() {
           <div className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
             <div>
               <label htmlFor="nombre" className={labelClass}>
-                Nombre completo *
+                {isEnglish ? "Full name *" : "Nombre completo *"}
               </label>
               <input
                 id="nombre"
@@ -160,14 +204,14 @@ export default function ContactForm() {
                 autoComplete="name"
                 maxLength={120}
                 required
-                placeholder="Ej. Carlos Mendoza"
+                placeholder={isEnglish ? "e.g. Alex Morgan" : "Ej. Carlos Mendoza"}
                 className={inputClass}
               />
             </div>
 
             <div>
               <label htmlFor="empresa" className={labelClass}>
-                Empresa / Industria
+                {isEnglish ? "Company / Industry" : "Empresa / Industria"}
               </label>
               <input
                 id="empresa"
@@ -175,14 +219,14 @@ export default function ContactForm() {
                 type="text"
                 autoComplete="organization"
                 maxLength={160}
-                placeholder="Nombre de tu empresa (opcional)"
+                placeholder={isEnglish ? "Company name (optional)" : "Nombre de tu empresa (opcional)"}
                 className={inputClass}
               />
             </div>
 
             <div>
               <label htmlFor="correo" className={labelClass}>
-                Correo electrónico *
+                {isEnglish ? "Email address *" : "Correo electrónico *"}
               </label>
               <input
                 id="correo"
@@ -198,7 +242,7 @@ export default function ContactForm() {
 
             <div>
               <label htmlFor="telefono" className={labelClass}>
-                Teléfono / WhatsApp *
+                {isEnglish ? "Phone / WhatsApp *" : "Teléfono / WhatsApp *"}
               </label>
               <input
                 id="telefono"
@@ -216,13 +260,13 @@ export default function ContactForm() {
           {/* Requerimientos del proyecto */}
           <div className="mt-6 border-t border-slate-100 pt-5">
             <h3 className="mb-4 text-sm font-bold text-slate-900">
-              Requerimientos del proyecto
+              {isEnglish ? "Project requirements" : "Requerimientos del proyecto"}
             </h3>
 
             <div className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
               <div>
                 <label htmlFor="material" className={labelClass}>
-                  Material requerido
+                  {isEnglish ? "Required material" : "Material requerido"}
                 </label>
                 <select
                   id="material"
@@ -230,26 +274,34 @@ export default function ContactForm() {
                   defaultValue=""
                   className={inputClass}
                 >
-                  <option value="">Seleccionar material...</option>
-                  <option value="acero">Acero (carbono / inoxidable)</option>
-                  <option value="aluminio">Aluminio</option>
-                  <option value="bronce">Bronce</option>
-                  <option value="laton">Latón</option>
-                  <option value="cobre">Cobre</option>
-                  <option value="otro">Otro material especial</option>
+                  <option value="">
+                    {isEnglish ? "Select a material..." : "Seleccionar material..."}
+                  </option>
+                  <option value="acero">
+                    {isEnglish ? "Steel (carbon / stainless)" : "Acero (carbono / inoxidable)"}
+                  </option>
+                  <option value="aluminio">
+                    {isEnglish ? "Aluminum" : "Aluminio"}
+                  </option>
+                  <option value="bronce">{isEnglish ? "Bronze" : "Bronce"}</option>
+                  <option value="laton">{isEnglish ? "Brass" : "Latón"}</option>
+                  <option value="cobre">{isEnglish ? "Copper" : "Cobre"}</option>
+                  <option value="otro">
+                    {isEnglish ? "Other specialty material" : "Otro material especial"}
+                  </option>
                 </select>
               </div>
 
               <div>
                 <label htmlFor="volumen" className={labelClass}>
-                  Volumen estimado
+                  {isEnglish ? "Estimated volume" : "Volumen estimado"}
                 </label>
                 <input
                   id="volumen"
                   name="volumen"
                   type="text"
                   maxLength={120}
-                  placeholder="Ej. 5,000 piezas"
+                  placeholder={isEnglish ? "e.g. 5,000 parts" : "Ej. 5,000 piezas"}
                   className={inputClass}
                 />
               </div>
@@ -259,20 +311,20 @@ export default function ContactForm() {
           {/* Documentación técnica */}
           <div className="mt-6 border-t border-slate-100 pt-5">
             <h3 className="text-sm font-bold text-slate-900">
-              Documentación técnica
+              {isEnglish ? "Technical documentation" : "Documentación técnica"}
             </h3>
 
             <p className="mt-1 text-sm leading-6 text-slate-500">
-              ¿Cuentas con un plano técnico? Envíanos tu solicitud y nuestro
-              equipo te indicará cómo compartir la documentación necesaria
-              para cotizar tu proyecto.
+              {isEnglish
+                ? "Do you have a technical drawing? Submit your request and our team will tell you how to share the information needed to quote your project."
+                : "¿Cuentas con un plano técnico? Envíanos tu solicitud y nuestro equipo te indicará cómo compartir la documentación necesaria para cotizar tu proyecto."}
             </p>
           </div>
 
           {/* Detalles adicionales */}
           <div className="mt-6 border-t border-slate-100 pt-5">
             <label htmlFor="detalles" className={labelClass}>
-              Detalles adicionales
+              {isEnglish ? "Additional details" : "Detalles adicionales"}
             </label>
             <textarea
               id="detalles"
@@ -282,29 +334,38 @@ export default function ContactForm() {
               onChange={(event) =>
                 setDetallesLength(event.currentTarget.value.length)
               }
-              placeholder="Dimensiones, tolerancias, tratamientos o fecha de entrega..."
+              placeholder={
+                isEnglish
+                  ? "Dimensions, tolerances, treatments, or delivery date..."
+                  : "Dimensiones, tolerancias, tratamientos o fecha de entrega..."
+              }
               className={`${inputClass} resize-y`}
             />
             <p className="mt-1 text-right text-xs text-slate-500">
-              Te quedan {1500 - detallesLength} caracteres
+              {isEnglish
+                ? `${1500 - detallesLength} characters remaining`
+                : `Te quedan ${1500 - detallesLength} caracteres`}
             </p>
           </div>
 
           {/* Google reCAPTCHA */}
           <div className="mt-6 border-t border-slate-100 pt-5">
             <p className={labelClass}>
-              Verificación de seguridad *
+              {isEnglish ? "Security verification *" : "Verificación de seguridad *"}
             </p>
 
             <ReCAPTCHA
               ref={captchaRef}
               sitekey={siteKey}
+              hl={isEnglish ? "en" : "es"}
               onChange={(token) => setCaptchaToken(token)}
               onExpired={() => setCaptchaToken(null)}
               onErrored={() => {
                 setCaptchaToken(null);
                 setErrorMessage(
-                  "No se pudo cargar la verificación. Revisa tu conexión e inténtalo nuevamente."
+                  isEnglish
+                    ? "Could not load the verification. Check your connection and try again."
+                    : "No se pudo cargar la verificación. Revisa tu conexión e inténtalo nuevamente."
                 );
                 setStatus("error");
               }}
@@ -326,17 +387,20 @@ export default function ContactForm() {
           <div className="mt-5 flex flex-col gap-3 border-t border-slate-100 pt-5 sm:flex-row sm:items-center sm:justify-between sm:gap-5">
             <div className="min-w-0 flex-1 space-y-2">
               <p className="text-xs text-slate-500">
-                Los campos marcados con * son obligatorios.
+                {isEnglish
+                  ? "Fields marked with * are required."
+                  : "Los campos marcados con * son obligatorios."}
               </p>
               <p className="break-words text-xs leading-5 text-slate-500">
-                Al enviar esta solicitud, puedes consultar cómo tratamos tus
-                datos personales en nuestro{" "}
-                <a
+                {isEnglish
+                  ? "By submitting this request, you can learn how we handle your personal data in our "
+                  : "Al enviar esta solicitud, puedes consultar cómo tratamos tus datos personales en nuestro "}
+                <LocalizedLink
                   href="/privacidad"
                   className="font-medium text-blue-700 underline underline-offset-2 hover:text-blue-900"
                 >
-                  Aviso de privacidad
-                </a>
+                  {isEnglish ? "Privacy Notice" : "Aviso de privacidad"}
+                </LocalizedLink>
                 .
               </p>
             </div>
@@ -349,11 +413,11 @@ export default function ContactForm() {
               {status === "sending" ? (
                 <>
                   <LoaderCircle className="h-4 w-4 animate-spin" />
-                  Enviando...
+                  {isEnglish ? "Sending..." : "Enviando..."}
                 </>
               ) : (
                 <>
-                  Enviar solicitud
+                  {isEnglish ? "Submit request" : "Enviar solicitud"}
                   <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </>
               )}

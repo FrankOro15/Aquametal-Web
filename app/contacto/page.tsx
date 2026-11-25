@@ -5,8 +5,10 @@ import Navbar from "@/components/Navbar";
 import DirectInformation from "@/components/DirectInformation";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
+import { useLocale } from "@/components/LocaleProvider";
 
 export default function Contacto() {
+  const isEnglish = useLocale() === "en";
   return (
     <main className="min-h-screen bg-slate-50 pt-28 font-sans text-slate-800 md:pt-32">
       <Navbar />
@@ -24,7 +26,7 @@ export default function Contacto() {
 
         <div className="mx-auto flex min-h-52 max-w-7xl flex-col justify-center px-6 py-8 md:px-10 lg:px-12">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
-            Contacto
+            {isEnglish ? "Contact" : "Contacto"}
           </h1>
 
           <div className="mt-4 h-1 w-16 rounded-full bg-blue-500" />

@@ -1,16 +1,21 @@
 
 import type { Metadata } from "next";
-import Link from "next/link";
 import { ArrowLeft, ArrowUpRight, ShieldCheck } from "lucide-react";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { LocalizedLink } from "@/components/LocaleProvider";
+import { getLocale } from "@/lib/i18n";
 
-export const metadata: Metadata = {
-  title: "Aviso de Privacidad",
-  description:
-    "Consulta cómo Aquametal recopila, utiliza y protege los datos personales enviados a través de este sitio web.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const isEnglish = (await getLocale()) === "en";
+  return {
+    title: isEnglish ? "Privacy Notice" : "Aviso de Privacidad",
+    description: isEnglish
+      ? "Learn how Aquametal collects, uses, and protects personal information submitted through this website."
+      : "Consulta cómo Aquametal recopila, utiliza y protege los datos personales enviados a través de este sitio web.",
+  };
+}
 
 const correoPrivacidad = "administracion@aqua-metal.com.mx";
 
@@ -215,7 +220,195 @@ const secciones = [
   },
 ];
 
-export default function PrivacidadPage() {
+const englishSections = [
+  {
+    id: "responsable",
+    numero: "01",
+    titulo: "Personal data controller",
+    contenido: (
+      <p>
+        <strong>AQUAMETAL S.A. DE C.V.</strong>, located at Calle de Labriego
+        No. 3, Jilotzingo, Mexico, is responsible for processing personal data
+        collected through this website in accordance with applicable personal
+        data protection laws.
+      </p>
+    ),
+  },
+  {
+    id: "datos",
+    numero: "02",
+    titulo: "Personal data we collect",
+    contenido: (
+      <>
+        <p>Through the contact form, we may collect:</p>
+        <ul>
+          <li>Name and email address.</li>
+          <li>Phone number and company name, where applicable.</li>
+          <li>Material of interest, required volume, and request details.</li>
+        </ul>
+        <p>
+          Google reCAPTCHA may also process technical information needed to
+          distinguish users from automated submissions. Please do not include
+          sensitive personal information in your messages.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "finalidades",
+    numero: "03",
+    titulo: "Purposes of processing",
+    contenido: (
+      <>
+        <p>Personal data is used for the following purposes:</p>
+        <ul>
+          <li>Responding to questions, comments, and requests for information.</li>
+          <li>Following up on quote requests.</li>
+          <li>
+            Understanding requirements related to materials, products,
+            services, and manufacturing needs.
+          </li>
+          <li>Contacting the requester to clarify information about a request.</li>
+          <li>
+            Protecting the contact form and helping prevent automated or abusive
+            messages through Google reCAPTCHA.
+          </li>
+        </ul>
+        <p>
+          Data will be used to fulfill these purposes and not for incompatible
+          purposes, unless there is an applicable legal basis.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "conservacion",
+    numero: "04",
+    titulo: "Data protection and retention",
+    contenido: (
+      <>
+        <p>
+          The company will implement appropriate administrative, technical, and
+          physical security measures to protect personal data from
+          unauthorized access, use, or disclosure.
+        </p>
+        <p>
+          Data will be retained for as long as needed to respond to and follow
+          up on the request, and to meet applicable legal obligations. Once it
+          is no longer needed, it will be deleted or blocked as appropriate,
+          unless the law requires its retention.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "terceros",
+    numero: "05",
+    titulo: "Third-party services",
+    contenido: (
+      <>
+        <p>
+          This website uses Google reCAPTCHA to protect the contact form. Its
+          operation may involve Google processing technical information under
+          its own policies and terms.
+        </p>
+        <p>
+          If other providers involved in hosting, operating, or managing the
+          website access personal data, such processing must comply with
+          applicable law and the relevant terms.
+        </p>
+        <p>
+          Any transfers of personal data will be carried out in accordance
+          with applicable legal requirements.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "arco",
+    numero: "06",
+    titulo: "Data subject rights",
+    contenido: (
+      <>
+        <p>
+          Data subjects may exercise their rights of access, rectification,
+          cancellation, and objection (ARCO), in accordance with applicable
+          law.
+        </p>
+        <p>
+          To submit a request, email{" "}
+          <a
+            href={`mailto:${correoPrivacidad}`}
+            className="font-medium text-blue-700 underline decoration-slate-300 underline-offset-4 transition-colors hover:text-blue-900"
+          >
+            {correoPrivacidad}
+          </a>
+          , specifying the right you wish to exercise and providing the
+          information needed to identify your request. The company will provide
+          the applicable requirements and procedure.
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "limitacion",
+    numero: "07",
+    titulo: "Limiting the use or disclosure of data",
+    contenido: (
+      <p>
+        Data subjects may ask about available mechanisms to limit the use or
+        disclosure of their personal data and submit the relevant requests
+        using the contact email in this notice.
+      </p>
+    ),
+  },
+  {
+    id: "cookies",
+    numero: "08",
+    titulo: "Cookies and similar technologies",
+    contenido: (
+      <>
+        <p>
+          This website may use technologies needed for its operation and
+          security. The contact form currently integrates Google reCAPTCHA,
+          which may use cookies or similar technologies to provide its service.
+        </p>
+        <p>
+          The use and operation of these technologies depend on the website
+          configuration and integrated services. To learn how Google handles
+          information, see its{" "}
+          <a
+            href="https://policies.google.com/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 font-medium text-blue-700 underline decoration-slate-300 underline-offset-4 transition-colors hover:text-blue-900"
+          >
+            Privacy Policy
+            <ArrowUpRight size={13} />
+          </a>
+          .
+        </p>
+      </>
+    ),
+  },
+  {
+    id: "actualizaciones",
+    numero: "09",
+    titulo: "Updates to this notice",
+    contenido: (
+      <p>
+        This notice may be updated when changes are made to the website, data
+        processing practices, or applicable laws. The current version will be
+        available on this page.
+      </p>
+    ),
+  },
+];
+
+export default async function PrivacidadPage() {
+  const isEnglish = (await getLocale()) === "en";
+  const sections = isEnglish ? englishSections : secciones;
+
   return (
     <>
       <Navbar />
@@ -229,24 +422,28 @@ export default function PrivacidadPage() {
           <header className="mb-8 border-b border-slate-200 pb-6">
             <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-blue-700">
               <ShieldCheck size={16} />
-              Información legal
+              {isEnglish ? "Legal information" : "Información legal"}
             </div>
 
             <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-              Aviso de Privacidad
+              {isEnglish ? "Privacy Notice" : "Aviso de Privacidad"}
             </h1>
 
             <div className="mt-3 flex flex-col gap-1 text-sm text-slate-500 sm:flex-row sm:items-center sm:gap-3">
               <span>AQUAMETAL S.A. DE C.V.</span>
               <span className="hidden text-slate-300 sm:inline">|</span>
-              <span>Última actualización: 27 de octubre de 2026</span>
+              <span>
+                {isEnglish
+                  ? "Last updated: October 27, 2026"
+                  : "Última actualización: 27 de octubre de 2026"}
+              </span>
             </div>
           </header>
 
           {/* Documento */}
           <div className="border border-slate-200 bg-white shadow-sm">
             <div className="divide-y divide-slate-200">
-              {secciones.map((seccion) => (
+              {sections.map((seccion) => (
                 <article
                   key={seccion.id}
                   id={seccion.id}
@@ -272,8 +469,9 @@ export default function PrivacidadPage() {
             {/* Contacto al final del documento */}
             <div className="border-t border-slate-200 bg-slate-50 px-5 py-5 sm:px-8">
               <p className="text-sm leading-6 text-slate-600">
-                Si tienes dudas sobre este aviso o deseas ejercer tus derechos
-                ARCO, puedes escribir a{" "}
+                {isEnglish
+                  ? "If you have questions about this notice or wish to exercise your data rights, email "
+                  : "Si tienes dudas sobre este aviso o deseas ejercer tus derechos ARCO, puedes escribir a "}
                 <a
                   href={`mailto:${correoPrivacidad}`}
                   className="font-semibold text-blue-700 underline decoration-slate-300 underline-offset-4 transition-colors hover:text-blue-900"
@@ -287,13 +485,13 @@ export default function PrivacidadPage() {
 
           {/* Volver al inicio, fuera del documento */}
           <div className="mt-7 border-t border-slate-200 pt-5">
-            <Link
+            <LocalizedLink
               href="/"
               className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 transition-colors hover:text-blue-700"
             >
               <ArrowLeft size={16} />
-              Volver al inicio
-            </Link>
+              {isEnglish ? "Back to home" : "Volver al inicio"}
+            </LocalizedLink>
           </div>
         </div>
       </main>

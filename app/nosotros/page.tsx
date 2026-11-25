@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
+import { LocalizedLink } from "@/components/LocaleProvider";
+import { getLocale } from "@/lib/i18n";
 import {
   ArrowRight,
   Factory,
@@ -15,11 +16,15 @@ import {
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-export const metadata: Metadata = {
-  title: "Nosotros",
-  description:
-    "Conoce a Aquametal, nuestra experiencia en manufactura metálica y nuestro compromiso con la calidad y la mejora continua.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const isEnglish = (await getLocale()) === "en";
+  return {
+    title: isEnglish ? "About Us" : "Nosotros",
+    description: isEnglish
+      ? "Learn about Aquametal, our metal manufacturing experience, and our commitment to quality and continuous improvement."
+      : "Conoce a Aquametal, nuestra experiencia en manufactura metálica y nuestro compromiso con la calidad y la mejora continua.",
+  };
+}
 
 const qualityPrinciples = [
   {
@@ -54,7 +59,8 @@ const companyFacts = [
   { number: "+30", label: "Máquinas especializadas" },
 ];
 
-export default function NosotrosPage() {
+export default async function NosotrosPage() {
+  const isEnglish = (await getLocale()) === "en";
   return (
     <main className="min-h-screen overflow-hidden bg-white text-slate-900">
       <Navbar />
@@ -70,7 +76,7 @@ export default function NosotrosPage() {
           <div className="absolute inset-0 z-0 lg:hidden">
             <Image
               src="/images/nosotros/nosotros-hero.jpg"
-              alt="Instalaciones industriales de Aquametal"
+              alt={isEnglish ? "Aquametal industrial facilities" : "Instalaciones industriales de Aquametal"}
               fill
               priority
               sizes="100vw"
@@ -88,47 +94,47 @@ export default function NosotrosPage() {
             <div className="mb-7 flex items-center gap-3">
               <span className="h-[2px] w-12 bg-[#2563FF]" />
               <span className="text-xs font-bold uppercase tracking-[0.28em] text-blue-300 sm:text-sm">
-                Conoce AquaMetal
+                {isEnglish ? "Meet AquaMetal" : "Conoce AquaMetal"}
               </span>
             </div>
 
             <h1 className="text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl xl:text-7xl">
-              Ingeniería mexicana que
+              {isEnglish ? "Mexican engineering that" : "Ingeniería mexicana que"}
               <span className="mt-2 block text-[#4D91FF]">
-                potencia a las empresas
+                {isEnglish ? "empowers businesses" : "potencia a las empresas"}
               </span>
             </h1>
 
             <p className="mt-7 max-w-md text-base leading-8 text-slate-300 md:text-lg">
-              Somos especialistas en manufactura y ensamble de componentes
-              metálicos, comprometidos con ofrecer soluciones que respondan
-              a las necesidades reales de cada cliente.
+              {isEnglish
+                ? "We specialize in manufacturing and assembling metal components, delivering solutions that address each customer's real-world needs."
+                : "Somos especialistas en manufactura y ensamble de componentes metálicos, comprometidos con ofrecer soluciones que respondan a las necesidades reales de cada cliente."}
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
-              <Link
+              <LocalizedLink
                 href="/servicios"
                 className="group inline-flex min-h-12 items-center justify-center gap-3 bg-[#2563FF] px-6 py-3 text-sm font-bold text-white transition hover:bg-blue-500"
               >
-                Conoce nuestras capacidades
+                {isEnglish ? "Explore our capabilities" : "Conoce nuestras capacidades"}
                 <ArrowRight
                   size={18}
                   className="transition-transform group-hover:translate-x-1"
                 />
-              </Link>
+              </LocalizedLink>
 
-              <Link
+              <LocalizedLink
                 href="/contacto"
                 className="inline-flex min-h-12 items-center justify-center gap-2 border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/5"
               >
-                Contáctanos
-              </Link>
+                {isEnglish ? "Contact us" : "Contáctanos"}
+              </LocalizedLink>
             </div>
 
             <div className="mt-12 flex flex-wrap items-center gap-x-4 gap-y-3 border-t border-white/15 pt-6 text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-300 sm:text-xs">
-              <span>Manufactura metalmecánica</span>
+              <span>{isEnglish ? "Metal manufacturing" : "Manufactura metalmecánica"}</span>
               <span className="h-1 w-1 rounded-full bg-[#4D91FF]" />
-              <span>Mejora continua</span>
+              <span>{isEnglish ? "Continuous improvement" : "Mejora continua"}</span>
             </div>
           </div>
 
@@ -139,7 +145,7 @@ export default function NosotrosPage() {
             <div className="relative min-h-[350px] overflow-hidden bg-slate-800 sm:min-h-[470px] lg:min-h-[540px]">
               <Image
                 src="/images/nosotros/nosotros-hero.jpg"
-                alt="Instalaciones industriales de Aqua-Metal"
+                alt={isEnglish ? "Aqua-Metal industrial facilities" : "Instalaciones industriales de Aqua-Metal"}
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -155,7 +161,9 @@ export default function NosotrosPage() {
                   Aqua-Metal
                 </span>
                 <p className="mt-2 max-w-sm text-xl font-bold text-white sm:text-2xl">
-                  Experiencia y capacidad al servicio de la industria.
+                  {isEnglish
+                    ? "Experience and capability serving industry."
+                    : "Experiencia y capacidad al servicio de la industria."}
                 </p>
               </div>
             </div>
@@ -178,16 +186,16 @@ export default function NosotrosPage() {
                 backgroundImage: "url('/images/nosotros/nosotros-planta.jpg')",
               }}
               role="img"
-              aria-label="Área de producción de Aqua-Metal"
+              aria-label={isEnglish ? "Aqua-Metal production area" : "Área de producción de Aqua-Metal"}
             >
               <div className="absolute inset-0 bg-gradient-to-t from-[#0F172A]/90 via-[#0F172A]/10 to-transparent" />
 
               <div className="absolute bottom-0 left-0 right-0 p-7 sm:p-9">
                 <span className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">
-                  Nuestra esencia
+                  {isEnglish ? "Our essence" : "Nuestra esencia"}
                 </span>
                 <p className="mt-3 max-w-sm text-2xl font-bold leading-snug text-white sm:text-3xl">
-                  Soluciones de manufactura para la industria.
+                  {isEnglish ? "Manufacturing solutions for industry." : "Soluciones de manufactura para la industria."}
                 </p>
               </div>
             </div>
@@ -199,41 +207,41 @@ export default function NosotrosPage() {
             <div className="mb-5 flex items-center gap-3">
               <span className="h-[2px] w-10 bg-[#2563FF]" />
               <span className="text-xs font-bold uppercase tracking-[0.24em] text-[#2563FF]">
-                Quiénes somos
+                {isEnglish ? "Who we are" : "Quiénes somos"}
               </span>
             </div>
 
             <h2 className="text-3xl font-bold leading-tight tracking-tight text-[#0F172A] sm:text-4xl lg:text-5xl">
-              Un socio estratégico para la industria nacional.
+              {isEnglish
+                ? "A strategic partner for Mexico's industry."
+                : "Un socio estratégico para la industria nacional."}
             </h2>
 
             <div className="mt-7 space-y-5 text-base leading-8 text-slate-600">
               <p>
-                Aqua-Metal, S.A. de C.V., es una empresa mexicana especializada
-                en la manufactura de componentes metálicos para atender las
-                necesidades de fabricación y ensamble de diferentes sectores
-                industriales.
+                {isEnglish
+                  ? "Aqua-Metal, S.A. de C.V. is a Mexican company specializing in metal component manufacturing for the production and assembly needs of a range of industrial sectors."
+                  : "Aqua-Metal, S.A. de C.V., es una empresa mexicana especializada en la manufactura de componentes metálicos para atender las necesidades de fabricación y ensamble de diferentes sectores industriales."}
               </p>
 
               <p>
-                Trabajamos con materiales como acero, aluminio, bronce, latón
-                y cobre, de acuerdo con los requerimientos de cada proyecto.
-                Nuestra capacidad productiva y experiencia nos permiten
-                participar en procesos de fabricación de piezas metálicas.
+                {isEnglish
+                  ? "We work with steel, aluminum, bronze, brass, and copper to meet each project's requirements. Our production capacity and experience allow us to support metal part manufacturing processes."
+                  : "Trabajamos con materiales como acero, aluminio, bronce, latón y cobre, de acuerdo con los requerimientos de cada proyecto. Nuestra capacidad productiva y experiencia nos permiten participar en procesos de fabricación de piezas metálicas."}
               </p>
 
               <p>
-                Además de atender las necesidades de nuestros clientes,
-                buscamos contribuir al fortalecimiento de la industria
-                nacional mediante alternativas que favorezcan la sustitución
-                de importaciones.
+                {isEnglish
+                  ? "Alongside meeting our customers' needs, we aim to strengthen domestic industry by offering alternatives that support import substitution."
+                  : "Además de atender las necesidades de nuestros clientes, buscamos contribuir al fortalecimiento de la industria nacional mediante alternativas que favorezcan la sustitución de importaciones."}
               </p>
             </div>
 
             <div className="mt-9 border-l-[3px] border-[#2563FF] pl-5">
               <p className="text-lg font-semibold leading-relaxed text-[#0F172A]">
-                Nuestro objetivo es construir relaciones de largo plazo y ser
-                un aliado confiable para cada cliente.
+                {isEnglish
+                  ? "Our goal is to build long-term relationships and be a trusted partner to every customer."
+                  : "Nuestro objetivo es construir relaciones de largo plazo y ser un aliado confiable para cada cliente."}
               </p>
             </div>
           </div>
@@ -248,20 +256,18 @@ export default function NosotrosPage() {
               <div className="mb-5 flex items-center gap-3">
                 <span className="h-[2px] w-10 bg-[#2563FF]" />
                 <span className="text-xs font-bold uppercase tracking-[0.24em] text-blue-300">
-                  Nuestra infraestructura
+                  {isEnglish ? "Our infrastructure" : "Nuestra infraestructura"}
                 </span>
               </div>
 
               <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-                Capacidad instalada para responder a la industria.
+                {isEnglish ? "Installed capacity to meet industry's needs." : "Capacidad instalada para responder a la industria."}
               </h2>
 
               <p className="mt-6 leading-8 text-slate-300">
-                Nuestra planta integra espacios y maquinaria especializada
-                para atender los procesos de fabricación de componentes
-                metálicos. Desde Santa Ana Jilotzingo, Estado de México,
-                trabajamos para responder a las necesidades productivas de
-                nuestros clientes.
+                {isEnglish
+                  ? "Our facility combines dedicated workspace and specialized machinery for manufacturing metal components. From Santa Ana Jilotzingo, State of Mexico, we work to meet our customers' production needs."
+                  : "Nuestra planta integra espacios y maquinaria especializada para atender los procesos de fabricación de componentes metálicos. Desde Santa Ana Jilotzingo, Estado de México, trabajamos para responder a las necesidades productivas de nuestros clientes."}
               </p>
 
               <div className="mt-12 grid grid-cols-3 gap-4 border-t border-white/15 pt-7">
@@ -274,7 +280,13 @@ export default function NosotrosPage() {
                       )}
                     </div>
                     <p className="mt-2 text-xs leading-5 text-slate-400 sm:text-sm">
-                      {fact.label}
+                      {isEnglish
+                        ? fact.label === "Años de experiencia"
+                          ? "Years of experience"
+                          : fact.label === "De infraestructura"
+                            ? "of facilities"
+                            : "Specialized machines"
+                        : fact.label}
                     </p>
                   </div>
                 ))}
@@ -286,7 +298,7 @@ export default function NosotrosPage() {
                 <div className="relative mt-8 aspect-[4/5] overflow-hidden bg-slate-800">
                   <Image
                     src="/images/nosotros/vistasatelital.jpg"
-                    alt="Instalaciones industriales de Aqua-Metal"
+                    alt={isEnglish ? "Aqua-Metal industrial facilities" : "Instalaciones industriales de Aqua-Metal"}
                     fill
                     sizes="(max-width: 640px) 45vw, 25vw"
                     className="object-cover object-[30%_center] transition duration-700 hover:scale-105"
@@ -297,7 +309,7 @@ export default function NosotrosPage() {
                 <div className="relative aspect-[4/5] overflow-hidden bg-slate-800">
                   <Image
                     src="/images/nosotros/nosotrosp1.jpg"
-                    alt="Maquinaria y área de producción de Aqua-Metal"
+                    alt={isEnglish ? "Aqua-Metal machinery and production area" : "Maquinaria y área de producción de Aqua-Metal"}
                     fill
                     sizes="(max-width: 640px) 45vw, 25vw"
                     className="object-cover object-[30%_center] transition duration-700 hover:scale-105"
@@ -314,10 +326,10 @@ export default function NosotrosPage() {
                 </div>
                 <div>
                   <p className="text-sm font-bold text-white">
-                    Planta industrial
+                    {isEnglish ? "Manufacturing facility" : "Planta industrial"}
                   </p>
                   <p className="mt-1 text-xs text-slate-400">
-                    Santa Ana Jilotzingo, Estado de México
+                    {isEnglish ? "Santa Ana Jilotzingo, State of Mexico" : "Santa Ana Jilotzingo, Estado de México"}
                   </p>
                 </div>
               </div>
@@ -336,7 +348,7 @@ export default function NosotrosPage() {
               <div className="group relative h-full min-h-[400px] overflow-hidden bg-[#0F172A] sm:min-h-[500px]">
                 <Image
                   src="/images/nosotros/nosotros-calidad-v2.jpg"
-                  alt="Compromiso de Aqua-Metal con la calidad y la mejora continua"
+                  alt={isEnglish ? "Aqua-Metal's commitment to quality and continuous improvement" : "Compromiso de Aqua-Metal con la calidad y la mejora continua"}
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -346,12 +358,12 @@ export default function NosotrosPage() {
                   <div className="mb-3 flex items-center gap-3">
                     <span className="h-[2px] w-10 bg-[#2563FF]" />
                     <span className="text-xs font-bold uppercase tracking-[0.24em] text-blue-200 [text-shadow:0_1px_4px_rgba(0,0,0,0.9)]">
-                      Nuestro compromiso
+                      {isEnglish ? "Our commitment" : "Nuestro compromiso"}
                     </span>
                   </div>
 
                   <h3 className="max-w-sm text-2xl font-bold leading-tight text-white [text-shadow:0_2px_6px_rgba(0,0,0,0.9)] sm:text-3xl">
-                    Calidad que impulsa cada proyecto.
+                    {isEnglish ? "Quality that drives every project." : "Calidad que impulsa cada proyecto."}
                   </h3>
                 </div>
               </div>
@@ -363,30 +375,27 @@ export default function NosotrosPage() {
               <div className="mb-6 flex items-center gap-3">
                 <ShieldCheck className="shrink-0 text-[#2563FF]" size={25} />
                 <h3 className="text-xl font-bold text-[#0F172A]">
-                  Política de calidad
+                  {isEnglish ? "Quality policy" : "Política de calidad"}
                 </h3>
               </div>
 
               <div className="space-y-5 text-sm leading-7 text-slate-600 sm:text-base sm:leading-8">
                 <p>
-                  Aqua-Metal, S.A. de C.V., es una empresa 100 % mexicana
-                  dedicada a la manufactura de partes de aluminio, latón y
-                  otros metales. Proveemos productos de alta calidad, entregas
-                  puntuales, precios competitivos y servicios especializados.
+                  {isEnglish
+                    ? "Aqua-Metal, S.A. de C.V. is a 100% Mexican company manufacturing aluminum, brass, and other metal parts. We provide high-quality products, on-time delivery, competitive pricing, and specialized services."
+                    : "Aqua-Metal, S.A. de C.V., es una empresa 100 % mexicana dedicada a la manufactura de partes de aluminio, latón y otros metales. Proveemos productos de alta calidad, entregas puntuales, precios competitivos y servicios especializados."}
                 </p>
 
                 <p>
-                  Estamos comprometidos con la mejora continua, el cumplimiento
-                  de los requisitos del cliente y de otras partes interesadas,
-                  así como de las disposiciones legales aplicables, mediante
-                  procesos innovadores, confiables y consistentes.
+                  {isEnglish
+                    ? "We are committed to continuous improvement, meeting customer and stakeholder requirements, and complying with applicable regulations through innovative, reliable, and consistent processes."
+                    : "Estamos comprometidos con la mejora continua, el cumplimiento de los requisitos del cliente y de otras partes interesadas, así como de las disposiciones legales aplicables, mediante procesos innovadores, confiables y consistentes."}
                 </p>
 
                 <p>
-                  Estos procesos están enfocados en el desarrollo de
-                  competencias, la seguridad y la integridad de nuestros
-                  colaboradores. Asimismo, procuramos el uso de estrategias y
-                  tecnologías innovadoras.
+                  {isEnglish
+                    ? "These processes focus on developing our team's skills, safety, and integrity. We also seek to apply innovative strategies and technologies."
+                    : "Estos procesos están enfocados en el desarrollo de competencias, la seguridad y la integridad de nuestros colaboradores. Asimismo, procuramos el uso de estrategias y tecnologías innovadoras."}
                 </p>
               </div>
 
@@ -395,7 +404,7 @@ export default function NosotrosPage() {
                   Franz Schopper C.
                 </p>
                 <p className="mt-1 text-sm text-slate-500">
-                  Dirección General
+                  {isEnglish ? "Chief Executive Officer" : "Dirección General"}
                 </p>
               </div>
             </div>
@@ -410,16 +419,18 @@ export default function NosotrosPage() {
             <div className="mb-3 flex items-center gap-3">
               <span className="h-[2px] w-9 bg-[#2563FF]" />
               <span className="text-xs font-bold uppercase tracking-[0.2em] text-[#2563FF]">
-                Nuestra dirección
+                {isEnglish ? "Our direction" : "Nuestra dirección"}
               </span>
             </div>
 
             <h2 className="text-3xl font-bold tracking-tight text-[#0F172A] sm:text-4xl">
-              Misión y Visión
+              {isEnglish ? "Mission and Vision" : "Misión y Visión"}
             </h2>
 
             <p className="mt-2 text-sm text-slate-500 sm:text-base">
-              Lo que nos impulsa, hacia dónde vamos y los principios que nos definen.
+              {isEnglish
+                ? "What drives us, where we are headed, and the principles that define us."
+                : "Lo que nos impulsa, hacia dónde vamos y los principios que nos definen."}
             </p>
           </div>
 
@@ -428,14 +439,14 @@ export default function NosotrosPage() {
               <div className="mb-4 flex items-center gap-3">
                 <Target size={22} className="shrink-0 text-[#2563FF]" />
                 <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-[#2563FF]">
-                  Misión
+                  {isEnglish ? "Mission" : "Misión"}
                 </h3>
               </div>
 
               <p className="text-base font-semibold leading-7 text-[#0F172A] sm:text-lg">
-                Resolver los desafíos de la industria automotriz mediante
-                soluciones innovadoras y sostenibles en manufactura metálica,
-                creando valor para nuestros clientes, colaboradores y la sociedad.
+                {isEnglish
+                  ? "Address the automotive industry's challenges through innovative, sustainable metal manufacturing solutions that create value for our customers, team, and society."
+                  : "Resolver los desafíos de la industria automotriz mediante soluciones innovadoras y sostenibles en manufactura metálica, creando valor para nuestros clientes, colaboradores y la sociedad."}
               </p>
             </article>
 
@@ -443,7 +454,7 @@ export default function NosotrosPage() {
               <div className="mb-4 flex items-center gap-3">
                 <Globe2 size={22} className="shrink-0 text-[#2563FF]" />
                 <h3 className="text-sm font-bold uppercase tracking-[0.16em] text-[#0F172A]">
-                  Visión
+                  {isEnglish ? "Vision" : "Visión"}
                 </h3>
                 <span className="text-3xl font-bold tracking-tight text-[#2563FF]">
                   2030
@@ -451,9 +462,9 @@ export default function NosotrosPage() {
               </div>
 
               <p className="text-base font-semibold leading-7 text-[#0F172A] sm:text-lg">
-                Ser un referente nacional en manufactura metálica, reconocido
-                por transformar desafíos industriales en oportunidades
-                sostenibles que impulsen el sector automotriz.
+                {isEnglish
+                  ? "Become a national leader in metal manufacturing, recognized for turning industrial challenges into sustainable opportunities that advance the automotive sector."
+                  : "Ser un referente nacional en manufactura metálica, reconocido por transformar desafíos industriales en oportunidades sostenibles que impulsen el sector automotriz."}
               </p>
             </article>
           </div>
@@ -461,7 +472,7 @@ export default function NosotrosPage() {
           <div className="mt-4 border border-slate-200 border-l-4 border-l-[#2563FF] bg-white p-6 sm:p-7">
             <div className="mb-5 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
               <h3 className="text-lg font-bold text-[#0F172A] sm:text-xl">
-                Nuestros valores
+                {isEnglish ? "Our values" : "Nuestros valores"}
               </h3>
             </div>
 
@@ -469,38 +480,56 @@ export default function NosotrosPage() {
               {[
                 {
                   titulo: "Calidad",
+                  tituloEn: "Quality",
                   descripcion:
                     "Cuidamos nuestros procesos y productos para cumplir con los requisitos de nuestros clientes.",
+                  descripcionEn:
+                    "We look after our processes and products to meet our customers' requirements.",
                   icono: ShieldCheck,
                 },
                 {
                   titulo: "Compromiso",
+                  tituloEn: "Commitment",
                   descripcion:
                     "Respondemos a las necesidades de cada proyecto con un servicio confiable y entregas oportunas.",
+                  descripcionEn:
+                    "We meet each project's needs with reliable service and on-time delivery.",
                   icono: Handshake,
                 },
                 {
                   titulo: "Mejora continua",
+                  tituloEn: "Continuous improvement",
                   descripcion:
                     "Perfeccionamos nuestros procesos y capacidades para responder a los retos de la industria.",
+                  descripcionEn:
+                    "We improve our processes and capabilities to meet the industry's challenges.",
                   icono: TrendingUp,
                 },
                 {
                   titulo: "Innovación",
+                  tituloEn: "Innovation",
                   descripcion:
                     "Impulsamos ideas y tecnologías que fortalecen nuestros procesos de manufactura.",
+                  descripcionEn:
+                    "We advance ideas and technologies that strengthen our manufacturing processes.",
                   icono: Layers3,
                 },
                 {
                   titulo: "Desarrollo del talento",
+                  tituloEn: "Talent development",
                   descripcion:
                     "Promovemos las competencias, la seguridad y el desarrollo de nuestros colaboradores.",
+                  descripcionEn:
+                    "We promote the skills, safety, and development of our team.",
                   icono: Factory,
                 },
                 {
                   titulo: "Integridad",
+                  tituloEn: "Integrity",
                   descripcion:
                     "Actuamos con responsabilidad y respeto, cumpliendo nuestros compromisos.",
+                  descripcionEn:
+                    "We act responsibly and respectfully, honoring our commitments.",
                   icono: ShieldCheck,
                 },
               ].map((valor, index) => {
@@ -524,11 +553,11 @@ export default function NosotrosPage() {
                     />
 
                     <h4 className="text-sm font-bold leading-5 text-[#0F172A]">
-                      {valor.titulo}
+                      {isEnglish ? valor.tituloEn : valor.titulo}
                     </h4>
 
                     <p className="mt-2 text-xs leading-5 text-slate-500">
-                      {valor.descripcion}
+                      {isEnglish ? valor.descripcionEn : valor.descripcion}
                     </p>
                   </article>
                 );
@@ -553,37 +582,39 @@ export default function NosotrosPage() {
 
       <div className="relative max-w-xl">
         <span className="text-xs font-bold uppercase tracking-[0.25em] text-blue-300">
-          Trabajemos juntos
+          {isEnglish ? "Let's work together" : "Trabajemos juntos"}
         </span>
 
         <h2 className="mt-5 text-3xl font-bold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
-          Experiencia, capacidad y compromiso para tu próximo proyecto.
+          {isEnglish
+            ? "Experience, capability, and commitment for your next project."
+            : "Experiencia, capacidad y compromiso para tu próximo proyecto."}
         </h2>
 
         <p className="mt-5 max-w-2xl leading-7 text-slate-300">
-          Conoce nuestra trayectoria y capacidades de fabricación.
-          Estamos listos para escuchar tus requerimientos y construir
-          una solución para tu proyecto industrial.
+          {isEnglish
+            ? "Learn about our track record and manufacturing capabilities. We are ready to hear your requirements and build a solution for your industrial project."
+            : "Conoce nuestra trayectoria y capacidades de fabricación. Estamos listos para escuchar tus requerimientos y construir una solución para tu proyecto industrial."}
         </p>
 
         <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-          <Link
+          <LocalizedLink
             href="/contacto"
             className="group inline-flex min-h-14 items-center justify-center gap-3 bg-[#2563FF] px-7 py-4 text-sm font-bold text-white transition hover:bg-blue-500"
           >
-            Contactar a Aquametal
+            {isEnglish ? "Contact Aquametal" : "Contactar a Aquametal"}
             <ArrowRight
               size={18}
               className="transition-transform group-hover:translate-x-1"
             />
-          </Link>
+          </LocalizedLink>
 
-          <Link
+          <LocalizedLink
             href="/servicios"
             className="inline-flex min-h-14 items-center justify-center border border-white/25 px-7 py-4 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
           >
-            Explorar servicios
-          </Link>
+            {isEnglish ? "Explore services" : "Explorar servicios"}
+          </LocalizedLink>
         </div>
       </div>
     </div>
@@ -592,7 +623,7 @@ export default function NosotrosPage() {
     <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
       <Image
         src="/images/cta.jpg"
-        alt="Maquinaria CNC durante un proceso de fabricación"
+        alt={isEnglish ? "CNC machinery during manufacturing" : "Maquinaria CNC durante un proceso de fabricación"}
         fill
         className="object-cover"
         sizes="(max-width: 1024px) 100vw, 50vw"

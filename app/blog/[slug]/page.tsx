@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
@@ -20,6 +19,8 @@ import Footer from "@/components/Footer";
 import PortableTextRenderer from "@/components/PortableTextRenderer";
 import FaqAccordion from "@/components/FaqAccordion";
 import { sanityFetch, SanityPost } from "@/lib/sanity";
+import { getLocale, localizedUrl } from "@/lib/i18n";
+import { LocalizedLink } from "@/components/LocaleProvider";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -67,12 +68,15 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const isEnglish = (await getLocale()) === "en";
   const post = await sanityFetch<SanityPost>(SINGLE_POST_QUERY, { slug });
 
   if (!post) {
     return {
-      title: "Artículo técnico",
-      description: "Artículo técnico sobre maquinado CNC y manufactura industrial.",
+      title: isEnglish ? "Technical article" : "Artículo técnico",
+      description: isEnglish
+        ? "Technical article about CNC machining and industrial manufacturing."
+        : "Artículo técnico sobre maquinado CNC y manufactura industrial.",
     };
   }
 
@@ -80,7 +84,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     /\s*(?:\||—)\s*(?:Aqua Metal(?: Blog)?|Aquametal)$/i,
     ""
   );
-  const description = post.seoDescription || post.excerpt || "Guía técnica sobre maquinado CNC.";
+  const description =
+    post.seoDescription ||
+    post.excerpt ||
+    (isEnglish
+      ? "Technical guide to CNC machining."
+      : "Guía técnica sobre maquinado CNC.");
 
   return {
     title,
@@ -88,7 +97,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      url: `https://www.aqua-metal.com/blog/${slug}`,
+      url: localizedUrl(`${isEnglish ? "/en" : ""}/blog/${slug}`),
       ...(post.imageUrl ? { images: [{ url: post.imageUrl, alt: post.imageAlt || post.title }] } : {}),
     },
   };
@@ -96,6 +105,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
+  const isEnglish = (await getLocale()) === "en";
   const post = await sanityFetch<SanityPost>(SINGLE_POST_QUERY, { slug });
 
   if (!post) {
@@ -105,12 +115,14 @@ export default async function BlogPostPage({ params }: Props) {
   const otherPosts = await sanityFetch<SanityPost[]>(OTHER_POSTS_QUERY, { slug });
 
   const formattedDate = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString("es-MX", {
+    ? new Date(post.publishedAt).toLocaleDateString(isEnglish ? "en-US" : "es-MX", {
         year: "numeric",
         month: "long",
         day: "numeric",
       })
-    : "21 de febrero, 2026";
+    : isEnglish
+      ? "February 21, 2026"
+      : "21 de febrero, 2026";
 
   const faqSchema =
     post.faqs && post.faqs.length > 0
@@ -144,27 +156,30 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="container mx-auto px-6 max-w-5xl relative z-10">
           {/* Breadcrumb de navegación */}
           <nav aria-label="Breadcrumb" className="mb-8 flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-slate-400">
-            <Link href="/" className="hover:text-white transition-colors">
-              Inicio
-            </Link>
+            <LocalizedLink href="/" className="hover:text-white transition-colors">
+              {isEnglish ? "Home" : "Inicio"}
+            </LocalizedLink>
             <ChevronRight className="h-3 w-3 text-slate-600" />
-            <Link href="/blog" className="hover:text-white transition-colors">
+            <LocalizedLink href="/blog" className="hover:text-white transition-colors">
               Blog
-            </Link>
+            </LocalizedLink>
             <ChevronRight className="h-3 w-3 text-slate-600" />
-            <span className="text-[#70A7FF]">{post.category || "Procesos"}</span>
+            <span className="text-[#70A7FF]">
+              {post.category || (isEnglish ? "Processes" : "Procesos")}
+            </span>
           </nav>
 
           {/* Categoría y Tiempo de Lectura */}
           <div className="mb-6 flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-[#2563FF]/15 border border-[#2563FF]/30 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#70A7FF] font-mono">
               <Tag className="h-3 w-3" />
-              {post.category || "Procesos"}
+              {post.category || (isEnglish ? "Processes" : "Procesos")}
             </span>
             <span className="text-slate-600">·</span>
             <span className="inline-flex items-center gap-1 text-xs font-mono text-slate-400">
               <Clock className="h-3 w-3 text-[#2563FF]" />
-              {post.readTime || "7 min de lectura técnica"}
+              {post.readTime ||
+                (isEnglish ? "7 min technical read" : "7 min de lectura técnica")}
             </span>
             <span className="text-slate-600">·</span>
             <span className="inline-flex items-center gap-1 text-xs font-mono text-slate-400">
@@ -195,10 +210,16 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
               <div>
                 <p className="text-sm font-bold text-white font-display">
-                  {post.author || "Equipo de Ingeniería Aqua Metal"}
+                  {post.author ||
+                    (isEnglish
+                      ? "Aqua Metal Engineering Team"
+                      : "Equipo de Ingeniería Aqua Metal")}
                 </p>
                 <p className="text-xs text-slate-400 font-mono">
-                  {post.authorRole || "Planta de Manufactura · Estado de México"}
+                  {post.authorRole ||
+                    (isEnglish
+                      ? "Manufacturing Facility · State of Mexico"
+                      : "Planta de Manufactura · Estado de México")}
                 </p>
               </div>
             </div>
@@ -206,7 +227,7 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-xs font-mono text-emerald-400">
                 <ShieldCheck className="h-3.5 w-3.5" />
-                Validado en Planta
+                {isEnglish ? "Plant verified" : "Validado en Planta"}
               </span>
             </div>
           </div>
@@ -241,7 +262,9 @@ export default async function BlogPostPage({ params }: Props) {
             <div className="flex items-center justify-between">
               <div className="space-y-2">
                 <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#8DB8FF]">
-                  Guía de Manufactura de Precisión
+                  {isEnglish
+                    ? "Precision Manufacturing Guide"
+                    : "Guía de Manufactura de Precisión"}
                 </span>
                 <p className="text-xl sm:text-2xl font-bold font-display text-white">
                   {post.title}
@@ -266,16 +289,21 @@ export default async function BlogPostPage({ params }: Props) {
 
             {/* SECCIÓN DE PREGUNTAS FRECUENTES INTERACTIVAS */}
             {post.faqs && post.faqs.length > 0 && (
-              <section className="mt-16 pt-12 border-t border-slate-200" aria-label="Preguntas Frecuentes">
+              <section
+                className="mt-16 pt-12 border-t border-slate-200"
+                aria-label={isEnglish ? "Frequently asked questions" : "Preguntas Frecuentes"}
+              >
                 <div className="mb-8">
                   <div className="flex items-center gap-3 mb-2">
                     <span className="h-5 w-1.5 rounded-full bg-[#2563FF]" />
                     <h2 className="text-2xl sm:text-3xl font-bold font-display text-slate-900">
-                      Preguntas Frecuentes
+                      {isEnglish ? "Frequently Asked Questions" : "Preguntas Frecuentes"}
                     </h2>
                   </div>
                   <p className="text-slate-600 text-sm">
-                    Respuestas directas desde la experiencia en planta sobre este proceso.
+                    {isEnglish
+                      ? "Direct answers based on our hands-on experience with this process."
+                      : "Respuestas directas desde la experiencia en planta sobre este proceso."}
                   </p>
                 </div>
 
@@ -285,13 +313,13 @@ export default async function BlogPostPage({ params }: Props) {
 
             {/* Botón de volver */}
             <div className="mt-14 pt-8 border-t border-slate-200 flex items-center justify-between">
-              <Link
+              <LocalizedLink
                 href="/blog"
                 className="inline-flex items-center gap-2 text-sm font-bold text-blue-700 hover:text-blue-900 transition-colors font-mono"
               >
                 <ArrowLeft className="h-4 w-4" />
-                Volver a todos los artículos
-              </Link>
+                {isEnglish ? "Back to all articles" : "Volver a todos los artículos"}
+              </LocalizedLink>
             </div>
           </article>
 
@@ -305,47 +333,61 @@ export default async function BlogPostPage({ params }: Props) {
                 </span>
                 <div>
                   <h3 className="font-bold font-display text-slate-900 text-base">
-                    Asesoría en Planta
+                    {isEnglish ? "On-site consultation" : "Asesoría en Planta"}
                   </h3>
                   <p className="text-xs text-blue-700 font-mono">
-                    Revisión DFM en 24h
+                    {isEnglish ? "DFM review within 24 hours" : "Revisión DFM en 24h"}
                   </p>
                 </div>
               </div>
 
               <p className="text-slate-600 text-xs sm:text-sm leading-relaxed mb-6">
-                ¿Tienes un plano o requerimiento relacionado con este artículo? Analizamos la geometría de tu pieza para recomendarte la ruta más económica.
+                {isEnglish
+                  ? "Have a drawing or requirement related to this article? We review your part geometry and recommend the most cost-effective process."
+                  : "¿Tienes un plano o requerimiento relacionado con este artículo? Analizamos la geometría de tu pieza para recomendarte la ruta más económica."}
               </p>
 
-              <Link
+              <LocalizedLink
                 href="/contacto"
                 className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#2563FF] to-[#4D91FF] py-3 px-4 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-blue-600/30 transition hover:brightness-110"
               >
-                Enviar mis Planos
+                {isEnglish ? "Send my drawings" : "Enviar mis Planos"}
                 <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+              </LocalizedLink>
             </div>
 
             {/* Ficha de Capacidad de Planta */}
             <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4">
               <h4 className="text-xs font-mono uppercase tracking-[0.2em] text-blue-700">
-                Capacidad Industrial
+                {isEnglish ? "Industrial capacity" : "Capacidad Industrial"}
               </h4>
               <ul className="space-y-3 text-xs text-slate-700 font-mono">
                 <li className="flex items-center justify-between pb-2 border-b border-slate-100">
-                  <span className="text-slate-500">Tolerancia Fina:</span>
+                  <span className="text-slate-500">
+                    {isEnglish ? "Fine tolerance:" : "Tolerancia Fina:"}
+                  </span>
                   <span className="text-slate-900 font-bold">±0.5 mm</span>
                 </li>
                 <li className="flex items-center justify-between pb-2 border-b border-slate-100">
-                  <span className="text-slate-500">Capacidad por Lote:</span>
-                  <span className="text-slate-900 font-bold">+5,000 pzas</span>
+                  <span className="text-slate-500">
+                    {isEnglish ? "Batch capacity:" : "Capacidad por Lote:"}
+                  </span>
+                  <span className="text-slate-900 font-bold">
+                    {isEnglish ? "+5,000 parts" : "+5,000 pzas"}
+                  </span>
                 </li>
                 <li className="flex items-center justify-between pb-2 border-b border-slate-100">
-                  <span className="text-slate-500">Maquinaria:</span>
-                  <span className="text-slate-900 font-bold">+30 unidades</span>
+                  <span className="text-slate-500">
+                    {isEnglish ? "Machines:" : "Maquinaria:"}
+                  </span>
+                  <span className="text-slate-900 font-bold">
+                    {isEnglish ? "+30 units" : "+30 unidades"}
+                  </span>
                 </li>
                 <li className="flex items-center justify-between">
-                  <span className="text-slate-500">Certificación:</span>
+                  <span className="text-slate-500">
+                    {isEnglish ? "Certification:" : "Certificación:"}
+                  </span>
                   <span className="text-emerald-700 font-bold">ISO 9001</span>
                 </li>
               </ul>
@@ -361,25 +403,25 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="container mx-auto px-6 max-w-5xl">
             <div className="mb-10 flex items-center justify-between">
               <h2 className="text-2xl font-bold font-display text-white">
-                Otras publicaciones recomendadas
+                {isEnglish ? "More recommended articles" : "Otras publicaciones recomendadas"}
               </h2>
-              <Link
+              <LocalizedLink
                 href="/blog"
                 className="text-xs font-mono uppercase tracking-wider text-[#70A7FF] hover:text-white transition-colors"
               >
-                Ver todo el blog →
-              </Link>
+                {isEnglish ? "View all articles →" : "Ver todo el blog →"}
+              </LocalizedLink>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2">
               {otherPosts.map((other) => (
-                <Link
+                <LocalizedLink
                   key={other._id}
                   href={`/blog/${other.slug}`}
                   className="group block rounded-2xl border border-white/[0.08] bg-[#0F172A] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[#2563FF]/50 hover:shadow-xl"
                 >
                   <span className="mb-2 block text-xs font-mono uppercase tracking-wider text-[#8DB8FF]">
-                    {other.category || "Procesos"}
+                    {other.category || (isEnglish ? "Processes" : "Procesos")}
                   </span>
                   <h3 className="text-lg font-bold font-display text-white transition-colors group-hover:text-[#70A7FF] mb-2 line-clamp-2">
                     {other.title}
@@ -387,7 +429,7 @@ export default async function BlogPostPage({ params }: Props) {
                   <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
                     {other.excerpt}
                   </p>
-                </Link>
+                </LocalizedLink>
               ))}
             </div>
           </div>
@@ -407,28 +449,34 @@ export default async function BlogPostPage({ params }: Props) {
 
             <div className="relative max-w-xl">
               <span className="text-xs font-bold uppercase tracking-[0.25em] text-blue-300">
-                Trabajemos juntos
+                {isEnglish ? "Let's work together" : "Trabajemos juntos"}
               </span>
 
               <h2 className="mt-5 text-2xl sm:text-3xl font-bold leading-tight tracking-tight lg:text-4xl">
-                ¿Requieres cotizar componentes maquinados?
+                {isEnglish
+                  ? "Need a quote for machined components?"
+                  : "¿Requieres cotizar componentes maquinados?"}
               </h2>
 
               <p className="mt-5 max-w-2xl leading-7 text-slate-300">
-                Envía tus especificaciones o modelos CAD. Te respondemos con un análisis de fabricabilidad y propuesta económica en 24 horas.
+                {isEnglish
+                  ? "Send your specifications or CAD models. Within 24 hours, we'll provide a manufacturability review and a quote."
+                  : "Envía tus especificaciones o modelos CAD. Te respondemos con un análisis de fabricabilidad y propuesta económica en 24 horas."}
               </p>
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <Link
+                <LocalizedLink
                   href="/contacto"
                   className="group inline-flex min-h-14 items-center justify-center gap-3 bg-[#2563FF] px-7 py-4 text-sm font-bold text-white transition hover:bg-blue-500"
                 >
-                  Solicitar Cotización sin Compromiso
+                  {isEnglish
+                    ? "Request a no-obligation quote"
+                    : "Solicitar Cotización sin Compromiso"}
                   <ArrowRight
                     size={18}
                     className="transition-transform group-hover:translate-x-1"
                   />
-                </Link>
+                </LocalizedLink>
               </div>
             </div>
           </div>
@@ -437,7 +485,11 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
             <Image
               src="/images/cta.jpg"
-              alt="Maquinaria CNC durante un proceso de fabricación"
+              alt={
+                isEnglish
+                  ? "CNC machinery during manufacturing"
+                  : "Maquinaria CNC durante un proceso de fabricación"
+              }
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"

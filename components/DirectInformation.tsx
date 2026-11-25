@@ -1,26 +1,32 @@
-import { Mail, Phone, MapPin, Clock3 } from "lucide-react";
+"use client";
 
-const contactItems = [
-  {
-    icon: Mail,
-    label: "CORREO ELECTRÓNICO",
-    value: "ventas@aqua-metal.com.mx",
-    href: "mailto:ventas@aqua-metal.com.mx",
-  },
-  {
-    icon: Phone,
-    label: "TELÉFONO DE CONTACTO",
-    value: "55 5084 6281",
-    href: "tel:+525550846281",
-  },
-  {
-    icon: MapPin,
-    label: "UBICACIÓN",
-    value: "Santa Ana Jilotzingo, Estado de México",
-  },
-];
+import { Mail, Phone, MapPin, Clock3 } from "lucide-react";
+import { useLocale } from "@/components/LocaleProvider";
 
 export default function DirectInformation() {
+  const isEnglish = useLocale() === "en";
+  const contactItems = [
+    {
+      icon: Mail,
+      label: isEnglish ? "EMAIL ADDRESS" : "CORREO ELECTRÓNICO",
+      value: "ventas@aqua-metal.com.mx",
+      href: "mailto:ventas@aqua-metal.com.mx",
+    },
+    {
+      icon: Phone,
+      label: isEnglish ? "PHONE" : "TELÉFONO DE CONTACTO",
+      value: "55 5084 6281",
+      href: "tel:+525550846281",
+    },
+    {
+      icon: MapPin,
+      label: isEnglish ? "LOCATION" : "UBICACIÓN",
+      value: isEnglish
+        ? "Santa Ana Jilotzingo, State of Mexico"
+        : "Santa Ana Jilotzingo, Estado de México",
+    },
+  ];
+
   return (
     <aside
       className="relative isolate flex h-full w-full flex-col justify-between overflow-hidden border border-slate-800 bg-slate-900 p-6 text-white sm:p-8"
@@ -40,16 +46,17 @@ export default function DirectInformation() {
       <div>
         <div className="mb-7">
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">
-            Estamos para ayudarte
+            {isEnglish ? "We are here to help" : "Estamos para ayudarte"}
           </span>
 
           <h2 className="mt-3 text-2xl font-extrabold tracking-tight">
-            Información directa
+            {isEnglish ? "Direct information" : "Información directa"}
           </h2>
 
           <p className="mt-3 text-sm leading-6 text-slate-300">
-            Ponte en contacto con nuestro equipo para resolver tus dudas o
-            consultar los detalles de tu proyecto.
+            {isEnglish
+              ? "Contact our team with your questions or to discuss the details of your project."
+              : "Ponte en contacto con nuestro equipo para resolver tus dudas o consultar los detalles de tu proyecto."}
           </p>
         </div>
 
@@ -95,12 +102,12 @@ export default function DirectInformation() {
             <Clock3 className="h-5 w-5 text-blue-400" />
 
             <h3 className="text-sm font-bold text-white">
-              Horario de atención
+              {isEnglish ? "Business hours" : "Horario de atención"}
             </h3>
           </div>
 
           <p className="mt-3 text-sm leading-6 text-slate-300">
-            Lunes a viernes
+            {isEnglish ? "Monday to Friday" : "Lunes a viernes"}
             <br />
             9:00 a. m. a 6:00 p. m.
           </p>

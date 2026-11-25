@@ -1,9 +1,14 @@
+"use client";
+
+import { useLocale } from "@/components/LocaleProvider";
+
 type IsoSealProps = {
   className: string;
   idPrefix: string;
 };
 
 export default function IsoSeal({ className, idPrefix }: IsoSealProps) {
+  const isEnglish = useLocale() === "en";
   const topArcId = `${idPrefix}-arc-top`;
   const bottomArcId = `${idPrefix}-arc-bottom`;
   const globeClipId = `${idPrefix}-globe-clip`;
@@ -14,7 +19,11 @@ export default function IsoSeal({ className, idPrefix }: IsoSealProps) {
       viewBox="0 0 500 500"
       className={className}
       role="img"
-      aria-label="ISO 9001 Certified Company"
+      aria-label={
+        isEnglish
+          ? "ISO 9001 Certified Company"
+          : "Empresa certificada ISO 9001"
+      }
     >
       <defs>
         <path id={topArcId} d="M60 250a190 190 0 0 1 380 0" fill="none" />
@@ -64,7 +73,7 @@ export default function IsoSeal({ className, idPrefix }: IsoSealProps) {
         letterSpacing="4"
       >
         <textPath href={`#${topArcId}`} startOffset="50%" textAnchor="middle">
-          CERTIFIED
+          {isEnglish ? "CERTIFIED" : "CERTIFICADA"}
         </textPath>
       </text>
       <text
@@ -79,7 +88,7 @@ export default function IsoSeal({ className, idPrefix }: IsoSealProps) {
           startOffset="50%"
           textAnchor="middle"
         >
-          COMPANY
+          {isEnglish ? "COMPANY" : "EMPRESA"}
         </textPath>
       </text>
 

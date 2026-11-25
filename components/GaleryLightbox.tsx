@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Eye, X } from "lucide-react";
+import { useLocale } from "@/components/LocaleProvider";
 
 export interface WpMedia {
   id: number;
@@ -25,10 +26,15 @@ interface GalleryLightboxProps {
 
 export default function GalleryLightbox({ items = [] }: GalleryLightboxProps) {
   const [selectedImage, setSelectedImage] = useState<WpMedia | null>(null);
+  const isEnglish = useLocale() === "en";
 
   // Validación extra por si items llega vacío o indefinido
   if (!items || items.length === 0) {
-    return <div className="text-center text-slate-500 py-10 font-mono text-xs">No hay imágenes disponibles.</div>;
+    return (
+      <div className="text-center text-slate-500 py-10 font-mono text-xs">
+        {isEnglish ? "No images available." : "No hay imágenes disponibles."}
+      </div>
+    );
   }
 
   return (
@@ -37,7 +43,9 @@ export default function GalleryLightbox({ items = [] }: GalleryLightboxProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {items.map((item) => {
           const imageUrl = item.toLocalPath || item.source_url;
-          const title = item.title?.rendered || "Imagen Industrial";
+          const title =
+            item.title?.rendered ||
+            (isEnglish ? "Industrial image" : "Imagen Industrial");
 
           return (
             <div
@@ -56,7 +64,8 @@ export default function GalleryLightbox({ items = [] }: GalleryLightboxProps) {
                 {/* Overlay limpio solo con botón de Ampliar */}
                 <div className="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <span className="bg-blue-600 text-white text-xs font-mono font-bold px-3 py-1.5 flex items-center gap-1.5 rounded-none shadow-md">
-                    <Eye className="w-4 h-4" /> Ampliar Imagen
+                    <Eye className="w-4 h-4" />{" "}
+                    {isEnglish ? "Enlarge image" : "Ampliar Imagen"}
                   </span>
                 </div>
               </div>
@@ -88,6 +97,7 @@ export default function GalleryLightbox({ items = [] }: GalleryLightboxProps) {
             {/* Botón Cerrar */}
             <button
               onClick={() => setSelectedImage(null)}
+              aria-label={isEnglish ? "Close image" : "Cerrar imagen"}
               className="absolute top-4 right-4 z-10 bg-slate-800 text-white p-2.5 hover:bg-blue-600 transition rounded-none border border-slate-700"
             >
               <X className="w-5 h-5" />
@@ -97,7 +107,10 @@ export default function GalleryLightbox({ items = [] }: GalleryLightboxProps) {
             <div className="relative h-[500px] sm:h-[650px] w-full bg-black">
               <Image
                 src={selectedImage.toLocalPath || selectedImage.source_url}
-                alt={selectedImage.title?.rendered || "Imagen"}
+                alt={
+                  selectedImage.title?.rendered ||
+                  (isEnglish ? "Image" : "Imagen")
+                }
                 fill
                 className="object-contain"
               />
