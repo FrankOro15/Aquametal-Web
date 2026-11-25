@@ -18,7 +18,7 @@ export default function Contacto() {
         <div
           className="absolute inset-x-0 -top-44 bottom-0 -z-20 bg-cover bg-center md:-top-32"
           style={{
-            backgroundImage: "url('/images/contacto-hero.jpeg')",
+            backgroundImage: "url('/images/contacto-hero.webp')",
           }}
         />
 

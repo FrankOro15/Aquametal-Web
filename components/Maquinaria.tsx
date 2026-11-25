@@ -13,7 +13,7 @@ const maquinas = [
     categoria: "Torneado automático",
     descripcion:
       "Torno automático utilizado para la fabricación de componentes metálicos mediante operaciones de torneado repetitivas. Está orientado a la producción de piezas de precisión, manteniendo uniformidad dimensional durante los procesos de fabricación.",
-    imagen: "/images/msp.jpeg",
+    imagen: "/images/msp.webp",
     video: "/videos/msp.mp4",
     capacidad: "4 mm",
     cantidad: 2,
@@ -24,7 +24,7 @@ const maquinas = [
     categoria: "Maquinado CNC",
     descripcion:
       "Centro de maquinado CNC diseñado para realizar operaciones de fresado, barrenado y mecanizado de componentes metálicos. Su área de trabajo permite procesar piezas de diferentes dimensiones mediante trayectorias programadas y operaciones de precisión.",
-    imagen: "/images/CNC.jpg",
+    imagen: "/images/CNC.webp",
     video: "/videos/fadal.mp4",
     capacidad: "40 x 20 pulgadas",
     cantidad: 1,
@@ -35,7 +35,7 @@ const maquinas = [
     categoria: "Torneado automático de precisión",
     descripcion:
       "Torno automático de levas diseñado para la fabricación de componentes metálicos de pequeñas dimensiones en grandes volúmenes. Su sistema de alimentación y mecanizado automatizado permite producir piezas repetitivas con precisión y uniformidad, ideal para procesos de producción continua.",
-    imagen: "/images/indexon.jpeg",
+    imagen: "/images/indexon.webp",
     video: "/videos/indexon.mp4",
     capacidad: "42 mm",
     cantidad: 2,
@@ -56,7 +56,7 @@ const maquinas = [
     categoria: "Manufactura de componentes",
     descripcion:
       "Equipo automático de torneado destinado a la fabricación de componentes metálicos mediante ciclos de mecanizado repetitivos. Está orientado a procesos de producción en serie donde la precisión dimensional y la consistencia entre piezas son fundamentales.",
-    imagen: "/images/traub-a25.jpeg",
+    imagen: "/images/traub-a25.webp",
     video: "/videos/traub-a25.mp4",
     capacidad: "42 mm",
     cantidad: 10,
@@ -89,7 +89,7 @@ const maquinas = [
     categoria: "Mecanizado CNC",
     descripcion:
       "Torno CNC equipado con doble husillo, una configuración que permite trabajar con dos posiciones de mecanizado y realizar operaciones coordinadas sobre una pieza. Esta característica puede reducir tiempos de ciclo y facilitar la fabricación de componentes que requieren varias etapas de torneado.",
-    imagen: "/images/GRdoble.jpg",
+    imagen: "/images/GRdoble.webp",
     video: "",
     capacidad: "60 mm",
     cantidad: 2,
@@ -100,7 +100,7 @@ const maquinas = [
     categoria: "Mecanizado de precisión",
     descripcion:
       "Torno paralelo con control numérico utilizado para mecanizar piezas cilíndricas mediante operaciones como cilindrado, refrentado y ranurado. Su programación permite controlar las trayectorias de corte y mantener dimensiones uniformes durante la fabricación de componentes.",
-    imagen: "/images/headman.jpg",
+    imagen: "/images/headman.webp",
     video: "",
     capacidad: "250 mm",
     cantidad: 1,
@@ -111,7 +111,7 @@ const maquinas = [
     categoria: "Maquinado CNC",
     descripcion:
       "Centro de maquinado diseñado para realizar operaciones como fresado, barrenado y otras tareas de mecanizado. Su configuración de doble mesa permite preparar una pieza mientras otra se encuentra en proceso, ayudando a optimizar los tiempos de operación y mejorar la continuidad de producción.",
-    imagen: "/images/daewoo.jpg",
+    imagen: "/images/Daewoo.webp",
     video: "",
     capacidad: "400 x 400 mm",
     cantidad: 1,
@@ -122,7 +122,7 @@ const maquinas = [
     categoria: "Torneado CNC",
     descripcion:
       "Equipo de torneado CNC utilizado para realizar operaciones secundarias sobre componentes previamente fabricados. Permite trabajar detalles dimensionales, ajustes y acabados mediante procesos programados que favorecen la precisión y repetibilidad.",
-    imagen: "/images/t2op.jpeg",
+    imagen: "/images/t2op.webp",
     video: "/videos/t2op.mp4",
     capacidad: "25 mm",
     cantidad: 1,
@@ -413,7 +413,7 @@ export default function Maquinaria() {
               aria-hidden="true"
               className="absolute inset-0 -z-20 bg-cover bg-center"
               style={{
-                backgroundImage: "url('/images/maqfondo.jpg')",
+                backgroundImage: "url('/images/maqfondo.webp')",
               }}
             />
 
@@ -642,7 +642,7 @@ export default function Maquinaria() {
           <div
             aria-hidden="true"
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/images/maqfondo.jpg')" }}
+            style={{ backgroundImage: "url('/images/maqfondo.webp')" }}
           />
 
           <div

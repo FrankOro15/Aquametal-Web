@@ -16,28 +16,28 @@ import {
 } from "lucide-react";
 
 const curatedImages = [
-  "/images/contacto-hero.jpeg",
-  "/images/galeria/Gemini_Generated_Image_1p1sga1p1sga1p1s.jpg",
-  "/images/galeria/Gemini_Generated_Image_3a01uz3a01uz3a01.jpg",
-  "/images/galeria/Gemini_Generated_Image_5lljr15lljr15llj.jpg",
-  "/images/galeria/Gemini_Generated_Image_7lf7nz7lf7nz7lf7.jpg",
-  "/images/galeria/Gemini_Generated_Image_8hm8mj8hm8mj8hm8.jpg",
-  "/images/galeria/Gemini_Generated_Image_azhgvvazhgvvazhg.jpg",
-  "/images/galeria/Gemini_Generated_Image_bsmq6bbsmq6bbsmq.jpg",
-  "/images/galeria/Gemini_Generated_Image_ghxngbghxngbghxn.jpg",
-  "/images/galeria/Gemini_Generated_Image_hptnylhptnylhptn.jpg",
-  "/images/galeria/Gemini_Generated_Image_i7gdwoi7gdwoi7gd.jpg",
-  "/images/galeria/Gemini_Generated_Image_ioeby2ioeby2ioeb.jpg",
-  "/images/galeria/Gemini_Generated_Image_jpncw4jpncw4jpnc.jpg",
-  "/images/galeria/Gemini_Generated_Image_n51wgbn51wgbn51w.jpg",
-  "/images/galeria/Gemini_Generated_Image_pzfklmpzfklmpzfk.jpg",
-  "/images/galeria/Gemini_Generated_Image_ugntaougntaougnt.jpg",
-  "/images/galeria/Gemini_Generated_Image_wiwy2lwiwy2lwiwy.jpg",
-  "/images/galeria/Gemini_Generated_Image_wpexw0wpexw0wpex.jpg",
-  "/images/galeria/Gemini_Generated_Image_wux9h9wux9h9wux9.jpg",
-   "/images/galeria/IMG_0009.JPG",
-  "/images/galeria/2d.jpeg",
-  "/images/galeria/3d.jpeg",
+  "/images/contacto-hero.webp",
+  "/images/galeria/Gemini_Generated_Image_1p1sga1p1sga1p1s.webp",
+  "/images/galeria/Gemini_Generated_Image_3a01uz3a01uz3a01.webp",
+  "/images/galeria/Gemini_Generated_Image_5lljr15lljr15llj.webp",
+  "/images/galeria/Gemini_Generated_Image_7lf7nz7lf7nz7lf7.webp",
+  "/images/galeria/Gemini_Generated_Image_8hm8mj8hm8mj8hm8.webp",
+  "/images/galeria/Gemini_Generated_Image_azhgvvazhgvvazhg.webp",
+  "/images/galeria/Gemini_Generated_Image_bsmq6bbsmq6bbsmq.webp",
+  "/images/galeria/Gemini_Generated_Image_ghxngbghxngbghxn.webp",
+  "/images/galeria/Gemini_Generated_Image_hptnylhptnylhptn.webp",
+  "/images/galeria/Gemini_Generated_Image_i7gdwoi7gdwoi7gd.webp",
+  "/images/galeria/Gemini_Generated_Image_ioeby2ioeby2ioeb.webp",
+  "/images/galeria/Gemini_Generated_Image_jpncw4jpncw4jpnc.webp",
+  "/images/galeria/Gemini_Generated_Image_n51wgbn51wgbn51w.webp",
+  "/images/galeria/Gemini_Generated_Image_pzfklmpzfklmpzfk.webp",
+  "/images/galeria/Gemini_Generated_Image_ugntaougntaougnt.webp",
+  "/images/galeria/Gemini_Generated_Image_wiwy2lwiwy2lwiwy.webp",
+  "/images/galeria/Gemini_Generated_Image_wpexw0wpexw0wpex.webp",
+  "/images/galeria/Gemini_Generated_Image_wux9h9wux9h9wux9.webp",
+   "/images/galeria/IMG_0009.webp",
+  "/images/galeria/2d.webp",
+  "/images/galeria/3d.webp",
 ];
 
 
@@ -102,7 +102,7 @@ export default function GalleryPage() {
         <section className="relative isolate min-h-[590px] overflow-hidden bg-[#0F172A] md:min-h-[650px]">
 
           <Image
-            src="/images/galeria/1d.jpeg"
+            src="/images/galeria/1d.webp"
             alt=""
             fill
             priority
@@ -452,7 +452,7 @@ export default function GalleryPage() {
   {/* IMAGEN DE FONDO */}
   <div className="absolute inset-0 -z-10">
     <Image
-      src="/images/maqfondo.jpg"
+      src="/images/maqfondo.webp"
       alt=""
       fill
       sizes="100vw"

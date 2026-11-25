@@ -31,7 +31,7 @@ export default function DirectInformation() {
     <aside
       className="relative isolate flex h-full w-full flex-col justify-between overflow-hidden border border-slate-800 bg-slate-900 p-6 text-white sm:p-8"
       style={{
-        backgroundImage: "url('/images/contacto-info.jpg')",
+        backgroundImage: "url('/images/contacto-info.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

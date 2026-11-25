@@ -35,7 +35,7 @@ const servicios = [
     resumen: "Transformación de materiales en piezas industriales.",
     descripcion:
       "Transformamos materias primas metálicas en componentes destinados a diferentes aplicaciones industriales. Mediante procesos de torneado y mecanizado especializado, fabricamos piezas con geometrías, dimensiones y acabados definidos, atendiendo los requerimientos particulares de cada producción.",
-    imagen: "/images/fabricacion.jpg",
+    imagen: "/images/fabricacion.webp",
     alt: "Fabricación de componentes metálicos",
     titleEn: "Component manufacturing",
     summaryEn: "Turning materials into industrial parts.",
@@ -49,7 +49,7 @@ const servicios = [
     resumen: "Soluciones de fabricación para empresas.",
     descripcion:
       "Ofrecemos servicios de maquila para empresas que requieren fabricar componentes metálicos sin incorporar estos procesos directamente a sus instalaciones. Trabajamos a partir de planos, muestras o especificaciones proporcionadas por el cliente, adaptando los procesos de producción a las características y necesidades de cada pedido.",
-    imagen: "/images/maquila.jpg",
+    imagen: "/images/maquila.webp",
     alt: "Maquila de piezas metálicas",
     titleEn: "Contract manufacturing",
     summaryEn: "Manufacturing solutions for businesses.",
@@ -63,7 +63,7 @@ const servicios = [
     resumen: "Mecanizado mediante control numérico computarizado.",
     descripcion:
       "Utilizamos tecnología de control numérico computarizado para realizar operaciones de torneado y mecanizado mediante programas previamente establecidos. Estos procesos permiten trabajar geometrías específicas, controlar los movimientos de las herramientas y mantener condiciones de fabricación consistentes durante la producción de cada lote.",
-    imagen: "/images/servicios.jpeg",
+    imagen: "/images/servicios.webp",
     alt: "Procesos de maquinado CNC",
     titleEn: "CNC technology",
     summaryEn: "Machining with computer numerical control.",
@@ -77,7 +77,7 @@ const servicios = [
     resumen: "Verificación y seguimiento de los procesos.",
     descripcion:
       "La calidad forma parte de las distintas etapas de nuestro proceso de fabricación. Realizamos verificaciones dimensionales y revisiones de los componentes para evaluar su correspondencia con los requisitos establecidos. Trabajamos bajo un sistema de gestión de calidad basado en ISO 9001, orientado al seguimiento y mejora de nuestros procesos.",
-    imagen: "/images/nosotros/nosotros-calidad.jpg",
+    imagen: "/images/nosotros/nosotros-calidad.webp",
     alt: "Inspección y control de calidad industrial",
     titleEn: "Quality control",
     summaryEn: "Process verification and monitoring.",
@@ -91,7 +91,7 @@ const servicios = [
     resumen: "Capacidad para atender grandes lotes de producción.",
     descripcion:
       "Contamos con infraestructura y capacidad operativa para atender proyectos que requieren fabricación en grandes cantidades. Nuestra planta dispone de más de 30 máquinas y capacidad de producción superior a 5,000 piezas por lote, lo que permite organizar procesos de fabricación continua y atender esquemas de suministro programado.",
-    imagen: "/images/altovolumen.jpeg",
+    imagen: "/images/altovolumen.webp",
     alt: "Producción industrial de alto volumen",
     titleEn: "High-volume production",
     summaryEn: "Capacity to handle large production runs.",

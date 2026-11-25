@@ -137,7 +137,7 @@ export default async function BlogPage() {
         {/* Imagen de fondo con overlay cinematográfico */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/blogh.jpg"
+            src="/images/blogh.webp"
             alt={
               isEnglish
                 ? "Aqua Metal precision CNC machining center"
@@ -265,7 +265,7 @@ export default async function BlogPage() {
           {/* Imagen */}
           <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
             <Image
-              src="/images/cta.jpg"
+              src="/images/cta.webp"
               alt={
                 isEnglish
                   ? "CNC machinery during manufacturing"

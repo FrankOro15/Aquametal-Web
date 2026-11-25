@@ -23,35 +23,35 @@ const materials = [
   {
     name: "Acero",
     englishName: "Steel",
-    image: "/images/acero.jpg",
+    image: "/images/acero.webp",
     description: "Material ferroso utilizado en una amplia variedad de componentes industriales.",
     englishDescription: "A ferrous material used in a wide range of industrial components.",
   },
   {
     name: "Aluminio",
     englishName: "Aluminum",
-    image: "/images/aluminio.jpg",
+    image: "/images/aluminio.webp",
     description: "Material ligero para componentes que requieren reducir su peso.",
     englishDescription: "A lightweight material for components where weight reduction is important.",
   },
   {
     name: "Bronce",
     englishName: "Bronze",
-    image: "/images/bronce.jpg",
+    image: "/images/bronce.webp",
     description: "Aleación de cobre empleada en componentes de distintas aplicaciones industriales.",
     englishDescription: "A copper alloy used in components for a variety of industrial applications.",
   },
   {
     name: "Latón",
     englishName: "Brass",
-    image: "/images/laton.jpg",
+    image: "/images/laton.webp",
     description: "Aleación de cobre y zinc considerada para piezas y componentes metálicos.",
     englishDescription: "A copper and zinc alloy used for metal parts and components.",
   },
   {
     name: "Cobre",
     englishName: "Copper",
-    image: "/images/cobre.jpg",
+    image: "/images/cobre.webp",
     description: "Metal utilizado en componentes de acuerdo con los requisitos de cada proyecto.",
     englishDescription: "A metal used in components according to each project's requirements.",
   },
@@ -155,7 +155,7 @@ export default function Home() {
               }`}
           >
             <Image
-              src="/images/CNC.jpg"
+              src="/images/CNC.webp"
               alt=""
               fill
               priority
@@ -439,7 +439,7 @@ export default function Home() {
               {/* Imagen principal */}
               <div className="relative h-[240px] sm:h-[320px] lg:h-[390px] xl:h-[430px]">
                 <img
-                  src="/images/inicio_capacidades.jpg"
+                  src="/images/inicio_capacidades.webp"
                   alt={isEnglish ? "Aquametal's facilities and production capacity" : "Infraestructura y capacidad productiva de Aquametal"}
                   className="h-full w-full object-cover"
                 />
@@ -729,7 +729,7 @@ export default function Home() {
             <div className="group">
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
-                  src="/images/fabricacion.jpg"
+                  src="/images/fabricacion.webp"
                   alt={isEnglish ? "Manufacturing of industrial components" : "Fabricación de componentes industriales"}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -751,7 +751,7 @@ export default function Home() {
             <div className="group">
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
-                  src="/images/maquila.jpg"
+                  src="/images/maquila.webp"
                   alt={isEnglish ? "Contract machining using specialized processes" : "Maquila de piezas mediante procesos especializados"}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -773,7 +773,7 @@ export default function Home() {
             <div className="group">
               <div className="relative aspect-[4/3] overflow-hidden">
                 <Image
-                  src="/images/asistencia.jpg"
+                  src="/images/asistencia.webp"
                   alt={isEnglish ? "Technical support for manufacturing processes" : "Asistencia técnica en procesos de manufactura"}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
@@ -853,7 +853,7 @@ export default function Home() {
     {/* Imagen */}
     <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
       <Image
-        src="/images/cta.jpg"
+        src="/images/cta.webp"
         alt={isEnglish ? "CNC machinery during manufacturing" : "Maquinaria CNC durante un proceso de fabricación"}
         fill
         sizes="(max-width: 1024px) 100vw, 42vw"

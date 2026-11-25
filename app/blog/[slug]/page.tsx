@@ -484,7 +484,7 @@ export default async function BlogPostPage({ params }: Props) {
           {/* Imagen */}
           <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
             <Image
-              src="/images/cta.jpg"
+              src="/images/cta.webp"
               alt={
                 isEnglish
                   ? "CNC machinery during manufacturing"

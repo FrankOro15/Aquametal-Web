@@ -75,7 +75,7 @@ export default async function NosotrosPage() {
           {/* IMAGEN DE FONDO EN MÓVIL */}
           <div className="absolute inset-0 z-0 lg:hidden">
             <Image
-              src="/images/nosotros/nosotros-hero.jpg"
+              src="/images/nosotros/nosotros-hero.webp"
               alt={isEnglish ? "Aquametal industrial facilities" : "Instalaciones industriales de Aquametal"}
               fill
               priority
@@ -144,7 +144,7 @@ export default async function NosotrosPage() {
 
             <div className="relative min-h-[350px] overflow-hidden bg-slate-800 sm:min-h-[470px] lg:min-h-[540px]">
               <Image
-                src="/images/nosotros/nosotros-hero.jpg"
+                src="/images/nosotros/nosotros-hero.webp"
                 alt={isEnglish ? "Aqua-Metal industrial facilities" : "Instalaciones industriales de Aqua-Metal"}
                 fill
                 priority
@@ -183,7 +183,7 @@ export default async function NosotrosPage() {
             <div
               className="relative min-h-[360px] overflow-hidden bg-[#111827] bg-cover bg-center sm:min-h-[490px]"
               style={{
-                backgroundImage: "url('/images/nosotros/nosotros-planta.jpg')",
+                backgroundImage: "url('/images/nosotros/nosotros-planta.webp')",
               }}
               role="img"
               aria-label={isEnglish ? "Aqua-Metal production area" : "Área de producción de Aqua-Metal"}
@@ -297,7 +297,7 @@ export default async function NosotrosPage() {
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
                 <div className="relative mt-8 aspect-[4/5] overflow-hidden bg-slate-800">
                   <Image
-                    src="/images/nosotros/vistasatelital.jpg"
+                    src="/images/nosotros/vistasatelital.webp"
                     alt={isEnglish ? "Aqua-Metal industrial facilities" : "Instalaciones industriales de Aqua-Metal"}
                     fill
                     sizes="(max-width: 640px) 45vw, 25vw"
@@ -308,7 +308,7 @@ export default async function NosotrosPage() {
 
                 <div className="relative aspect-[4/5] overflow-hidden bg-slate-800">
                   <Image
-                    src="/images/nosotros/nosotrosp1.jpg"
+                    src="/images/nosotros/nosotrosp1.webp"
                     alt={isEnglish ? "Aqua-Metal machinery and production area" : "Maquinaria y área de producción de Aqua-Metal"}
                     fill
                     sizes="(max-width: 640px) 45vw, 25vw"
@@ -347,7 +347,7 @@ export default async function NosotrosPage() {
 
               <div className="group relative h-full min-h-[400px] overflow-hidden bg-[#0F172A] sm:min-h-[500px]">
                 <Image
-                  src="/images/nosotros/nosotros-calidad-v2.jpg"
+                  src="/images/nosotros/nosotros-calidad.webp"
                   alt={isEnglish ? "Aqua-Metal's commitment to quality and continuous improvement" : "Compromiso de Aqua-Metal con la calidad y la mejora continua"}
                   fill
                   sizes="(max-width: 1024px) 100vw, 40vw"
@@ -622,7 +622,7 @@ export default async function NosotrosPage() {
     {/* Imagen */}
     <div className="relative min-h-[280px] sm:min-h-[380px] lg:min-h-full">
       <Image
-        src="/images/cta.jpg"
+        src="/images/cta.webp"
         alt={isEnglish ? "CNC machinery during manufacturing" : "Maquinaria CNC durante un proceso de fabricación"}
         fill
         className="object-cover"
